@@ -1,10 +1,740 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ORCA World Model is an open-source world model project for scalable video, agent, and environment prediction research.">
   <title>ORCA World Model</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071014;
+      --panel: rgba(9, 20, 25, 0.82);
+      --panel-solid: #101b20;
+      --text: #f3f7f6;
+      --muted: #aab8b6;
+      --line: rgba(255, 255, 255, 0.13);
+      --cyan: #43d7ec;
+      --teal: #41d1a5;
+      --amber: #f2ba59;
+      --rose: #e57b8d;
+      --green: #a5d45f;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(7, 16, 20, 0.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(67, 215, 236, 0.4);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #0d242a;
+      color: var(--cyan);
+      font-size: 14px;
+      box-shadow: inset 0 0 24px rgba(67, 215, 236, 0.13);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      min-height: 92vh;
+      padding: 132px 0 72px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: linear-gradient(90deg, rgba(7, 16, 20, 0.96) 0%, rgba(7, 16, 20, 0.72) 32%, rgba(7, 16, 20, 0.16) 74%), url("assets/orca-hero.png");
+      background-size: cover;
+      background-position: center right;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 22%;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(7, 16, 20, 0), var(--bg));
+    }
+
+    .hero-inner,
+    .section-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero-copy {
+      width: min(690px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 2px;
+      background: var(--amber);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 24px;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin-bottom: 34px;
+      color: #d7e2e0;
+      font-size: clamp(18px, 2vw, 23px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 46px;
+    }
+
+    .button {
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-weight: 750;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.36);
+    }
+
+    .button.primary {
+      color: #061014;
+      background: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      width: min(690px, 100%);
+    }
+
+    .stat {
+      min-height: 104px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(9, 20, 25, 0.7);
+      backdrop-filter: blur(16px);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(31px, 4vw, 54px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card,
+    .resource,
+    .timeline-item,
+    .code-box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      min-height: 236px;
+      padding: 24px;
+    }
+
+    .card .tag {
+      display: inline-flex;
+      margin-bottom: 26px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #dce8e6;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .card h3,
+    .resource h3,
+    .timeline-item h3 {
+      margin-bottom: 10px;
+      font-size: 21px;
+      line-height: 1.2;
+    }
+
+    .card p,
+    .resource p,
+    .timeline-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .release-band {
+      background: #0b1619;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .resource {
+      min-height: 176px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .resource a {
+      color: var(--cyan);
+      font-weight: 800;
+    }
+
+    .quickstart {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(280px, 1.12fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .quickstart-copy {
+      padding: 4px 0;
+    }
+
+    .quickstart-copy p {
+      color: var(--muted);
+    }
+
+    .code-box {
+      padding: 0;
+      overflow: hidden;
+      background: #071215;
+    }
+
+    .code-topbar {
+      min-height: 42px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    pre {
+      margin: 0;
+      padding: 22px;
+      overflow-x: auto;
+      color: #d8f8f7;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .timeline-item {
+      min-height: 184px;
+      padding: 22px;
+      border-top: 3px solid var(--cyan);
+    }
+
+    .timeline-item:nth-child(2) {
+      border-top-color: var(--teal);
+    }
+
+    .timeline-item:nth-child(3) {
+      border-top-color: var(--amber);
+    }
+
+    .timeline-item:nth-child(4) {
+      border-top-color: var(--rose);
+    }
+
+    .citation {
+      border-top: 1px solid var(--line);
+      background: #050b0e;
+    }
+
+    .citation-box {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-solid);
+    }
+
+    .citation-box p {
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer .section-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .accent-cyan {
+      color: var(--cyan);
+    }
+
+    .accent-amber {
+      color: var(--amber);
+    }
+
+    .accent-green {
+      color: var(--green);
+    }
+
+    @media (max-width: 940px) {
+      .nav {
+        min-height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 142px;
+      }
+
+      .hero::before {
+        background-image: linear-gradient(180deg, rgba(7, 16, 20, 0.86) 0%, rgba(7, 16, 20, 0.84) 50%, rgba(7, 16, 20, 0.96) 100%), url("assets/orca-hero.png");
+        background-position: center;
+      }
+
+      .hero-stats,
+      .feature-grid,
+      .resource-grid,
+      .timeline,
+      .section-heading,
+      .quickstart {
+        grid-template-columns: 1fr;
+      }
+
+      .resource-grid,
+      .timeline {
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .section-inner,
+      .nav {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .stat,
+      .card,
+      .resource,
+      .timeline-item,
+      .citation-box {
+        padding: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>ORCA World Model</h1>
-  <p>AI research world model series.</p>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="ORCA World Model home">
+        <span class="brand-mark">OR</span>
+        <span>ORCA World Model</span>
+      </a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#release">Release</a>
+        <a href="#start">Quick Start</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">Open-source world model</div>
+          <h1 id="hero-title">ORCA World Model</h1>
+          <p class="lead">
+            A modular research release for learning predictive models of dynamic environments from video,
+            actions, and multimodal context. Replace this copy with the final project abstract, paper title,
+            and release scope.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#release">View Release</a>
+            <a class="button secondary" href="https://github.com/ORCA-WM" rel="noreferrer">GitHub</a>
+            <a class="button secondary" href="#citation">Paper</a>
+          </div>
+          <div class="hero-stats" aria-label="Project highlights">
+            <div class="stat">
+              <strong>Video</strong>
+              <span>Generation, prediction, and rollout evaluation</span>
+            </div>
+            <div class="stat">
+              <strong>Agents</strong>
+              <span>Action-conditioned dynamics and planning hooks</span>
+            </div>
+            <div class="stat">
+              <strong>Open</strong>
+              <span>Code, checkpoints, configs, and reproducible demos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" aria-labelledby="overview-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2 id="overview-title">Built for scalable world-model research.</h2>
+          <p>
+            Use these blocks as placeholders for the actual technical story: model architecture,
+            training data, evaluation tasks, and what is newly open-sourced in this release.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="card">
+            <span class="tag">Representation</span>
+            <h3>Unified environment tokens</h3>
+            <p>
+              Describe how ORCA converts visual observations, actions, state, and context into a shared
+              latent space for next-state prediction and long-horizon simulation.
+            </p>
+          </article>
+          <article class="card">
+            <span class="tag">Dynamics</span>
+            <h3>Predictive rollouts</h3>
+            <p>
+              Explain the rollout interface, temporal horizon, uncertainty handling, and how users can
+              evaluate generated futures against reference trajectories.
+            </p>
+          </article>
+          <article class="card">
+            <span class="tag">Ecosystem</span>
+            <h3>Composable release assets</h3>
+            <p>
+              Summarize the code modules, checkpoints, data recipes, inference demos, and benchmark scripts
+              that will be linked from this page.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="release" class="release-band" aria-labelledby="release-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2 id="release-title">Release hub.</h2>
+          <p>
+            Swap each link with the final repository, model card, dataset page, demo, and documentation
+            destinations before publishing.
+          </p>
+        </div>
+        <div class="resource-grid">
+          <article class="resource">
+            <div>
+              <h3>Code</h3>
+              <p>Training, inference, evaluation, and experiment configuration templates.</p>
+            </div>
+            <a href="https://github.com/ORCA-WM" rel="noreferrer">Open repository</a>
+          </article>
+          <article class="resource">
+            <div>
+              <h3>Models</h3>
+              <p>Checkpoint index, model cards, license notes, and recommended hardware profiles.</p>
+            </div>
+            <a href="#">Coming soon</a>
+          </article>
+          <article class="resource">
+            <div>
+              <h3>Data</h3>
+              <p>Dataset recipes, preprocessing manifests, and evaluation split definitions.</p>
+            </div>
+            <a href="#">Coming soon</a>
+          </article>
+          <article class="resource">
+            <div>
+              <h3>Demos</h3>
+              <p>Interactive examples for video prediction, policy-conditioned rollout, and analysis.</p>
+            </div>
+            <a href="#">Coming soon</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="start" aria-labelledby="start-title">
+      <div class="section-inner quickstart">
+        <div class="quickstart-copy">
+          <div class="eyebrow">Quick start</div>
+          <h2 id="start-title">Clone, run, inspect.</h2>
+          <p>
+            Keep this section close to the actual commands from the open-source repo. The current commands
+            are placeholders for a familiar Python research workflow.
+          </p>
+          <p>
+            Add installation variants here for Docker, Conda, SLURM, or model-download credentials once
+            those release details are finalized.
+          </p>
+        </div>
+        <div class="code-box" aria-label="Quick start command example">
+          <div class="code-topbar">
+            <span>terminal</span>
+            <span>preview</span>
+          </div>
+          <pre><code>git clone https://github.com/ORCA-WM/orca-world-model.git
+cd orca-world-model
+
+conda create -n orca-wm python=3.10 -y
+conda activate orca-wm
+pip install -r requirements.txt
+
+python scripts/download_checkpoint.py --model orca-base
+python demos/predict_video.py --config configs/demo.yaml</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" aria-labelledby="roadmap-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2 id="roadmap-title">Roadmap.</h2>
+          <p>
+            This section is useful for an open-source landing page because visitors immediately know what
+            is ready, what is experimental, and what is planned next.
+          </p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <h3>Initial release</h3>
+            <p>Project page, repository skeleton, model overview, and minimal inference demo.</p>
+          </article>
+          <article class="timeline-item">
+            <h3>Checkpoints</h3>
+            <p>Base model weights, model cards, evaluation scripts, and example predictions.</p>
+          </article>
+          <article class="timeline-item">
+            <h3>Training recipes</h3>
+            <p>Distributed training configs, data preparation scripts, and ablation settings.</p>
+          </article>
+          <article class="timeline-item">
+            <h3>Community track</h3>
+            <p>Issues, contribution guide, reproducibility reports, and downstream integrations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="citation" aria-labelledby="citation-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2 id="citation-title">Citation and license.</h2>
+          <p>
+            Replace this with the final BibTeX entry, license wording, and responsible-use notes for the
+            released assets.
+          </p>
+        </div>
+        <div class="citation-box">
+          <p>Placeholder BibTeX</p>
+          <pre><code>@misc{orca_world_model_2026,
+  title        = {ORCA World Model},
+  author       = {ORCA World Model Team},
+  year         = {2026},
+  howpublished = {\url{https://orca-wm.github.io}}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-inner">
+      <span>ORCA World Model</span>
+      <span>Open-source research release page template.</span>
+    </div>
+  </footer>
 </body>
 </html>
