@@ -286,61 +286,6 @@
       border-radius: 0 8px 8px 0;
     }
 
-    .formula-card {
-      margin: 22px 0;
-      padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fffdf8;
-    }
-
-    .formula-card h4 {
-      margin: 0 0 10px;
-      color: var(--accent);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-
-    .formula-card p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .formula-block {
-      margin: 16px 0;
-      padding: 14px 16px;
-      border-radius: 8px;
-      background: var(--soft);
-      overflow-x: auto;
-    }
-
-    .formula-block mjx-container {
-      margin: 0 !important;
-      overflow-x: auto;
-      overflow-y: hidden;
-    }
-
-    .formula-split {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .formula-mode {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(242, 239, 232, 0.45);
-    }
-
-    .formula-mode strong {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
     .video-box,
     .figure-box {
       margin: 20px 0;
@@ -590,10 +535,6 @@
       background: var(--soft);
     }
 
-    .triple-diagram .diagram-cell {
-      text-align: center;
-    }
-
     .diagram-cell strong {
       display: block;
       margin-bottom: 6px;
@@ -794,7 +735,6 @@
 
       .simple-diagram,
       .triple-diagram,
-      .formula-split,
       .chart-row,
       .chart-row.three {
         grid-template-columns: 1fr;
@@ -826,18 +766,6 @@
       }
     }
   </style>
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [["\\(", "\\)"]],
-        displayMath: [["\\[", "\\]"]]
-      },
-      svg: {
-        fontCache: "global"
-      }
-    };
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
 <body>
@@ -847,6 +775,7 @@
         <img class="brand-logo" src="figs/orca_logo.jpg" alt="Orca">
       </a>
       <div class="links">
+        <a href="#demo">Demo</a>
         <a href="#training">Training</a>
         <a href="#data">Data</a>
         <a href="#evaluation">Evaluation</a>
@@ -857,9 +786,9 @@
   <div class="reader-layout">
     <aside class="side-toc" aria-label="Reading navigation">
       <strong>On this page</strong>
+      <a href="#demo" data-spy-link>Demo video</a>
       <a href="#training" data-spy-link>1. Training</a>
       <a class="sub" href="#definition" data-spy-link>Why next state?</a>
-      <a class="sub" href="#formalization" data-spy-link>Formalization</a>
       <a class="sub" href="#learning" data-spy-link>How to learn?</a>
       <a class="sub" href="#recipe" data-spy-link>Query architecture</a>
       <a class="sub" href="#downstream" data-spy-link>Action readouts</a>
@@ -873,8 +802,8 @@
       <a href="#citation" data-spy-link>Citation</a>
     </aside>
 
-    <main>
-    <header id="top">
+    <main id="top">
+    <header id="demo">
       <p class="kicker">World learner</p>
       <h1>Orca: The World is in Your Mind</h1>
       <p class="lead">
@@ -887,21 +816,17 @@
       <div class="abstract">
         <h2>Abstract</h2>
         <p>
-          We introduce <strong>Orca</strong>, a world learner that learns a unified world latent from
-          multimodal world signals and exposes it through multimodal interfaces. Orca learns the world
-          through two complementary paradigms: <strong><em>unconscious learning</em></strong>, which
-          captures dense natural state transitions from continuous videos, and
-          <strong><em>conscious learning</em></strong>, which uses language-described events, and VQA
-          supervision to model meaningful state transitions. In addition, we construct large-scale
-          world-learning resources, including 125K hours of video, 130M event annotations, and 11.5M VQA
-          examples, to support two learning paradigms. After pre-training, Orca directly uses the native
-          language modeling head for text generation, while keeping the learned backbone frozen and adapting
-          lightweight readout modules for image prediction and embodied action generation. Experiments show
-          that Orca learns an effective world latent representation, achieves strong performance across
-          language benchmarks, improves real-world interaction image prediction over image generation
-          baselines, and enhances embodied action generation for manipulation tasks. These results suggest
-          that Orca&apos;s world-learning paradigm provides a promising path toward models that can understand,
-          predict, and act upon the world.
+          We introduce Orca, a world learner that learns a unified world latent from multimodal world
+          signals and exposes it through multimodal interfaces. Orca learns through two complementary
+          paradigms: unconscious learning, which captures dense natural state transitions from continuous
+          videos, and conscious learning, which uses language-described events and VQA supervision to model
+          meaningful state transitions. We construct large-scale world-learning resources, including 126K
+          hours of video, 130M event annotations, and 11.5M VQA examples. After pre-training, Orca directly
+          uses the native language modeling head for text generation, while keeping the learned backbone
+          frozen and adapting lightweight readout modules for image prediction and embodied action
+          generation. Experiments show that Orca learns an effective world latent representation, achieves
+          strong performance across language benchmarks, improves real-world interaction image prediction
+          over image generation baselines, and enhances embodied action generation for manipulation tasks.
         </p>
       </div>
 
@@ -911,8 +836,8 @@
           Your browser does not support this video format.
         </video>
         <div class="video-note">
-          <strong>Concept video</strong>
-          Orca overview video: <code>figs/demo.mp4</code>.
+          <strong>Main Demo</strong>
+          Orca demo video: <code>figs/demo.mp4</code>.
         </div>
       </div>
     </header>
@@ -956,8 +881,8 @@
           </div>
           <div class="diagram-cell">
             <strong>Next frame prediction</strong>
-            Image and video models capture visual dynamics, but pixel prediction can reward realism
-            over causal state understanding.
+            Image and video models capture visual dynamics, but pixel prediction can reward appearance
+            realism without enforcing causal state understanding.
           </div>
           <div class="diagram-cell">
             <strong>Next action prediction</strong>
@@ -981,83 +906,6 @@
 
       <div class="figure-box">
         <img src="figs/concept.png" alt="Conceptual illustration of Orca moving from passive task-driven prediction to active world learning.">
-      </div>
-
-      <h3 id="formalization">Formalization: latent world-state modeling</h3>
-      <p>
-        Orca formulates world learning as latent world-state modeling: first abstracting a state from
-        multimodal world signals, then modeling how that state changes under interventions. Given world
-        signals from multiple modalities, Orca maps observations into a latent state space and predicts
-        state transitions rather than modality-specific outputs.
-      </p>
-
-      <div class="formula-card">
-        <h4>Macro formulation</h4>
-        <p>
-          Let \(\mathcal{X}=\{X^m\}_{m\in\mathcal{M}}\) denote available world signals, where
-          \(\mathcal{M}\) may include text, vision, audio, robot joint actions, and physical signals beyond
-          direct human perception. Orca abstracts the current world state as:
-        </p>
-        <div class="formula-block">
-          \[
-            S_t = f_{\theta}(X_t), \qquad S_t \in \mathcal{S}.
-          \]
-        </div>
-        <p>
-          The state then evolves over time under an intervention \(A_t\). We model the transition as:
-        </p>
-        <div class="formula-block">
-          \[
-            S_{t+\Delta} \sim p_{\Theta}(S_{t+\Delta}\mid S_t, A_t),
-            \qquad \Delta \in \mathbb{Z}_{\ne 0}.
-          \]
-        </div>
-        <p>
-          Here, \(\Delta&gt;0\) represents predicting future states, while \(\Delta&lt;0\) represents
-          backtracking to earlier states.
-        </p>
-      </div>
-
-      <div class="formula-card">
-        <h4>Orca instantiation</h4>
-        <p>
-          In the current instantiation, Orca uses visual and text signals, and decomposes the transition
-          condition into explicit semantic conditions \(c_t\) and implicit dynamics \(z_t\). The intervention
-          is written as \(A_t=(c_t,z_t)\), giving:
-        </p>
-        <div class="formula-block">
-          \[
-            S_{t+\Delta} \sim p_{\Theta}(S_{t+\Delta}\mid S_t, c_t, z_t),
-            \qquad \Delta \in \mathbb{Z}_{\ne 0}.
-          \]
-        </div>
-
-        <div class="formula-split">
-          <div class="formula-mode">
-            <strong>Unconscious learning</strong>
-            <p>
-              Observation-only learning sets \(c_t=\emptyset\), allowing Orca to learn dense natural
-              transitions from implicit dynamics:
-            </p>
-            <div class="formula-block">
-              \[
-                S_{t+\Delta}\sim p^u_{\Theta}(S_{t+\Delta}\mid S_t,z_t).
-              \]
-            </div>
-          </div>
-          <div class="formula-mode">
-            <strong>Conscious learning</strong>
-            <p>
-              Semantic learning sets \(c_t=e_t\), where \(e_t\) may be an event, instruction, intention, or
-              counterfactual premise:
-            </p>
-            <div class="formula-block">
-              \[
-                S_{t+\Delta}\sim p^c_{\Theta}(S_{t+\Delta}\mid S_t,e_t,z_t).
-              \]
-            </div>
-          </div>
-        </div>
       </div>
 
       <h3 id="learning">How: conscious and unconscious learning</h3>
@@ -1101,13 +949,13 @@
         <li>Collect multimodal world signals from visual, language, event, and VQA data.</li>
         <li>Use video data to learn observation-only state transitions through unconscious learning.</li>
         <li>Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
-        <li>Train the three objectives jointly to learn a unified world latent representation.</li>
+        <li>Distill both learning modes into a unified world latent representation.</li>
       </ol>
 
       <h3 id="downstream">Action: using the world state through downstream readouts</h3>
       <p>
         Once learned, the world latent can be decoded through different interfaces. This is the practical
-        reason for treating world state as the central representation: the same world latent can support a
+        reason for treating world state as the central representation: the same cognition can support a
         language readout for explanation and reasoning, a vision readout for prediction and imagination,
         and an action readout for intervention.
       </p>
@@ -1117,7 +965,7 @@
       </div>
 
       <ul>
-        <li><strong>Observation:</strong> gather video, event, and VQA data grounded in real-world observations.</li>
+        <li><strong>Observation:</strong> gather multimodal world signals from video, language, event, VQA, and robot data.</li>
         <li><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
         <li><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
         <li><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
@@ -1129,8 +977,8 @@
 
       <h3 id="composition">World-learning resources</h3>
       <p>
-        Orca is trained with large-scale world-learning resources designed for Orca&apos;s world-learning paradigm:
-        125K hours of video for dense natural state transitions, 130M event annotations for language-described
+        Orca is trained with large-scale world-learning resources designed for the ORCA loop:
+        126K hours of video for dense natural state transitions, 130M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
       </p>
 
@@ -1145,7 +993,7 @@
         <tbody>
           <tr>
             <td>Continuous video</td>
-            <td>125K hours</td>
+            <td>126K hours</td>
             <td>Observation signals for dense natural state transitions.</td>
           </tr>
           <tr>
@@ -1420,11 +1268,12 @@
       </p>
 
       <h3 id="predict">Question 2.2: Predict the world</h3>
+      <h4>benchmark</h4>
       <p>
         <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
         from the current image and language instruction. Although the output is image generation, the target
         is not painter ability; the target is predictor ability. -->
-        The <b>PRICE</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark 
+        We use <b>PRICE</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark to
         evaluates a model's ability to predict real-world physical state changes. 
         It operates by requiring the model to generate a future state image based on a current 
         image and a language instruction. Crucially, while this involves image generation, 
@@ -1437,72 +1286,310 @@
       </p>
 
       <div class="figure-box">
-        <img src="figs/price-benchmark-examples.png" alt="PRICE benchmark example figure.">
+        <img src="figs/PRICE.png" alt="PRICE benchmark example figure.">
       </div>
 
+      <h4>baselines</h4>
       <p>
-        We report PRICE results with box plots and qualitative case comparisons.
+        We report PRICE results with box plots and qualitative case comparisons. 
+        We selected recent, representative image generation models with a similar scale to Orca as baselines 
+        for comparison: including OmniGen2 (Wu et al., 2026) (3B VLM + 4B vision decoder), 
+        FLUX.1-Kontext (Black Forest Labs et al., 2025) (12B vision decoder), 
+        and Flux.2 [klein] (Black Forest Labs, 2026) (4B VLM + 4B vision decoder), 
+        in which Orca outperforms all baselines in both quantitative and qualitative evaluations.
       </p>
 
       <div class="figure-box">
-        <img src="figs/price-box-plot.png" alt="PRICE box-plot result.">
+        <img src="figs/PRICE-results.png" alt="PRICE box-plot result.">
       </div>
 
+      <h4>case comparison</h4>
+      <p>
+        We compare Orca with other baseline on representative PRICE examples. 
+        Red boxes mark typical baseline failures, which Orca better preserves the robot embodiment and other information during interaction. 
+
+      </p>
+
       <div class="figure-box">
-        <div class="figure-placeholder">PRICE visual case comparison placeholder.</div>
+        <img src="figs/ToV_visualization.png" alt="PRICE visual case comparison.">
       </div>
 
       <h3 id="change">Question 2.3: Change the world</h3>
       <p>
-        The change-world evaluation uses GalBot real-robot experiments. 
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
-        We used two types of out-of-domain (OOD) benchmarks to evaluate embodied task:
+        The change-world evaluation uses GalBot <b>Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
         <p>
-        1. <b>Simulation:</b> We use LIBERO-Long <a class="citation" href="#ref-libero">(Liu et al., 2023)</a>
-        to train and LIBERO-Plus <a class="citation" href="#ref-libero-plus">(Fei et al., 2026)</a>
-        (Long suites) to inference simulation OOD results.
-        </p>
-        <p>
-        2. <b>Real-robot:</b> We used the Galbot G1 real robot
+        <h4>benchmark</h4>
+        We used the Galbot G1 real robot
         <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including: 
         Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
         experiments were designed, including 3 kinds of Environmental Generalization and 5 kinds of 
-        Object Generalization. Tableclothes were used to design environmental generalization (OOD) scenarios. 
+        Object Generalization.  
       </p>
 
       <div class="figure-box">
-        <img src="figs/galbot-ood-generalization.png" alt="GalBot OOD generalization figure.">
+        <img src="figs/Realrobot.png" alt="GalBot OOD generalization figure.">
       </div>
 
+      <p>
+        Besides the rule-based score, which measures key-stage task completion, we further employ PRM-as-a-Judge to provide
+        dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
+      </p>
+
+
+      <!-- <table border="1">
+      <thead>
+      <tr style="background: var(--soft);">
+      <td rowspan="2"><b>OOD</b></td>
+      <td rowspan="2"><b>Model</b></td>
+      <td colspan="6" style="text-align:center"><b>Rule-based Score</b></td>
+      </tr>
+      <tr style="background: var(--soft);">
+      <td>Book</td>
+      <td>Bowls</td>
+      <td>Tissue</td>
+      <td>Stamp</td>
+      <td>Sugar</td>
+      <td>Avg.</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td rowspan="4"><b>Env.</b></td>
+      <td>π<sub>0.5</sub></td>
+      <td><b>27</b></td>
+      <td>44</td>
+      <td>32</td>
+      <td>9</td>
+      <td><b>26</b></td>
+      <td><b>27.6</b></td>
+
+      </tr>
+      <tr>
+      <td>V-JEPA 2.1</td>
+      <td>24</td>
+      <td>15</td>
+      <td>28</td>
+      <td>6</td>
+      <td>3.0</td>
+      <td>15.2</td>
+      </tr>
+      <tr>
+      <td>Qwen3.5</td>
+      <td>19</td>
+      <td>27</td>
+      <td>0</td>
+      <td>6</td>
+      <td>10</td>
+      <td>12.4</td>
+      </tr>
+      <tr style="background: #eaf3e8;">
+      <td>Orca</td>
+      <td>18</td>
+      <td><b>48</b></td>
+      <td><b>36</b></td>
+      <td><b>10</b></td>
+      <td>14</td>
+      <td>25.2</td>
+      </tr>
+      <tr>
+      <td rowspan="4"><b>Obj.</b></td>
+      <td>π<sub>0.5</sub></td>
+      <td>30</td>
+      <td><b>46</b></td>
+      <td><b>55</b></td>
+      <td><b>13</b></td>
+      <td>12</td>
+      <td><b>31.2</b></td>
+      </tr>
+      <tr>
+      <td>V-JEPA 2.1</td>
+      <td><b>34</b></td>
+      <td>0</td>
+      <td>44</td>
+      <td>2</td>
+      <td><b>14</b></td>
+      <td>18.8</td>
+      </tr>
+      <tr>
+      <td>Qwen3.5</td>
+      <td>6</td>
+      <td>23</td>
+      <td>0</td>
+      <td>0</td>
+      <td><b>14</b></td>
+      <td>8.6</td>
+      </tr>
+      <tr style="background: #eaf3e8;">
+      <td>Orca</td>
+      <td>30</td>
+      <td>43</td>
+      <td>48</td>
+      <td>0</td>
+      <td>10</td>
+      <td>26.2</td>
+      </tr>
+      </tbody>
+      </table> -->
+
+      <table border="1">
+      <thead>
+      <tr style="background: var(--soft);">
+      <td rowspan="2"><b>OOD</b></td>
+      <td rowspan="2"><b>Model</b></td>
+      <td rowspan="2"><b>Rule↑</b></td>
+      <td colspan="11" style="text-align:center"><b>PRM-as-a-Judge Diagnostics</b></td>
+      </tr>
+      <tr style="background: var(--soft);">
+      <td>M25↑</td>
+      <td>M50↑</td>
+      <!-- <td>M75↑</td>
+      <td>SR↑</td>
+      <td>PPL↑</td> -->
+      <td>Stag↓</td>
+      <!-- <td>SQS↑</td> -->
+      <td>FNS↑</td>
+      <td>ERS↑</td>
+      <!-- <td>RBS↑</td> -->
+      <td>OAS↑</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td rowspan="4"><b>Env.</b></td>
+      <td>π<sub>0.5</sub></td>
+      <td><b>27.6</b></td>
+      <td>54</td>
+      <td>16</td>
+      <!-- <td><b>6</b></td>
+      <td>2</td>
+      <td><b>10.6</b></td> -->
+      <td>70.4</td>
+      <!-- <td>1.5</td> -->
+      <td>17.7</td>
+      <td>13.6</td>
+      <!-- <td>15.7</td> -->
+      <td>7.3</td>
+      </tr>
+      <tr>
+      <td>V-JEPA 2.1</td>
+      <td>15.2</td>
+      <td>40</td>
+      <td>12</td>
+      <!-- <td>0</td>
+      <td>0</td>
+      <td>9.6</td> -->
+      <td>79.4</td>
+      <!-- <td>0.0</td> -->
+      <td>13.9</td>
+      <td>6.7</td>
+      <!-- <td>10.3</td> -->
+      <td>4.1</td>
+      </tr>
+      <tr>
+      <td>Qwen3.5</td>
+      <td>12.4</td>
+      <td>26</td>
+      <td>10</td>
+      <!-- <td>0</td>
+      <td>0</td>
+      <td>7.7</td> -->
+      <td>86.7</td>
+      <!-- <td>0.0</td> -->
+      <td>11.2</td>
+      <td>7.2</td>
+      <!-- <td>9.2</td> -->
+      <td>3.7</td>
+      </tr>
+      <tr style="background: #eaf3e8;">
+      <td>Orca</td>
+      <td>25.2</td>
+      <td><b>62</b></td>
+      <td><b>26</b></td>
+      <!-- <td>4</td>
+      <td><b>4</b></td>
+      <td>9.1</td> -->
+      <td><b>65.3</b></td>
+      <!-- <td><b>1.6</b></td> -->
+      <td><b>20.4</b></td>
+      <td><b>24.2</b></td>
+      <!-- <td><b>22.3</b></td> -->
+      <td><b>10.6</b></td>
+      </tr>
+      <tr>
+      <td rowspan="4"><b>Obj.</b></td>
+      <td>π<sub>0.5</sub></td>
+      <td><b>31.2</b></td>
+      <td>54</td>
+      <td><b>12</b></td>
+      <!-- <td>10</td>
+      <td>8</td>
+      <td>13.3</td> -->
+      <td>76.7</td>
+      <!-- <td>3.6</td> -->
+      <td>12.9</td>
+      <td>10.8</td>
+      <!-- <td>11.9</td> -->
+      <td><b>8.2</b></td>
+      </tr>
+      <tr>
+      <td>V-JEPA 2.1</td>
+      <td>18.8</td>
+      <td>14</td>
+      <td>2</td>
+      <!-- <td>0</td>
+      <td>0</td>
+      <td>4.4</td> -->
+      <td>90.4</td>
+      <!-- <td>0.0</td> -->
+      <td>6.3</td>
+      <td>5.9</td>
+      <!-- <td>6.1</td> -->
+      <td>2.4</td>
+      </tr>
+      <tr>
+      <td>Qwen3.5</td>
+      <td>8.6</td>
+      <td>10</td>
+      <td>0</td>
+      <!-- <td>0</td>
+      <td>0</td>
+      <td>5.7</td> -->
+      <td>95.0</td>
+      <!-- <td>0.0</td> -->
+      <td>4.0</td>
+      <td>0.3</td>
+      <!-- <td>2.1</td> -->
+      <td>0.9</td>
+      </tr>
+      <tr style="background: #eaf3e8;">
+      <td>Orca</td>
+      <td>26.2</td>
+      <td><b>60</b></td>
+      <td>8</td>
+      <!-- <td>0</td>
+      <td>0</td>
+      <td>7.5</td> -->
+      <td><b>71.4</b></td>
+      <!-- <td>0.0</td> -->
+      <td><b>15.4</b></td>
+      <td><b>25.0</b></td>
+      <!-- <td><b>20.2</b></td> -->
+      <td>8.1</td>
+      </tr>
+      </tbody>
+      </table>
+
+
+      <p>
+        Orca advances through multiple task stages before failure, while the baseline remains at low progress after an 
+        early execution error. Together, these results show that Orca improves real-robot OOD robustness not only 
+        through final task completion, but also through more stable and recoverable execution processes.
+      </p>
 
       <div class="figure-box">
-        <img src="figs/galbot-ood-visualization.png" alt="The visualization of GalBot OOD generalization figure.">
+        <img src="figs/JudgeModel_conclusion1_case1.png" alt="Failure example with high progress from PRM-as-a-Judge.">
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Setting</th>
-            <th>Baseline</th>
-            <th>ORCA</th>
-            <th>Observation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>OOD generalization type 1</td>
-            <td>--</td>
-            <td>--</td>
-            <td>Placeholder</td>
-          </tr>
-          <tr>
-            <td>OOD generalization type 2</td>
-            <td>--</td>
-            <td>--</td>
-            <td>Placeholder</td>
-          </tr>
-        </tbody>
-      </table>
 
       <div class="video-box">
         <div class="galbot-gallery" aria-label="GalBot real-robot evaluation gallery">
