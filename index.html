@@ -1257,14 +1257,14 @@ through conscious learning.
       <p>
         We report PRICE results with box plots and qualitative case comparisons. 
         We selected recent, representative image generation models with a similar scale to Orca as baselines 
-        for comparison: including OmniGen2 (Wu et al., 2026) (3B VLM + 4B vision decoder), 
-        FLUX.1-Kontext (Black Forest Labs et al., 2025) (12B vision decoder), 
-        and Flux.2 [klein] (Black Forest Labs, 2026) (4B VLM + 4B vision decoder), 
+        for comparison: including OmniGen2 <a class="citation" href="#ref-omnigen2">(Wu et al., 2026)</a> (3B VLM + 4B vision decoder), 
+        FLUX.1-Kontext <a class="citation" href="#ref-flux1">(Black Forest Labs et al., 2025)</a> (12B vision decoder), 
+        and Flux.2 [klein] <a class="citation" href="#ref-flux2">(Black Forest Labs, 2026)</a> (4B VLM + 4B vision decoder), 
         in which Orca outperforms all baselines in both quantitative and qualitative evaluations.
       </p>
 
-      <div class="figure-box">
-        <img src="figs/PRICE-results.png" alt="PRICE box-plot result.">
+      <div class="figure-box" style="width:60%; margin:0 auto;">
+        <img src="figs/PRICE-results.png" alt="PRICE box-plot result." style="display:block; width:100%;">
       </div>
 
       <h4>case comparison</h4>
@@ -1283,118 +1283,26 @@ through conscious learning.
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
         The change-world evaluation uses GalBot <b>Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
         <p>
-        <h4>benchmark</h4>
+        <h4>settings</h4>
         We used the Galbot G1 real robot
         <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including: 
         Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
         experiments were designed, including 3 kinds of Environmental Generalization and 5 kinds of 
-        Object Generalization.  
+        Object Generalization, as shown in the figure below. 
       </p>
 
       <div class="figure-box">
         <img src="figs/Realrobot.png" alt="GalBot OOD generalization figure.">
       </div>
 
+
+      <h4>results</h4>
       <p>
-        Besides the rule-based score, which measures key-stage task completion, we further employ PRM-as-a-Judge to provide
-        dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
+        We uses the <b>rule-based score</b> and <b>PRM-as-a-Judge</b> as metrics. The rule-based score measures key-stage task completion, 
+        and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
+
       </p>
 
-
-      <!-- <table border="1">
-      <thead>
-      <tr style="background: var(--soft);">
-      <td rowspan="2"><b>OOD</b></td>
-      <td rowspan="2"><b>Model</b></td>
-      <td colspan="6" style="text-align:center"><b>Rule-based Score</b></td>
-      </tr>
-      <tr style="background: var(--soft);">
-      <td>Book</td>
-      <td>Bowls</td>
-      <td>Tissue</td>
-      <td>Stamp</td>
-      <td>Sugar</td>
-      <td>Avg.</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td rowspan="4"><b>Env.</b></td>
-      <td>π<sub>0.5</sub></td>
-      <td><b>27</b></td>
-      <td>44</td>
-      <td>32</td>
-      <td>9</td>
-      <td><b>26</b></td>
-      <td><b>27.6</b></td>
-
-      </tr>
-      <tr>
-      <td>V-JEPA 2.1</td>
-      <td>24</td>
-      <td>15</td>
-      <td>28</td>
-      <td>6</td>
-      <td>3.0</td>
-      <td>15.2</td>
-      </tr>
-      <tr>
-      <td>Qwen3.5</td>
-      <td>19</td>
-      <td>27</td>
-      <td>0</td>
-      <td>6</td>
-      <td>10</td>
-      <td>12.4</td>
-      </tr>
-      <tr style="background: #eaf3e8;">
-      <td>Orca</td>
-      <td>18</td>
-      <td><b>48</b></td>
-      <td><b>36</b></td>
-      <td><b>10</b></td>
-      <td>14</td>
-      <td>25.2</td>
-      </tr>
-      <tr>
-      <td rowspan="4"><b>Obj.</b></td>
-      <td>π<sub>0.5</sub></td>
-      <td>30</td>
-      <td><b>46</b></td>
-      <td><b>55</b></td>
-      <td><b>13</b></td>
-      <td>12</td>
-      <td><b>31.2</b></td>
-      </tr>
-      <tr>
-      <td>V-JEPA 2.1</td>
-      <td><b>34</b></td>
-      <td>0</td>
-      <td>44</td>
-      <td>2</td>
-      <td><b>14</b></td>
-      <td>18.8</td>
-      </tr>
-      <tr>
-      <td>Qwen3.5</td>
-      <td>6</td>
-      <td>23</td>
-      <td>0</td>
-      <td>0</td>
-      <td><b>14</b></td>
-      <td>8.6</td>
-      </tr>
-      <tr style="background: #eaf3e8;">
-      <td>Orca</td>
-      <td>30</td>
-      <td>43</td>
-      <td>48</td>
-      <td>0</td>
-      <td>10</td>
-      <td>26.2</td>
-      </tr>
-      </tbody>
-      </table> -->
 
       <table border="1">
       <thead>
@@ -1544,15 +1452,16 @@ through conscious learning.
       </tbody>
       </table>
 
-
+      <h4>analysis</h4>
       <p>
-        Orca advances through multiple task stages before failure, while the baseline remains at low progress after an 
-        early execution error. Together, these results show that Orca improves real-robot OOD robustness not only 
-        through final task completion, but also through more stable and recoverable execution processes.
+        Orca outperforms the baselines on the vast majority of metrics, and especially on ERS, 
+        the metric that measures recovery after progress drops or execution deviations, 
+        where Orca is significantly ahead of the other models.
+        The example below shows Orca's ability of recovery after tissue-grasp failure.
       </p>
 
       <div class="figure-box">
-        <img src="figs/JudgeModel_conclusion1_case1.png" alt="Failure example with high progress from PRM-as-a-Judge.">
+        <img src="figs/JudgeModel_conclusion2_case1.png" alt="Failure example with high progress from PRM-as-a-Judge.">
       </div>
 
       <div class="video-box">
@@ -1760,7 +1669,17 @@ through conscious learning.
         <li id="ref-galbot-g1">
           <strong>Galbot G1.</strong> Galbot. Galbot G1. 2024.
         </li>
-      </ol>
+        <li id="ref-flux1">
+          <strong>Flux.1 kontext.</strong> Black Forest Labs et al. Flux.1 kontext: Flow matching for 
+          in-context image generation and editing in latent space. <em>arXiv</em>, 2025.
+        </li>
+        <li id="ref-flux2">
+          <strong>Flux.2 [klein].</strong> Black Forest Labs. Flux.2 [klein]: Towards interactive visual intelligence, 2026.
+        </li>
+        <li id="ref-omnigen2">
+          <strong>OmniGen2.</strong> Wu et al. OmniGen2: A 3B-Parameter Multimodal Model with a 4B-Parameter
+          Vision Decoder for Advanced Image Generation. <em>CVPR</em>, 2026.
+      </li>
     </section>
     </main>
   </div>
