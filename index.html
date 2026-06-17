@@ -1057,11 +1057,23 @@
       </p>
 
       <p>
-        <b>Stronger world pre-training leads to stronger downstream readouts. </b>Since the backbone is frozen during readout training, gains reflect latent
-        space quality directly. Consistent improvements across modalities confirm that scaling world pre-training produces a more useful shared representation.
+        <b>Stronger world pre-training leads to stronger downstream readouts. </b>
+        Since the backbone is frozen during readout training, gains reflect latent
+        space quality directly. Consistent improvements across modalities confirm 
+        that scaling world pre-training produces a more useful shared representation.
       </p>
 
-      <h3 id="understand">Question 2.1: Understand the world</h3>
+      <h3 id="q2">
+        Question 2: How does Orca lead to stronger downstream readouts?
+      </h3>
+
+      <p>
+        Orca is connected to three downstream readouts: language, vision, and action. 
+        We evaluate them with benchmarks of language readout, image prediction and embodied action generation, 
+        that measure the model’s ability to understand, predict, and change the world.
+      </p>
+
+      <h3 id="understand">2.1 Understand the world</h3>
       <h4>Benchmark</h4>
       <p>
         We evaluate Orca's capability of world understanding using VQA benchmarks of various perspectives, 
@@ -1256,7 +1268,7 @@ through conscious learning.
         <strong>spatial relations</strong>, and <strong>dynamic motion</strong>.
       </p>
 
-      <h3 id="predict">Question 2.2: Predict the world</h3>
+      <h3 id="predict">2.2 Predict the world</h3>
       <h4>benchmark</h4>
       <p>
         <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
@@ -1303,7 +1315,7 @@ through conscious learning.
         <img src="figs/ToV_visualization.png" alt="PRICE visual case comparison.">
       </div>
 
-      <h3 id="change">Question 2.3: Change the world</h3>
+      <h3 id="change">2.3 Change the world</h3>
       <p>
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
         The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
