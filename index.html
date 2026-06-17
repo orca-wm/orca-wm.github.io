@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ORCA World Model is an open-source world model project for scalable video, agent, and environment prediction research.">
-  <title>ORCA World Model</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Orca: The World is in Your Mind. Observation, Reasoning, Cognition, and Action for world learning.">
+  <title>Orca: The World is in Your Mind</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="figs/favicon-32.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="figs/apple-touch-icon.png?v=2">
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #071014;
-      --panel: rgba(9, 20, 25, 0.82);
-      --panel-solid: #101b20;
-      --text: #f3f7f6;
-      --muted: #aab8b6;
-      --line: rgba(255, 255, 255, 0.13);
-      --cyan: #43d7ec;
-      --teal: #41d1a5;
-      --amber: #f2ba59;
-      --rose: #e57b8d;
-      --green: #a5d45f;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      --bg: #fbfaf7;
+      --text: #191a18;
+      --muted: #686d67;
+      --line: #e5e1d9;
+      --soft: #f2efe8;
+      --link: #166e72;
+      --accent: #a45f1a;
+      --code: #111817;
     }
 
     * {
@@ -34,707 +32,1589 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.72;
     }
 
     a {
-      color: inherit;
+      color: var(--link);
       text-decoration: none;
     }
 
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(7, 16, 20, 0.72);
-      backdrop-filter: blur(18px);
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    .nav {
-      width: min(1180px, calc(100% - 40px));
-      min-height: 68px;
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .site-nav {
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 250, 247, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      max-width: 820px;
       margin: 0 auto;
+      padding: 14px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
+      align-items: center;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0;
+      color: var(--text);
+      font-weight: 700;
     }
 
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(67, 215, 236, 0.4);
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      background: #0d242a;
-      color: var(--cyan);
-      font-size: 14px;
-      box-shadow: inset 0 0 24px rgba(67, 215, 236, 0.13);
+    .brand-logo {
+      width: 108px;
+      height: auto;
+      mix-blend-mode: multiply;
     }
 
-    .nav-links {
+    .links {
       display: flex;
-      align-items: center;
-      gap: 18px;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .reader-layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 820px);
+      gap: 38px;
+      align-items: start;
+    }
+
+    .side-toc {
+      position: sticky;
+      top: 86px;
+      padding: 52px 0 0;
       color: var(--muted);
       font-size: 14px;
     }
 
-    .nav-links a:hover {
+    .side-toc strong {
+      display: block;
+      margin-bottom: 12px;
       color: var(--text);
-    }
-
-    .hero {
-      min-height: 92vh;
-      padding: 132px 0 72px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      background-image: linear-gradient(90deg, rgba(7, 16, 20, 0.96) 0%, rgba(7, 16, 20, 0.72) 32%, rgba(7, 16, 20, 0.16) 74%), url("assets/orca-hero.png");
-      background-size: cover;
-      background-position: center right;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 22%;
-      z-index: -1;
-      background: linear-gradient(180deg, rgba(7, 16, 20, 0), var(--bg));
-    }
-
-    .hero-inner,
-    .section-inner {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .hero-copy {
-      width: min(690px, 100%);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 22px;
-      color: var(--cyan);
       font-size: 13px;
-      font-weight: 800;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.11em;
     }
 
-    .eyebrow::before {
-      content: "";
-      width: 32px;
-      height: 2px;
-      background: var(--amber);
+    .side-toc a {
+      display: block;
+      padding: 5px 0 5px 13px;
+      border-left: 2px solid var(--line);
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .side-toc a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .side-toc a.active {
+      border-left-color: var(--link);
+      color: var(--link);
+      font-weight: 700;
+    }
+
+    .side-toc .sub {
+      padding-left: 24px;
+      font-size: 13px;
+    }
+
+    main {
+      max-width: 820px;
+      margin: 0;
+      padding: 52px 20px 72px;
+    }
+
+    header {
+      margin-bottom: 42px;
+      scroll-margin-top: 82px;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1,
     h2,
-    h3,
-    p {
-      margin-top: 0;
+    h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.15;
+      letter-spacing: 0;
     }
 
     h1 {
-      max-width: 760px;
-      margin-bottom: 24px;
-      font-size: clamp(48px, 7vw, 92px);
-      line-height: 0.96;
-      letter-spacing: 0;
+      margin: 0 0 16px;
+      font-size: clamp(38px, 7vw, 66px);
     }
 
     .lead {
-      max-width: 620px;
-      margin-bottom: 34px;
-      color: #d7e2e0;
-      font-size: clamp(18px, 2vw, 23px);
+      max-width: 720px;
+      margin: 0 0 18px;
+      color: #515751;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(15px, 1.8vw, 18px);
+      font-style: italic;
+      line-height: 1.58;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 46px;
-    }
-
-    .button {
-      min-height: 46px;
-      padding: 12px 18px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      font-weight: 750;
-      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.36);
-    }
-
-    .button.primary {
-      color: #061014;
-      background: var(--cyan);
-      border-color: var(--cyan);
-    }
-
-    .button.secondary {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      width: min(690px, 100%);
-    }
-
-    .stat {
-      min-height: 104px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(9, 20, 25, 0.7);
-      backdrop-filter: blur(16px);
-    }
-
-    .stat strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 28px;
-      line-height: 1.1;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    section {
-      padding: 76px 0;
-    }
-
-    .section-heading {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
-      gap: 36px;
-      align-items: end;
-      margin-bottom: 34px;
-    }
-
-    h2 {
-      margin-bottom: 0;
-      font-size: clamp(31px, 4vw, 54px);
-      line-height: 1.05;
-      letter-spacing: 0;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      margin-bottom: 0;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card,
-    .resource,
-    .timeline-item,
-    .code-box {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      box-shadow: var(--shadow);
-    }
-
-    .card {
-      min-height: 236px;
-      padding: 24px;
-    }
-
-    .card .tag {
-      display: inline-flex;
-      margin-bottom: 26px;
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #dce8e6;
-      font-size: 12px;
+    .lead strong {
+      color: var(--text);
+      font-style: normal;
       font-weight: 700;
     }
 
-    .card h3,
-    .resource h3,
-    .timeline-item h3 {
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .abstract {
+      margin: 26px 0;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .abstract h2 {
       margin-bottom: 10px;
-      font-size: 21px;
-      line-height: 1.2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .card p,
-    .resource p,
-    .timeline-item p {
+    .abstract p {
       margin-bottom: 0;
-      color: var(--muted);
+      color: #404540;
     }
 
-    .release-band {
-      background: #0b1619;
+    section {
+      padding: 34px 0;
       border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 82px;
     }
 
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 4vw, 36px);
     }
 
-    .resource {
-      min-height: 176px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    h3 {
+      margin: 24px 0 8px;
+      font-size: 21px;
+      scroll-margin-top: 82px;
     }
 
-    .resource a {
-      color: var(--cyan);
-      font-weight: 800;
+    p {
+      margin: 0 0 16px;
     }
 
-    .quickstart {
-      display: grid;
-      grid-template-columns: minmax(0, 0.88fr) minmax(280px, 1.12fr);
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .quickstart-copy {
-      padding: 4px 0;
-    }
-
-    .quickstart-copy p {
-      color: var(--muted);
-    }
-
-    .code-box {
+    ul,
+    ol {
+      margin: 0 0 18px 1.2rem;
       padding: 0;
-      overflow: hidden;
-      background: #071215;
     }
 
-    .code-topbar {
-      min-height: 42px;
-      padding: 0 16px;
-      border-bottom: 1px solid var(--line);
+    li {
+      margin-bottom: 8px;
+    }
+
+    .citation {
+      color: var(--link);
+      font-size: 0.92em;
+      white-space: nowrap;
+    }
+
+    .references {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .references li {
+      margin-bottom: 11px;
+      scroll-margin-top: 92px;
+    }
+
+    .references li:target {
+      background: var(--soft);
+      border-radius: 6px;
+      outline: 6px solid var(--soft);
+    }
+
+    .references strong {
+      color: var(--text);
+    }
+
+    .note {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--link);
+      background: var(--soft);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .video-box,
+    .figure-box {
+      margin: 20px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+      overflow: hidden;
+    }
+
+    .video-placeholder {
+      min-height: 310px;
+      padding: 24px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      align-items: flex-end;
+      background: linear-gradient(180deg, #243330, #111817);
+      color: #fbfaf7;
+    }
+
+    .video-placeholder h3 {
+      margin: 0 0 6px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 22px;
+    }
+
+    .video-placeholder p {
+      margin: 0;
+      color: rgba(251, 250, 247, 0.78);
+    }
+
+    .figure-box {
+      padding: 18px;
+    }
+
+    .figure-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      background: #111817;
+    }
+
+    .video-box video {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
+
+    .video-note {
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 13px;
+      background: #fffdf8;
+    }
+
+    .video-note strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .galbot-gallery {
+      padding: 18px;
+      background: linear-gradient(180deg, #fffdf8 0%, #f2efe8 100%);
+      color: var(--text);
+    }
+
+    .galbot-gallery-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .galbot-gallery-header h3 {
+      margin: 0 0 6px;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 24px;
+    }
+
+    .galbot-gallery-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .galbot-stats {
+      display: grid;
+      grid-template-columns: repeat(2, max-content);
+      gap: 8px;
+    }
+
+    .galbot-stat {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .galbot-stat strong {
+      display: block;
+      color: var(--link);
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .galbot-featured {
+      margin: 0 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .galbot-featured video {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #f2efe8;
+    }
+
+    .galbot-featured figcaption {
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      color: #30342f;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .galbot-thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .galbot-task-block {
+      margin-top: 14px;
+    }
+
+    .galbot-task-block h4,
+    h4 {
+      margin: 0 0 8px;
+      color: var(--link);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .galbot-task-block p {
+      margin: -3px 0 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .galbot-thumb {
+      width: 100%;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--text);
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      text-align: left;
+    }
+
+    .galbot-thumb:hover,
+    .galbot-thumb.is-active {
+      border-color: var(--link);
+      background: #eef5f2;
+    }
+
+    .galbot-thumb video {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      pointer-events: none;
+      background: #f2efe8;
+    }
+
+    .galbot-thumb::before {
+      content: "";
+      position: absolute;
+      top: calc((100% - 33px) * 0.36);
+      left: 50%;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 253, 248, 0.88);
+      box-shadow: 0 2px 10px rgba(25, 26, 24, 0.18);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .galbot-thumb::after {
+      content: "";
+      position: absolute;
+      top: calc((100% - 33px) * 0.36);
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 12px solid var(--link);
+      transform: translate(-38%, -50%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .galbot-thumb span {
+      display: block;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .simple-diagram {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .triple-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .diagram-cell {
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .diagram-cell strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .figure-placeholder {
+      min-height: 190px;
+      padding: 18px;
+      border: 1px dashed #c9c3b8;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #fffdf8;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: #404540;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .chart-row.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .chart {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .chart h3 {
+      margin-top: 0;
+      font-size: 18px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 170px;
+      display: block;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .axis {
+      stroke: #777;
+      stroke-width: 1.2;
+    }
+
+    .curve-a {
+      fill: none;
+      stroke: #166e72;
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    .curve-b {
+      fill: none;
+      stroke: #a45f1a;
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    table {
+      width: 100%;
+      margin: 16px 0 22px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #fffdf8;
+      font-size: 14px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 22px;
+    }
+
+    .table-wrap table {
+      min-width: 760px;
+      margin: 0;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      color: #30342f;
+      font-weight: 750;
     }
 
     pre {
-      margin: 0;
-      padding: 22px;
+      margin: 16px 0 0;
+      padding: 18px;
       overflow-x: auto;
-      color: #d8f8f7;
+      border-radius: 8px;
+      background: var(--code);
+      color: #edf5f2;
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
     code {
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .timeline-item {
-      min-height: 184px;
-      padding: 22px;
-      border-top: 3px solid var(--cyan);
-    }
-
-    .timeline-item:nth-child(2) {
-      border-top-color: var(--teal);
-    }
-
-    .timeline-item:nth-child(3) {
-      border-top-color: var(--amber);
-    }
-
-    .timeline-item:nth-child(4) {
-      border-top-color: var(--rose);
-    }
-
-    .citation {
+    footer {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 24px 20px 44px;
       border-top: 1px solid var(--line);
-      background: #050b0e;
-    }
-
-    .citation-box {
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel-solid);
-    }
-
-    .citation-box p {
-      color: var(--muted);
-    }
-
-    .footer {
-      padding: 28px 0 40px;
       color: var(--muted);
       font-size: 14px;
     }
 
-    .footer .section-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .accent-cyan {
-      color: var(--cyan);
-    }
-
-    .accent-amber {
-      color: var(--amber);
-    }
-
-    .accent-green {
-      color: var(--green);
-    }
-
-    @media (max-width: 940px) {
-      .nav {
-        min-height: auto;
-        padding: 14px 0;
+    @media (max-width: 680px) {
+      .nav-inner {
         align-items: flex-start;
         flex-direction: column;
-        gap: 12px;
       }
 
-      .nav-links {
+      .links {
         width: 100%;
         overflow-x: auto;
-        padding-bottom: 4px;
+        padding-bottom: 2px;
       }
 
-      .hero {
-        min-height: auto;
-        padding-top: 142px;
+      .reader-layout {
+        display: block;
+        padding: 0 20px;
       }
 
-      .hero::before {
-        background-image: linear-gradient(180deg, rgba(7, 16, 20, 0.86) 0%, rgba(7, 16, 20, 0.84) 50%, rgba(7, 16, 20, 0.96) 100%), url("assets/orca-hero.png");
-        background-position: center;
+      .side-toc {
+        position: sticky;
+        top: 94px;
+        z-index: 8;
+        margin: 0 -20px;
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 250, 247, 0.94);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        overflow-x: auto;
+        white-space: nowrap;
       }
 
-      .hero-stats,
-      .feature-grid,
-      .resource-grid,
-      .timeline,
-      .section-heading,
-      .quickstart {
+      .side-toc strong {
+        display: none;
+      }
+
+      .side-toc a,
+      .side-toc .sub {
+        display: inline-flex;
+        margin-right: 10px;
+        padding: 5px 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fffdf8;
+        font-size: 13px;
+      }
+
+      .side-toc a.active {
+        border-color: var(--link);
+        background: var(--soft);
+      }
+
+      main {
+        padding-top: 38px;
+      }
+
+      .simple-diagram,
+      .triple-diagram,
+      .chart-row,
+      .chart-row.three {
         grid-template-columns: 1fr;
       }
 
-      .resource-grid,
-      .timeline {
-        gap: 12px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .hero-inner,
-      .section-inner,
-      .nav {
-        width: min(100% - 28px, 1180px);
+      .video-placeholder {
+        min-height: 240px;
       }
 
-      .hero-actions {
-        flex-direction: column;
+      .galbot-gallery {
+        padding: 12px;
       }
 
-      .button {
-        width: 100%;
+      .galbot-gallery-header {
+        grid-template-columns: 1fr;
+        align-items: start;
       }
 
-      section {
-        padding: 58px 0;
+      .galbot-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .stat,
-      .card,
-      .resource,
-      .timeline-item,
-      .citation-box {
-        padding: 18px;
+      .galbot-stat {
+        white-space: normal;
+      }
+
+      .galbot-thumb-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
 </head>
+
 <body>
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="ORCA World Model home">
-        <span class="brand-mark">OR</span>
-        <span>ORCA World Model</span>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Orca home">
+        <img class="brand-logo" src="figs/orca_logo.jpg" alt="Orca">
       </a>
-      <div class="nav-links">
-        <a href="#overview">Overview</a>
-        <a href="#release">Release</a>
-        <a href="#start">Quick Start</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#citation">Citation</a>
+      <div class="links">
+        <a href="#training">Training</a>
+        <a href="#data">Data</a>
+        <a href="#evaluation">Evaluation</a>
       </div>
-    </nav>
-  </header>
-
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="eyebrow">Open-source world model</div>
-          <h1 id="hero-title">ORCA World Model</h1>
-          <p class="lead">
-            A modular research release for learning predictive models of dynamic environments from video,
-            actions, and multimodal context. Replace this copy with the final project abstract, paper title,
-            and release scope.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#release">View Release</a>
-            <a class="button secondary" href="https://github.com/ORCA-WM" rel="noreferrer">GitHub</a>
-            <a class="button secondary" href="#citation">Paper</a>
-          </div>
-          <div class="hero-stats" aria-label="Project highlights">
-            <div class="stat">
-              <strong>Video</strong>
-              <span>Generation, prediction, and rollout evaluation</span>
-            </div>
-            <div class="stat">
-              <strong>Agents</strong>
-              <span>Action-conditioned dynamics and planning hooks</span>
-            </div>
-            <div class="stat">
-              <strong>Open</strong>
-              <span>Code, checkpoints, configs, and reproducible demos</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="overview" aria-labelledby="overview-title">
-      <div class="section-inner">
-        <div class="section-heading">
-          <h2 id="overview-title">Built for scalable world-model research.</h2>
-          <p>
-            Use these blocks as placeholders for the actual technical story: model architecture,
-            training data, evaluation tasks, and what is newly open-sourced in this release.
-          </p>
-        </div>
-        <div class="feature-grid">
-          <article class="card">
-            <span class="tag">Representation</span>
-            <h3>Unified environment tokens</h3>
-            <p>
-              Describe how ORCA converts visual observations, actions, state, and context into a shared
-              latent space for next-state prediction and long-horizon simulation.
-            </p>
-          </article>
-          <article class="card">
-            <span class="tag">Dynamics</span>
-            <h3>Predictive rollouts</h3>
-            <p>
-              Explain the rollout interface, temporal horizon, uncertainty handling, and how users can
-              evaluate generated futures against reference trajectories.
-            </p>
-          </article>
-          <article class="card">
-            <span class="tag">Ecosystem</span>
-            <h3>Composable release assets</h3>
-            <p>
-              Summarize the code modules, checkpoints, data recipes, inference demos, and benchmark scripts
-              that will be linked from this page.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="release" class="release-band" aria-labelledby="release-title">
-      <div class="section-inner">
-        <div class="section-heading">
-          <h2 id="release-title">Release hub.</h2>
-          <p>
-            Swap each link with the final repository, model card, dataset page, demo, and documentation
-            destinations before publishing.
-          </p>
-        </div>
-        <div class="resource-grid">
-          <article class="resource">
-            <div>
-              <h3>Code</h3>
-              <p>Training, inference, evaluation, and experiment configuration templates.</p>
-            </div>
-            <a href="https://github.com/ORCA-WM" rel="noreferrer">Open repository</a>
-          </article>
-          <article class="resource">
-            <div>
-              <h3>Models</h3>
-              <p>Checkpoint index, model cards, license notes, and recommended hardware profiles.</p>
-            </div>
-            <a href="#">Coming soon</a>
-          </article>
-          <article class="resource">
-            <div>
-              <h3>Data</h3>
-              <p>Dataset recipes, preprocessing manifests, and evaluation split definitions.</p>
-            </div>
-            <a href="#">Coming soon</a>
-          </article>
-          <article class="resource">
-            <div>
-              <h3>Demos</h3>
-              <p>Interactive examples for video prediction, policy-conditioned rollout, and analysis.</p>
-            </div>
-            <a href="#">Coming soon</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="start" aria-labelledby="start-title">
-      <div class="section-inner quickstart">
-        <div class="quickstart-copy">
-          <div class="eyebrow">Quick start</div>
-          <h2 id="start-title">Clone, run, inspect.</h2>
-          <p>
-            Keep this section close to the actual commands from the open-source repo. The current commands
-            are placeholders for a familiar Python research workflow.
-          </p>
-          <p>
-            Add installation variants here for Docker, Conda, SLURM, or model-download credentials once
-            those release details are finalized.
-          </p>
-        </div>
-        <div class="code-box" aria-label="Quick start command example">
-          <div class="code-topbar">
-            <span>terminal</span>
-            <span>preview</span>
-          </div>
-          <pre><code>git clone https://github.com/ORCA-WM/orca-world-model.git
-cd orca-world-model
-
-conda create -n orca-wm python=3.10 -y
-conda activate orca-wm
-pip install -r requirements.txt
-
-python scripts/download_checkpoint.py --model orca-base
-python demos/predict_video.py --config configs/demo.yaml</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <section id="roadmap" aria-labelledby="roadmap-title">
-      <div class="section-inner">
-        <div class="section-heading">
-          <h2 id="roadmap-title">Roadmap.</h2>
-          <p>
-            This section is useful for an open-source landing page because visitors immediately know what
-            is ready, what is experimental, and what is planned next.
-          </p>
-        </div>
-        <div class="timeline">
-          <article class="timeline-item">
-            <h3>Initial release</h3>
-            <p>Project page, repository skeleton, model overview, and minimal inference demo.</p>
-          </article>
-          <article class="timeline-item">
-            <h3>Checkpoints</h3>
-            <p>Base model weights, model cards, evaluation scripts, and example predictions.</p>
-          </article>
-          <article class="timeline-item">
-            <h3>Training recipes</h3>
-            <p>Distributed training configs, data preparation scripts, and ablation settings.</p>
-          </article>
-          <article class="timeline-item">
-            <h3>Community track</h3>
-            <p>Issues, contribution guide, reproducibility reports, and downstream integrations.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="citation" class="citation" aria-labelledby="citation-title">
-      <div class="section-inner">
-        <div class="section-heading">
-          <h2 id="citation-title">Citation and license.</h2>
-          <p>
-            Replace this with the final BibTeX entry, license wording, and responsible-use notes for the
-            released assets.
-          </p>
-        </div>
-        <div class="citation-box">
-          <p>Placeholder BibTeX</p>
-          <pre><code>@misc{orca_world_model_2026,
-  title        = {ORCA World Model},
-  author       = {ORCA World Model Team},
-  year         = {2026},
-  howpublished = {\url{https://orca-wm.github.io}}
-}</code></pre>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="section-inner">
-      <span>ORCA World Model</span>
-      <span>Open-source research release page template.</span>
     </div>
+  </nav>
+
+  <div class="reader-layout">
+    <aside class="side-toc" aria-label="Reading navigation">
+      <strong>On this page</strong>
+      <a href="#training" data-spy-link>1. Training</a>
+      <a class="sub" href="#definition" data-spy-link>Why next state?</a>
+      <a class="sub" href="#learning" data-spy-link>How to learn?</a>
+      <a class="sub" href="#recipe" data-spy-link>Query architecture</a>
+      <a class="sub" href="#downstream" data-spy-link>Action readouts</a>
+      <a href="#data" data-spy-link>2. Data</a>
+      <a class="sub" href="#composition" data-spy-link>World resources</a>
+      <a href="#evaluation" data-spy-link>3. Evaluation</a>
+      <a class="sub" href="#q1" data-spy-link>Q1 scale-up</a>
+      <a class="sub" href="#understand" data-spy-link>Understand</a>
+      <a class="sub" href="#predict" data-spy-link>Predict</a>
+      <a class="sub" href="#change" data-spy-link>Change</a>
+      <a href="#citation" data-spy-link>Citation</a>
+    </aside>
+
+    <main>
+    <header id="top">
+      <p class="kicker">World learner</p>
+      <h1>Orca: The World is in Your Mind</h1>
+      <p class="lead">
+        ORCA stands for <strong>Observation</strong>, <strong>Reasoning</strong>,
+        <strong>Cognition</strong>, and <strong>Action</strong>: a compact view of the intelligence loop
+        from observing the world to acting upon it.
+      </p>
+      <p class="meta">Orca Team · Beijing Academy of Artificial Intelligence</p>
+
+      <div class="abstract">
+        <h2>Abstract</h2>
+        <p>
+          We introduce Orca, a world learner that learns a unified world latent from multimodal world
+          signals and exposes it through multimodal interfaces. Orca learns through two complementary
+          paradigms: unconscious learning, which captures dense natural state transitions from continuous
+          videos, and conscious learning, which uses language-described events and VQA supervision to model
+          meaningful state transitions. We construct large-scale world-learning resources, including 126K
+          hours of video, 130M event annotations, and 11.5M VQA examples. After pre-training, Orca directly
+          uses the native language modeling head for text generation, while keeping the learned backbone
+          frozen and adapting lightweight readout modules for image prediction and embodied action
+          generation. Experiments show that Orca learns an effective world latent representation, achieves
+          strong performance across language benchmarks, improves real-world interaction image prediction
+          over image generation baselines, and enhances embodied action generation for manipulation tasks.
+        </p>
+      </div>
+
+      <div class="video-box">
+        <video controls preload="metadata">
+          <source src="figs/demo.mp4" type="video/mp4">
+          Your browser does not support this video format.
+        </video>
+        <div class="video-note">
+          <strong>Concept video</strong>
+          Orca overview video: <code>figs/demo.mp4</code>.
+        </div>
+      </div>
+    </header>
+
+    <section id="training">
+      <h2>1. Training</h2>
+
+      <h3 id="definition">Why: World Models Should Predict States, Not Modalities</h3>
+      <p>
+        Recent foundation models have largely been built around the principle of next prediction. Language
+        models predict the next token, image and video models predict the next visual signal, and embodied
+        models often predict the next action. This paradigm has proven remarkably effective: by learning to
+        continue the sequence presented to them, models acquire powerful task-level capabilities across
+        language, vision, and action.
+      </p>
+      <p>
+        However, next prediction also inherits an important limitation. The prediction target is usually
+        tied to a specific interface: text for language models, pixels for visual models, and actions for
+        embodied policies. As a result, the model may become highly capable at producing the next plausible
+        output without necessarily learning the underlying state of the world that gives rise to that
+        output. A fluent continuation does not always imply grounded understanding; a realistic frame does
+        not always imply causal reasoning; and a correct-looking action does not always explain how the
+        world changes after that action.
+      </p>
+      <p>
+        This is the gap Orca is designed to address. If the goal is to build an active world learner, the
+        central object of modeling should not be the modality being generated, but the evolving state of the
+        world itself: what is observed, what changes, why it changes, and how an agent can act upon it.
+      </p>
+      <p>
+        From this perspective, existing foundation-model objectives can be seen as different forms of next
+        prediction:
+      </p>
+
+      <div class="figure-box">
+        <div class="triple-diagram">
+          <div class="diagram-cell">
+            <strong>Next token prediction</strong>
+            Language models learn semantic continuation, but text prediction alone does not require a
+            grounded latent state of the physical world.
+          </div>
+          <div class="diagram-cell">
+            <strong>Next frame prediction</strong>
+            Image and video models capture visual dynamics, but pixel prediction can reward appearance
+            realism without enforcing causal state understanding.
+          </div>
+          <div class="diagram-cell">
+            <strong>Next action prediction</strong>
+            Embodied models learn action affordance, but policy imitation does not necessarily explain how
+            the world changes after an action.
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Orca shifts the modeling target from predicting the next token, frame, or action to predicting the
+        next state. Multimodal signals serve as observations of the world; state-transition objectives
+        provide the basis for reasoning; the learned world latent becomes the substrate for cognition; and
+        language, vision, and action become readouts of the same underlying state.
+      </p>
+
+      <div class="note">
+        <strong>Next State Prediction</strong> means learning an internal world representation that links
+        observation, reasoning, cognition, and action across language, vision, and embodied interfaces.
+      </div>
+
+      <div class="figure-box">
+        <img src="figs/concept.png" alt="Conceptual illustration of Orca moving from passive task-driven prediction to active world learning.">
+      </div>
+
+      <h3 id="learning">How: conscious and unconscious learning</h3>
+      <p>
+        How can a model learn the next state of the world? Orca follows a learning pattern similar to human
+        experience: observation supplies dense experience, reasoning connects states and causes, cognition
+        stores a reusable world latent, and action becomes possible when this latent is exposed through
+        downstream interfaces.
+      </p>
+      <p>
+        We therefore use two complementary learning modes. Unconscious learning absorbs natural dynamics
+        from continuous visual experience, allowing the model to learn dense state transitions and physical
+        regularities without explicit task labels. Conscious learning introduces language, events,
+        instructions, and questions as semantic conditions, allowing the model to learn meaningful state
+        transitions associated with causal explanations and task intentions.
+      </p>
+
+      <div class="figure-box">
+        <img src="figs/con_vs_uncon.png" alt="Overview of Orca encoder with unconscious learning and conscious learning paths.">
+      </div>
+
+      <h3 id="recipe">Architecture: Query 1 / Query 2 training recipe</h3>
+      <p>
+        At the architecture level, Orca connects multimodal world signals to a shared world latent
+        representation. Query 1 emphasizes Observation-to-Cognition: can the model predict the next state
+        from dense observation-only transitions? Query 2 emphasizes Reasoning-to-Cognition: can the model
+        predict the next state when events, language, questions, or intentions reveal causal structure?
+      </p>
+
+      <div class="note">
+        <strong>Query 1:</strong> Observation-to-Cognition through dense observation-only state transition.<br>
+        <strong>Query 2:</strong> Reasoning-to-Cognition through event-conditioned state transition and VQA
+        response generation.
+      </div>
+
+      <div class="figure-box">
+        <img src="figs/q1_q2.png" alt="Query 1 and Query 2 implementation for Orca encoder training.">
+      </div>
+
+      <ol>
+        <li>Collect multimodal world signals from visual, language, event, and VQA data.</li>
+        <li>Use video data to learn observation-only state transitions through unconscious learning.</li>
+        <li>Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
+        <li>Distill both learning modes into a unified world latent representation.</li>
+      </ol>
+
+      <h3 id="downstream">Action: using the world state through downstream readouts</h3>
+      <p>
+        Once learned, the world latent can be decoded through different interfaces. This is the practical
+        reason for treating world state as the central representation: the same cognition can support a
+        language readout for explanation and reasoning, a vision readout for prediction and imagination,
+        and an action readout for intervention.
+      </p>
+
+      <div class="figure-box">
+        <img src="figs/downtask.png" alt="Downstream readout architectures from Orca world latent representation to language, vision, and action.">
+      </div>
+
+      <ul>
+        <li><strong>Observation:</strong> gather multimodal world signals from video, language, event, VQA, and robot data.</li>
+        <li><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
+        <li><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
+        <li><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
+      </ul>
+    </section>
+
+    <section id="data">
+      <h2>2. Data</h2>
+
+      <h3 id="composition">World-learning resources</h3>
+      <p>
+        Orca is trained with large-scale world-learning resources designed for the ORCA loop:
+        126K hours of video for dense natural state transitions, 130M event annotations for language-described
+        meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>Scale</th>
+            <th>Learning role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Continuous video</td>
+            <td>126K hours</td>
+            <td>Observation signals for dense natural state transitions.</td>
+          </tr>
+          <tr>
+            <td>Event annotations</td>
+            <td>130M events</td>
+            <td>Reasoning signals for meaningful causal state transitions.</td>
+          </tr>
+          <tr>
+            <td>VQA examples</td>
+            <td>11.5M examples</td>
+            <td>Cognition signals for question-conditioned world understanding.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="figure-box">
+        <img src="figs/datapipline.png" alt="Orca data composition and pre-training pipeline.">
+      </div>
+    </section>
+
+    <section id="evaluation">
+      <h2>3. Evaluation</h2>
+
+      <h3 id="q1">Question 1: How effective is ORCA at scale-up?</h3>
+      <p>
+        We first measure whether ORCA scales effectively. This part includes the loss curve and three
+        performance curves: To L, To V, and To A.
+      </p>
+
+      <div class="chart-row">
+        <div class="figure-box">
+          <img src="figs/scaling_loss.png" alt="World-learning loss decreases as the pre-training data scale increases, with the larger Orca backbone achieving lower loss.">
+        </div>
+        <div class="figure-box">
+          <img src="figs/scaling_performance.png" alt="Downstream readout scores improve with pre-training scale across text generation, image prediction, and action generation">
+        </div>
+      </div>
+
+      <p>
+        The world-learning loss decreases as the pre-training data scale increases, and the larger Orca backbone achieves a lower objective loss than the smaller one. 
+        This trend suggests that next-state prediction provides a learnable and scalable training signal for building world latent representations. 
+      </p>
+
+      <p>
+        Downstream readout performance improves as pre-training scales up when backbone is frozen, which indicates that the learned world latent space becomes progressively more useful for different readout interfaces.
+        These gains mainly come from a stronger pretrained world representation since only lightweight readout modules are updated during downstream training
+      </p>
+
+      <h3 id="understand">Question 2.1: Understand the world</h3>
+      <p>
+        The understanding evaluation uses VQA benchmarks. We compare unconscious-learning evaluation
+        benchmarks and conscious-learning evaluation benchmarks, organize baselines by model size, and report
+        ORCA's SOTA result.
+      </p>
+
+      <h4>Benchmark</h4>
+        <p>
+          Benchmarks serve as probes to judge learning. They can evaluate whether the model
+          can capture the natural evolution through unconscious learning and understand meaningful transfer
+          guided by instructions or interaction through conscious learning. 
+        </p>
+        <ul>
+          <li>
+            Unconscious Learning: TempCompass <a class="citation" href="#ref-tempcompass">(Liu et al., 2024)</a>
+            and TemporalBench <a class="citation" href="#ref-temporalbench">(Cai et al., 2024)</a> are used
+            to examine the dynamic latent acquires through unconscious learning. For world learners,
+            the world includes structural information such as the position of objects and relationships between
+            multiple objects. We use 3DSRBench <a class="citation" href="#ref-3dsrbench">(Ma et al., 2025)</a>
+            to evaluate this ability.
+          </li>
+          <li>
+            Conscious Learning: Switch <a class="citation" href="#ref-switch">(Lin et al., 2025)</a>
+            requires understanding tangible control interfaces
+            and predicting the outcomes of control actions based on common sense and operational intentions.
+            Baselines. We selected two types of models as baselines: world models and vision language models.
+          </li>
+        </ul>
+
+      <h4>Baselines</h4>
+        <p>
+          We selected two types of models as baselines: world models and vision language models.
+        </p>
+        <ul>
+          <li>
+            World Models: V-JEPA 2.1 <a class="citation" href="#ref-vjepa21">(Mur-Labadia et al., 2026)</a>,
+            Emu3 <a class="citation" href="#ref-emu3">(Wang et al., 2026)</a>, and Emu3.5
+            <a class="citation" href="#ref-emu35">(Cui et al., 2025)</a> are world model baselines we selected.
+          </li>
+          <li>
+            Vision Language Models: Qwen3.5 <a class="citation" href="#ref-qwen35">(Qwen Team, 2026)</a>,
+            Gemma 4 <a class="citation" href="#ref-gemma4">(Google DeepMind, 2026)</a>, DeepSeek-VL2
+            <a class="citation" href="#ref-deepseek-vl2">(Wu et al., 2025)</a>, MiniCPM-V-4.6
+            <a class="citation" href="#ref-minicpm">(Cui et al., 2026)</a>, and SmolVLM2
+            <a class="citation" href="#ref-smolvlm">(Marafioti et al., 2025)</a> are
+            vision language model baselines we selected.
+          </li>
+
+
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Model group</th>
+            <th colspan="3">Unconscious bench</th>
+            <th rowspan="2">Conscious bench</th>
+            <th rowspan="2">Overall</th>
+          </tr>
+          <tr>
+            <th>MVBench <a class="citation" href="#ref-mvbench">(Li et al., 2024)</a></th>
+            <th>TemporalBench</th>
+            <th>3DSRBench</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: var(--soft);">
+            <th colspan="7" scope="rowgroup"><em>World Models (Large size)</em></th>
+          </tr>
+          <tr>
+            <td>V-JEPA 2.1 (+LLaMA3-8B)</td>
+            <td style="border-left: 2px solid var(--line);">75.4</td>
+            <td>28.5</td>
+            <td>/</td>
+            <td>/</td>
+            <td style="border-left: 2px solid var(--line);">/</td>
+          </tr>
+          <tr>
+            <td>Emu3</td>
+            <td style="border-left: 2px solid var(--line);">35.2</td>
+            <td>9.5</td>
+            <td>39.1</td>
+            <td>37.95</td>
+            <td style="border-left: 2px solid var(--line);">32.595</td>
+          </tr>
+          <tr>
+            <td>Emu3.5</td>
+            <td style="border-left: 2px solid var(--line);">39.5</td>
+            <td>9.5</td>
+            <td>31.3</td>
+            <td>38.91</td>
+            <td style="border-left: 2px solid var(--line);">33.197</td>
+          </tr>
+          <tr style="background: var(--soft);">
+            <th colspan="7" scope="rowgroup"><em>Vision Language Models (Tiny size)</em></th>
+          </tr>
+          <tr>
+            <td>Qwen3.5</td>
+            <td style="border-left: 2px solid var(--line);">52.7</td>
+            <td>19.1</td>
+            <td>14.3</td>
+            <td>38.81</td>
+            <td style="border-left: 2px solid var(--line);">37.337</td>
+          </tr>
+          <tr>
+            <td>Gemma 4</td>
+            <td style="border-left: 2px solid var(--line);">32.5</td>
+            <td>17.1</td>
+            <td>29.5</td>
+            <td>39.93</td>
+            <td style="border-left: 2px solid var(--line);">27.706</td>
+          </tr>
+          <tr>
+            <td>SmolVLM2</td>
+            <td style="border-left: 2px solid var(--line);">48.7</td>
+            <td>18.4</td>
+            <td>35.5</td>
+            <td>32.03</td>
+            <td style="border-left: 2px solid var(--line);">35.257</td>
+          </tr>
+          <tr>
+            <td>MiniCPM-V-4.6</td>
+            <td style="border-left: 2px solid var(--line);">41.4</td>
+            <td>21.2</td>
+            <td>47.7</td>
+            <td>41.18</td>
+            <td style="border-left: 2px solid var(--line);">43.95</td>
+          </tr>
+          <tr style="background: var(--soft);">
+            <th colspan="7" scope="rowgroup"><em>Vision Language Models (Small size)</em></th>
+          </tr>
+          <tr>
+            <td>DeepSeek-VL2</td>
+            <td style="border-left: 2px solid var(--line);">40.5</td>
+            <td>21.0</td>
+            <td>32.1</td>
+            <td>35.51</td>
+            <td style="border-left: 2px solid var(--line);">34.05</td>
+          </tr>
+          <tr>
+            <td>Qwen3.5</td>
+            <td style="border-left: 2px solid var(--line);">67.1</td>
+            <td>25.2</td>
+            <td>48.1</td>
+            <td>42.77</td>
+            <td style="border-left: 2px solid var(--line);">46.83</td>
+          </tr>
+          <tr>
+            <td>Gemma 4</td>
+            <td style="border-left: 2px solid var(--line);">45.6</td>
+            <td>20.2</td>
+            <td>44.8</td>
+            <td>52.40</td>
+            <td style="border-left: 2px solid var(--line);">34.86</td>
+          </tr>
+          <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
+            <td><strong>Orca</strong></td>
+            <td style="border-left: 2px solid var(--line);">63.7</td>
+            <td>27.9</td>
+            <td>52.8</td>
+            <td>45.28</td>
+            <td style="border-left: 2px solid var(--line);"><strong>47.40</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        We also include a capability-dimension analysis. The final text can briefly emphasize the dimensions
+        where ORCA is strongest.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>Observation</th>
+            <th>ORCA advantage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Object and relation reasoning</td>
+            <td>Placeholder</td>
+            <td>Placeholder</td>
+          </tr>
+          <tr>
+            <td>Temporal understanding</td>
+            <td>Placeholder</td>
+            <td>Placeholder</td>
+          </tr>
+          <tr>
+            <td>Causal inference</td>
+            <td>Placeholder</td>
+            <td>Placeholder</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Capability Analysis.</h4>
+
+      <p>
+        <b>State Transition.</b> On this dimension, Orca achieves an average success rate of [X%], outperforming Qwen by [X%]. 
+        Leveraging a next-event modeling paradigm, Orca learns causally consistent state
+        evolution in the latent space, enabling more accurate prediction of physically plausible future states and
+        stronger understanding of temporal dynamics.
+      </p>
+
+      <p>
+        <b>Commonsense Reasoning.</b> On this dimension, Orca achieves an average success rate of [X%]. Rather than relying on
+        superficial pixel- or text-level matching, Orca learns underlying physical regularities through closed loop causal alignment, enabling more reliable commonsense and counterfactual reasoning.
+      </p>
+
+      <p>
+        <b>Spatial Relations.</b> On this dimension, Orca achieves an average success rate of
+        [X%], outperforming Qwen by [X%]. By incorporating explicit spatial relation
+        information into event annotations rather than describing events alone. it encourages the learned
+        latent representations to capture geometric continuity, reducing spatial inconsistencies and improving
+        robustness under challenging viewpoints.
+      </p>
+
+      <p>
+        <b>Dynamic Motion.</b> On this dimension, Ours achieves an average success rate of [X%]. The
+        proposed unconscious learning paradigm enables the model to acquire the latent of temporal continuity
+        and motion inertia.
+      </p>
+
+      <h3 id="predict">Question 2.2: Predict the world</h3>
+      <p>
+        <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
+        from the current image and language instruction. Although the output is image generation, the target
+        is not painter ability; the target is predictor ability. -->
+        The <b>PRICE</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark 
+        evaluates a model's ability to predict real-world physical state changes. 
+        It operates by requiring the model to generate a future state image based on a current 
+        image and a language instruction. Crucially, while this involves image generation, 
+        PRICE is specifically designed to test the model's capability as a physical "predictor" 
+        rather than a mere "painter". The benchmark is constructed using 4 datasets: 
+        <b>AgiBot-World</b> <a class="citation" href="#ref-agibot-world">(AgiBot-World-Contributors et al., 2025)</a>,
+        <b>Galbot-General</b>, <b>PE-Video</b> <a class="citation" href="#ref-pe">(Bolya et al., 2025)</a>,
+        and <b>PSI-Ego</b> <a class="citation" href="#ref-syndata">(PsiBot, 2026)</a>.
+
+      </p>
+
+      <div class="figure-box">
+        <img src="figs/price-benchmark-examples.png" alt="PRICE benchmark example figure.">
+      </div>
+
+      <p>
+        We report PRICE results with box plots and qualitative case comparisons.
+      </p>
+
+      <div class="figure-box">
+        <img src="figs/price-box-plot.png" alt="PRICE box-plot result.">
+      </div>
+
+      <div class="figure-box">
+        <div class="figure-placeholder">PRICE visual case comparison placeholder.</div>
+      </div>
+
+      <h3 id="change">Question 2.3: Change the world</h3>
+      <p>
+        The change-world evaluation uses GalBot real-robot experiments. 
+        <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
+        We used two types of out-of-domain (OOD) benchmarks to evaluate embodied task:
+        <p>
+        1. <b>Simulation:</b> We use LIBERO-Long <a class="citation" href="#ref-libero">(Liu et al., 2023)</a>
+        to train and LIBERO-Plus <a class="citation" href="#ref-libero-plus">(Fei et al., 2026)</a>
+        (Long suites) to inference simulation OOD results.
+        </p>
+        <p>
+        2. <b>Real-robot:</b> We used the Galbot G1 real robot
+        <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including: 
+        Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
+        experiments were designed, including 3 kinds of Environmental Generalization and 5 kinds of 
+        Object Generalization. Tableclothes were used to design environmental generalization (OOD) scenarios. 
+      </p>
+
+      <div class="figure-box">
+        <img src="figs/galbot-ood-generalization.png" alt="GalBot OOD generalization figure.">
+      </div>
+
+
+      <div class="figure-box">
+        <img src="figs/galbot-ood-visualization.png" alt="The visualization of GalBot OOD generalization figure.">
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Setting</th>
+            <th>Baseline</th>
+            <th>ORCA</th>
+            <th>Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>OOD generalization type 1</td>
+            <td>--</td>
+            <td>--</td>
+            <td>Placeholder</td>
+          </tr>
+          <tr>
+            <td>OOD generalization type 2</td>
+            <td>--</td>
+            <td>--</td>
+            <td>Placeholder</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="video-box">
+        <div class="galbot-gallery" aria-label="GalBot real-robot evaluation gallery">
+          <div class="galbot-gallery-header">
+            <div>
+              <h3>GalBot Real-Robot Evaluation</h3>
+              <p>A 5-task matrix evaluated across in-domain execution, environment generalization, and object generalization.</p>
+            </div>
+            <div class="galbot-stats" aria-label="GalBot evaluation summary">
+              <div class="galbot-stat"><strong>15</strong>real-robot trials</div>
+              <div class="galbot-stat"><strong>3</strong>evaluation slices</div>
+              <div class="galbot-stat"><strong>5</strong>task families</div>
+              <div class="galbot-stat"><strong>1</strong>world model</div>
+            </div>
+          </div>
+
+          <figure class="galbot-featured">
+            <video id="galbot-main-video" controls preload="metadata" poster="video/posters/book_base.mp4.png" aria-label="Selected GalBot real-robot video">
+              <source id="galbot-main-source" src="video/book_base.mp4" type="video/mp4">
+              Your browser does not support this video format.
+            </video>
+            <figcaption id="galbot-main-caption">Base 01 · Take Book</figcaption>
+          </figure>
+
+          <div class="galbot-task-block">
+            <h4>Base / In-Domain Tasks</h4>
+            <p>Five core manipulation skills evaluated in their base settings.</p>
+            <div class="galbot-thumb-grid" aria-label="Select a base GalBot trial">
+              <button class="galbot-thumb is-active" type="button" data-video-src="video/book_base.mp4" data-video-poster="video/posters/book_base.mp4.png" data-video-label="Base 01 · Take Book">
+                <video preload="metadata" muted poster="video/posters/book_base.mp4.png" aria-hidden="true"><source src="video/book_base.mp4" type="video/mp4"></video>
+                <span>Take Book</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_base.mp4" data-video-poster="video/posters/bowl_base.mp4.png" data-video-label="Base 02 · Stacked Bowls">
+                <video preload="metadata" muted poster="video/posters/bowl_base.mp4.png" aria-hidden="true"><source src="video/bowl_base.mp4" type="video/mp4"></video>
+                <span>Stacked Bowls</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/tissue_base.mp4" data-video-poster="video/posters/tissue_base.mp4.png" data-video-label="Base 03 · Pull Out Tissue">
+                <video preload="metadata" muted poster="video/posters/tissue_base.mp4.png" aria-hidden="true"><source src="video/tissue_base.mp4" type="video/mp4"></video>
+                <span>Pull Out Tissue</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_base.mp4" data-video-poster="video/posters/stamp_base.mp4.png" data-video-label="Base 04 · Stamp">
+                <video preload="metadata" muted poster="video/posters/stamp_base.mp4.png" aria-hidden="true"><source src="video/stamp_base.mp4" type="video/mp4"></video>
+                <span>Stamp</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_base.mp4" data-video-poster="video/posters/sugar_base.mp4.png" data-video-label="Base 05 · Scoop Sugar">
+                <video preload="metadata" muted poster="video/posters/sugar_base.mp4.png" aria-hidden="true"><source src="video/sugar_base.mp4" type="video/mp4"></video>
+                <span>Scoop Sugar</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="galbot-task-block">
+            <h4>Environment Generalization</h4>
+            <p>The same task families under changed tablecloth styles, backgrounds, and distractors.</p>
+            <div class="galbot-thumb-grid" aria-label="Select an environment generalization GalBot trial">
+              <button class="galbot-thumb" type="button" data-video-src="video/book_env.mp4" data-video-poster="video/posters/book_env.mp4.png" data-video-label="Env 01 · Take Book">
+                <video preload="metadata" muted poster="video/posters/book_env.mp4.png" aria-hidden="true"><source src="video/book_env.mp4" type="video/mp4"></video>
+                <span>Take Book</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_env.mp4" data-video-poster="video/posters/bowl_env.mp4.png" data-video-label="Env 02 · Stacked Bowls">
+                <video preload="metadata" muted poster="video/posters/bowl_env.mp4.png" aria-hidden="true"><source src="video/bowl_env.mp4" type="video/mp4"></video>
+                <span>Stacked Bowls</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/tissue_env.mp4" data-video-poster="video/posters/tissue_env.mp4.png" data-video-label="Env 03 · Pull Out Tissue">
+                <video preload="metadata" muted poster="video/posters/tissue_env.mp4.png" aria-hidden="true"><source src="video/tissue_env.mp4" type="video/mp4"></video>
+                <span>Pull Out Tissue</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_env.mp4" data-video-poster="video/posters/stamp_env.mp4.png" data-video-label="Env 04 · Stamp">
+                <video preload="metadata" muted poster="video/posters/stamp_env.mp4.png" aria-hidden="true"><source src="video/stamp_env.mp4" type="video/mp4"></video>
+                <span>Stamp</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_env.mp4" data-video-poster="video/posters/sugar_env.mp4.png" data-video-label="Env 05 · Scoop Sugar">
+                <video preload="metadata" muted poster="video/posters/sugar_env.mp4.png" aria-hidden="true"><source src="video/sugar_env.mp4" type="video/mp4"></video>
+                <span>Scoop Sugar</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="galbot-task-block">
+            <h4>Object Generalization</h4>
+            <p>Each inference object transfers from its paired training task: book to cutting board, bowls to boxes, tissue to bread, stamp to children's stamp, and sugar to sugar cube.</p>
+            <div class="galbot-thumb-grid" aria-label="Select an object generalization GalBot trial">
+              <button class="galbot-thumb" type="button" data-video-src="video/book_obj.mp4" data-video-poster="video/posters/book_obj.mp4.png" data-video-label="Object 01 · Put Cutting Board">
+                <video preload="metadata" muted poster="video/posters/book_obj.mp4.png" aria-hidden="true"><source src="video/book_obj.mp4" type="video/mp4"></video>
+                <span>Put Cutting Board</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_obj.mp4" data-video-poster="video/posters/bowl_obj.mp4.png" data-video-label="Object 02 · Stack Boxes">
+                <video preload="metadata" muted poster="video/posters/bowl_obj.mp4.png" aria-hidden="true"><source src="video/bowl_obj.mp4" type="video/mp4"></video>
+                <span>Stack Boxes</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/tissue_obj.mp4" data-video-poster="video/posters/tissue_obj.mp4.png" data-video-label="Object 03 · Pull Out Bread">
+                <video preload="metadata" muted poster="video/posters/tissue_obj.mp4.png" aria-hidden="true"><source src="video/tissue_obj.mp4" type="video/mp4"></video>
+                <span>Pull Out Bread</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_obj.mp4" data-video-poster="video/posters/stamp_obj.mp4.png" data-video-label="Object 04 · Stamp Notebook">
+                <video preload="metadata" muted poster="video/posters/stamp_obj.mp4.png" aria-hidden="true"><source src="video/stamp_obj.mp4" type="video/mp4"></video>
+                <span>Stamp Notebook</span>
+              </button>
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_obj.mp4" data-video-poster="video/posters/sugar_obj.mp4.png" data-video-label="Object 05 · Scoop Sugar Cube">
+                <video preload="metadata" muted poster="video/posters/sugar_obj.mp4.png" aria-hidden="true"><source src="video/sugar_obj.mp4" type="video/mp4"></video>
+                <span>Scoop Sugar Cube</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="video-note">GalBot real-robot videos are loaded from the <code>video/</code> folder.</div>
+      </div>
+    </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+      <p>
+        Replace this placeholder after the paper, repository, model, and dataset pages are finalized.
+      </p>
+      <pre><code>@misc{orca_world_model_2026,
+  title        = {Orca: The World is in Your Mind},
+  author       = {Orca Team},
+  institution  = {Beijing Academy of Artificial Intelligence},
+  year         = {2026},
+  howpublished = {\url{https://orca-baai.github.io}}
+}</code></pre>
+
+      <h3>References</h3>
+      <ol class="references">
+        <li id="ref-tempcompass">
+          <strong>TempCompass.</strong> Yuanxin Liu, Shicheng Li, Yi Liu, Yuxiang Wang, Shuhuai Ren,
+          Lei Li, Sishuo Chen, Xu Sun, and Lu Hou. TempCompass: Do Video LLMs Really Understand Videos?
+          <em>Findings of ACL</em>, 2024.
+        </li>
+        <li id="ref-mvbench">
+          <strong>MVBench.</strong> Kunchang Li, Yali Wang, Yinan He, Yizhuo Li, Yi Wang, Yi Liu,
+          Zun Wang, Jilan Xu, Guo Chen, Ping Luo, Limin Wang, and Yu Qiao. MVBench: A Comprehensive
+          Multi-modal Video Understanding Benchmark. <em>CVPR</em>, 2024.
+        </li>
+        <li id="ref-temporalbench">
+          <strong>TemporalBench.</strong> Mu Cai, Reuben Tan, Jianrui Zhang, Bocheng Zou, Kai Zhang,
+          Feng Yao, Fangrui Zhu, Jing Gu, Yiwu Zhong, Yuzhang Shang, Yao Dou, Jaden Park, Jianfeng Gao,
+          Yong Jae Lee, and Jianwei Yang. TemporalBench: Towards Fine-grained Temporal Understanding
+          for Multimodal Video Models. <em>arXiv</em>, 2024.
+        </li>
+        <li id="ref-3dsrbench">
+          <strong>3DSRBench.</strong> Wufei Ma, Haoyu Chen, Guofeng Zhang, Yu-Cheng Chou, Jieneng Chen,
+          Celso de Melo, and Alan Yuille. 3DSRBench: A Comprehensive 3D Spatial Reasoning Benchmark.
+          <em>ICCV</em>, 2025.
+        </li>
+        <li id="ref-switch">
+          <strong>SWITCH.</strong> Jieru Lin, Zhiwei Yu, and Borje F. Karlsson. Switch: Benchmarking
+          Modeling and Handling of Tangible Interfaces in Long-horizon Embodied Scenarios. <em>arXiv</em>, 2025.
+        </li>
+        <li id="ref-vjepa21">
+          <strong>V-JEPA 2.1.</strong> Lorenzo Mur-Labadia, Matthew Muckley, Amir Bar, Mido Assran,
+          Koustuv Sinha, Mike Rabbat, Yann LeCun, Nicolas Ballas, and Adrien Bardes. V-JEPA 2.1:
+          Unlocking Dense Features in Video Self-Supervised Learning. <em>arXiv</em>, 2026.
+        </li>
+        <li id="ref-emu3">
+          <strong>Emu3.</strong> Xinlong Wang et al. Multimodal Learning with Next-token Prediction for
+          Large Multimodal Models. <em>Nature</em>, 2026.
+        </li>
+        <li id="ref-emu35">
+          <strong>Emu3.5.</strong> Yufeng Cui et al. Emu3.5: Native Multimodal Models are World Learners.
+          <em>arXiv</em>, 2025.
+        </li>
+        <li id="ref-qwen35">
+          <strong>Qwen3.5.</strong> Qwen Team. Qwen3.5: Accelerating Productivity with Native Multimodal
+          Agents. 2026.
+        </li>
+        <li id="ref-gemma4">
+          <strong>Gemma 4.</strong> Google DeepMind. Gemma 4: Byte for Byte, the Most Capable Open Models.
+          2026.
+        </li>
+        <li id="ref-deepseek-vl2">
+          <strong>DeepSeek-VL2.</strong> Zhiyu Wu et al. DeepSeek-VL2: Mixture-of-Experts Vision-Language
+          Models for Advanced Multimodal Understanding. <em>arXiv</em>, 2025.
+        </li>
+        <li id="ref-minicpm">
+          <strong>MiniCPM.</strong> Junbo Cui et al. MiniCPM-o 4.5: Towards Real-Time Full-Duplex
+          Omni-Modal Interaction. <em>arXiv</em>, 2026.
+        </li>
+        <li id="ref-smolvlm">
+          <strong>SmolVLM.</strong> Andres Marafioti et al. SmolVLM: Redefining Small and Efficient
+          Multimodal Models. <em>arXiv</em>, 2025.
+        </li>
+        <li id="ref-agibot-world">
+          <strong>AgiBot World.</strong> AgiBot-World-Contributors et al. AgiBot World Colosseo:
+          A Large-scale Manipulation Platform for Scalable and Intelligent Embodied Systems. <em>IROS</em>, 2025.
+        </li>
+        <li id="ref-pe">
+          <strong>Perception Encoder.</strong> Daniel Bolya et al. Perception Encoder: The Best Visual
+          Embeddings are Not at the Output of the Network. <em>NeurIPS</em>, 2025.
+        </li>
+        <li id="ref-syndata">
+          <strong>SynData.</strong> PsiBot. SynData: A Large-Scale Real-World Multimodal Dataset for
+          Embodied Intelligence. Hugging Face Dataset, 2026.
+        </li>
+        <li id="ref-libero">
+          <strong>LIBERO.</strong> Bo Liu, Yifeng Zhu, Chongkai Gao, Yihao Feng, Qiang Liu, Yuke Zhu,
+          and Peter Stone. LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning.
+          <em>NeurIPS</em>, 2023.
+        </li>
+        <li id="ref-libero-plus">
+          <strong>LIBERO-Plus.</strong> Senyu Fei et al. LIBERO-Plus: In-depth Robustness Analysis of
+          Vision-Language-Action Models. <em>CVPR</em>, 2026.
+        </li>
+        <li id="ref-galbot-g1">
+          <strong>Galbot G1.</strong> Galbot. Galbot G1. 2024.
+        </li>
+      </ol>
+    </section>
+    </main>
+  </div>
+
+  <footer>
+    Orca Team · Beijing Academy of Artificial Intelligence
   </footer>
+  <script>
+    const spyLinks = Array.from(document.querySelectorAll("[data-spy-link]"));
+    const spyTargets = spyLinks
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    function setActiveLink() {
+      const offset = 130;
+      let current = spyTargets[0];
+
+      for (const target of spyTargets) {
+        if (target.getBoundingClientRect().top <= offset) {
+          current = target;
+        }
+      }
+
+      spyLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current.id}`);
+      });
+    }
+
+    setActiveLink();
+    window.addEventListener("scroll", setActiveLink, { passive: true });
+    window.addEventListener("resize", setActiveLink);
+
+    const galbotMainVideo = document.querySelector("#galbot-main-video");
+    const galbotMainSource = document.querySelector("#galbot-main-source");
+    const galbotMainCaption = document.querySelector("#galbot-main-caption");
+    const galbotThumbs = Array.from(document.querySelectorAll(".galbot-thumb"));
+
+    galbotThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        const videoSrc = thumb.dataset.videoSrc;
+        const videoPoster = thumb.dataset.videoPoster;
+        const videoLabel = thumb.dataset.videoLabel;
+
+        if (!galbotMainVideo || !galbotMainSource || !galbotMainCaption || !videoSrc) {
+          return;
+        }
+
+        galbotThumbs.forEach((item) => item.classList.remove("is-active"));
+        thumb.classList.add("is-active");
+        galbotMainSource.src = videoSrc;
+        galbotMainVideo.poster = videoPoster || "";
+        galbotMainCaption.textContent = videoLabel;
+        galbotMainVideo.muted = true;
+        galbotMainVideo.playsInline = true;
+        galbotMainVideo.load();
+        galbotMainVideo.play().catch(() => {});
+      });
+    });
+  </script>
 </body>
+
 </html>
