@@ -1304,7 +1304,7 @@ through conscious learning.
       <h3 id="change">Question 2.3: Change the world</h3>
       <p>
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
-        The change-world evaluation uses GalBot <b>Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
+        The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
         <p>
         <h4>settings</h4>
         We used the Galbot G1 real robot
@@ -1477,28 +1477,26 @@ through conscious learning.
 
       <h4>analysis</h4>
       <p>
-        Orca outperforms the baselines on the vast majority of metrics, and especially on ERS, 
+        Orca outperforms the baselines on the vast majority of metrics. For example, on ERS, 
         the metric that measures recovery after progress drops or execution deviations, 
-        where Orca is significantly ahead of the other models.
-        The example below shows Orca's ability of recovery after tissue-grasp failure.
+        Orca is significantly ahead of the other models.
+        The demonstration below shows Orca's ability of recovery after tissue-grasp failure.
       </p>
 
       <div class="figure-box">
         <img src="figs/JudgeModel_conclusion2_case1.png" alt="Failure example with high progress from PRM-as-a-Judge.">
       </div>
 
+      <h4>demo trials</h4>
+      <p>
+        A 5-task matrix evaluated across in-domain execution, environment generalization, and object generalization.
+      </p>
+
       <div class="video-box">
         <div class="galbot-gallery" aria-label="GalBot real-robot evaluation gallery">
           <div class="galbot-gallery-header">
             <div>
               <h3>GalBot Real-Robot Evaluation</h3>
-              <p>A 5-task matrix evaluated across in-domain execution, environment generalization, and object generalization.</p>
-            </div>
-            <div class="galbot-stats" aria-label="GalBot evaluation summary">
-              <div class="galbot-stat"><strong>15</strong>real-robot trials</div>
-              <div class="galbot-stat"><strong>3</strong>evaluation slices</div>
-              <div class="galbot-stat"><strong>5</strong>task families</div>
-              <div class="galbot-stat"><strong>1</strong>world model</div>
             </div>
           </div>
 
@@ -1526,13 +1524,13 @@ through conscious learning.
                 <video preload="metadata" muted poster="video/posters/tissue_base.mp4.png" aria-hidden="true"><source src="video/tissue_base.mp4" type="video/mp4"></video>
                 <span>Pull Out Tissue</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/stamp_base.mp4" data-video-poster="video/posters/stamp_base.mp4.png" data-video-label="Base 04 · Stamp">
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_base.mp4" data-video-poster="video/posters/stamp_base.mp4.png" data-video-label="Base 04 · Regular Stamp">
                 <video preload="metadata" muted poster="video/posters/stamp_base.mp4.png" aria-hidden="true"><source src="video/stamp_base.mp4" type="video/mp4"></video>
-                <span>Stamp</span>
+                <span>Regular Stamp</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/sugar_base.mp4" data-video-poster="video/posters/sugar_base.mp4.png" data-video-label="Base 05 · Scoop Sugar">
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_base.mp4" data-video-poster="video/posters/sugar_base.mp4.png" data-video-label="Base 05 · Scoop White Sugar">
                 <video preload="metadata" muted poster="video/posters/sugar_base.mp4.png" aria-hidden="true"><source src="video/sugar_base.mp4" type="video/mp4"></video>
-                <span>Scoop Sugar</span>
+                <span>Scoop White Sugar</span>
               </button>
             </div>
           </div>
@@ -1553,40 +1551,40 @@ through conscious learning.
                 <video preload="metadata" muted poster="video/posters/tissue_env.mp4.png" aria-hidden="true"><source src="video/tissue_env.mp4" type="video/mp4"></video>
                 <span>Pull Out Tissue</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/stamp_env.mp4" data-video-poster="video/posters/stamp_env.mp4.png" data-video-label="Env 04 · Stamp">
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_env.mp4" data-video-poster="video/posters/stamp_env.mp4.png" data-video-label="Env 04 · Regular Stamp">
                 <video preload="metadata" muted poster="video/posters/stamp_env.mp4.png" aria-hidden="true"><source src="video/stamp_env.mp4" type="video/mp4"></video>
-                <span>Stamp</span>
+                <span>Regular Stamp</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/sugar_env.mp4" data-video-poster="video/posters/sugar_env.mp4.png" data-video-label="Env 05 · Scoop Sugar">
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_env.mp4" data-video-poster="video/posters/sugar_env.mp4.png" data-video-label="Env 05 · Scoop White Sugar">
                 <video preload="metadata" muted poster="video/posters/sugar_env.mp4.png" aria-hidden="true"><source src="video/sugar_env.mp4" type="video/mp4"></video>
-                <span>Scoop Sugar</span>
+                <span>Scoop White Sugar</span>
               </button>
             </div>
           </div>
 
           <div class="galbot-task-block">
             <h4>Object Generalization</h4>
-            <p>Each inference object transfers from its paired training task: book to cutting board, bowls to boxes, tissue to bread, stamp to children's stamp, and sugar to sugar cube.</p>
+            <p>Each inference object transfers from its paired training task: book to cutting board, bowls to boxes, tissue to bread, stamp to children's stamp, and sugar to candy.</p>
             <div class="galbot-thumb-grid" aria-label="Select an object generalization GalBot trial">
-              <button class="galbot-thumb" type="button" data-video-src="video/book_obj.mp4" data-video-poster="video/posters/book_obj.mp4.png" data-video-label="Object 01 · Put Cutting Board">
+              <button class="galbot-thumb" type="button" data-video-src="video/book_obj.mp4" data-video-poster="video/posters/book_obj.mp4.png" data-video-label="Object 01 · Take Cutting Board">
                 <video preload="metadata" muted poster="video/posters/book_obj.mp4.png" aria-hidden="true"><source src="video/book_obj.mp4" type="video/mp4"></video>
-                <span>Put Cutting Board</span>
+                <span> Take Cutting Board</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/bowl_obj.mp4" data-video-poster="video/posters/bowl_obj.mp4.png" data-video-label="Object 02 · Stack Boxes">
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_obj.mp4" data-video-poster="video/posters/bowl_obj.mp4.png" data-video-label="Object 02 · Stacked Boxes">
                 <video preload="metadata" muted poster="video/posters/bowl_obj.mp4.png" aria-hidden="true"><source src="video/bowl_obj.mp4" type="video/mp4"></video>
-                <span>Stack Boxes</span>
+                <span> Stacked Boxes</span>
               </button>
               <button class="galbot-thumb" type="button" data-video-src="video/tissue_obj.mp4" data-video-poster="video/posters/tissue_obj.mp4.png" data-video-label="Object 03 · Pull Out Bread">
                 <video preload="metadata" muted poster="video/posters/tissue_obj.mp4.png" aria-hidden="true"><source src="video/tissue_obj.mp4" type="video/mp4"></video>
                 <span>Pull Out Bread</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/stamp_obj.mp4" data-video-poster="video/posters/stamp_obj.mp4.png" data-video-label="Object 04 · Stamp Notebook">
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_obj.mp4" data-video-poster="video/posters/stamp_obj.mp4.png" data-video-label="Object 04 · Children's Stamp">
                 <video preload="metadata" muted poster="video/posters/stamp_obj.mp4.png" aria-hidden="true"><source src="video/stamp_obj.mp4" type="video/mp4"></video>
-                <span>Stamp Notebook</span>
+                <span>Children's Stamp</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/sugar_obj.mp4" data-video-poster="video/posters/sugar_obj.mp4.png" data-video-label="Object 05 · Scoop Sugar Cube">
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_obj.mp4" data-video-poster="video/posters/sugar_obj.mp4.png" data-video-label="Object 05 · Scoop Candy">
                 <video preload="metadata" muted poster="video/posters/sugar_obj.mp4.png" aria-hidden="true"><source src="video/sugar_obj.mp4" type="video/mp4"></video>
-                <span>Scoop Sugar Cube</span>
+                <span>Scoop Candy</span>
               </button>
             </div>
           </div>
