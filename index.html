@@ -286,6 +286,61 @@
       border-radius: 0 8px 8px 0;
     }
 
+    .formula-card {
+      margin: 22px 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .formula-card h4 {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .formula-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .formula-block {
+      margin: 16px 0;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: var(--soft);
+      overflow-x: auto;
+    }
+
+    .formula-block mjx-container {
+      margin: 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .formula-split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .formula-mode {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(242, 239, 232, 0.45);
+    }
+
+    .formula-mode strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
     .video-box,
     .figure-box {
       margin: 20px 0;
@@ -735,6 +790,7 @@
 
       .simple-diagram,
       .triple-diagram,
+      .formula-split,
       .chart-row,
       .chart-row.three {
         grid-template-columns: 1fr;
@@ -766,6 +822,18 @@
       }
     }
   </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]]
+      },
+      svg: {
+        fontCache: "global"
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
 <body>
@@ -787,6 +855,7 @@
       <strong>On this page</strong>
       <a href="#training" data-spy-link>1. Training</a>
       <a class="sub" href="#definition" data-spy-link>Why next state?</a>
+      <a class="sub" href="#formalization" data-spy-link>Formalization</a>
       <a class="sub" href="#learning" data-spy-link>How to learn?</a>
       <a class="sub" href="#recipe" data-spy-link>Query architecture</a>
       <a class="sub" href="#downstream" data-spy-link>Action readouts</a>
@@ -908,6 +977,83 @@
 
       <div class="figure-box">
         <img src="figs/concept.png" alt="Conceptual illustration of Orca moving from passive task-driven prediction to active world learning.">
+      </div>
+
+      <h3 id="formalization">Formalization: latent world-state modeling</h3>
+      <p>
+        Orca formulates world learning as latent world-state modeling: first abstracting a state from
+        multimodal world signals, then modeling how that state changes under interventions. Given world
+        signals from multiple modalities, Orca maps observations into a latent state space and predicts
+        state transitions rather than modality-specific outputs.
+      </p>
+
+      <div class="formula-card">
+        <h4>Macro formulation</h4>
+        <p>
+          Let \(\mathcal{X}=\{X^m\}_{m\in\mathcal{M}}\) denote available world signals, where
+          \(\mathcal{M}\) may include text, vision, audio, robot joint actions, and physical signals beyond
+          direct human perception. Orca abstracts the current world state as:
+        </p>
+        <div class="formula-block">
+          \[
+            S_t = f_{\theta}(X_t), \qquad S_t \in \mathcal{S}.
+          \]
+        </div>
+        <p>
+          The state then evolves over time under an intervention \(A_t\). We model the transition as:
+        </p>
+        <div class="formula-block">
+          \[
+            S_{t+\Delta} \sim p_{\Theta}(S_{t+\Delta}\mid S_t, A_t),
+            \qquad \Delta \in \mathbb{Z}\setminus\{0\}.
+          \]
+        </div>
+        <p>
+          Here, \(\Delta&gt;0\) represents predicting future states, while \(\Delta&lt;0\) represents
+          backtracking to earlier states.
+        </p>
+      </div>
+
+      <div class="formula-card">
+        <h4>Orca instantiation</h4>
+        <p>
+          In the current instantiation, Orca uses visual and text signals, and decomposes the transition
+          condition into explicit semantic conditions \(c_t\) and implicit dynamics \(z_t\). The intervention
+          is written as \(A_t=(c_t,z_t)\), giving:
+        </p>
+        <div class="formula-block">
+          \[
+            S_{t+\Delta} \sim p_{\Theta}(S_{t+\Delta}\mid S_t, c_t, z_t),
+            \qquad \Delta \in \mathbb{Z}\setminus\{0\}.
+          \]
+        </div>
+
+        <div class="formula-split">
+          <div class="formula-mode">
+            <strong>Unconscious learning</strong>
+            <p>
+              Observation-only learning sets \(c_t=\emptyset\), allowing Orca to learn dense natural
+              transitions from implicit dynamics:
+            </p>
+            <div class="formula-block">
+              \[
+                S_{t+\Delta}\sim p^u_{\Theta}(S_{t+\Delta}\mid S_t,z_t).
+              \]
+            </div>
+          </div>
+          <div class="formula-mode">
+            <strong>Conscious learning</strong>
+            <p>
+              Semantic learning sets \(c_t=e_t\), where \(e_t\) may be an event, instruction, intention, or
+              counterfactual premise:
+            </p>
+            <div class="formula-block">
+              \[
+                S_{t+\Delta}\sim p^c_{\Theta}(S_{t+\Delta}\mid S_t,e_t,z_t).
+              \]
+            </div>
+          </div>
+        </div>
       </div>
 
       <h3 id="learning">How: conscious and unconscious learning</h3>
