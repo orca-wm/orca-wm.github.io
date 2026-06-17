@@ -127,6 +127,12 @@
       line-height: 1.35;
     }
 
+    .side-toc a:not(.sub) {
+      margin-top: 6px;
+      color: #4b514c;
+      font-weight: 650;
+    }
+
     .side-toc a:hover {
       color: var(--text);
       text-decoration: none;
@@ -141,6 +147,17 @@
     .side-toc .sub {
       padding-left: 24px;
       font-size: 13px;
+    }
+
+    .side-toc .sub::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      margin: 0 8px 2px 0;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: 0.45;
     }
 
     main {
@@ -204,6 +221,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fffdf8;
+      scroll-margin-top: 92px;
     }
 
     .abstract h2 {
@@ -719,6 +737,14 @@
         font-size: 13px;
       }
 
+      .side-toc a:not(.sub) {
+        margin-top: 0;
+      }
+
+      .side-toc .sub::before {
+        display: none;
+      }
+
       .side-toc a.active {
         border-color: var(--link);
         background: var(--soft);
@@ -780,21 +806,21 @@
 
   <div class="reader-layout">
     <aside class="side-toc" aria-label="Reading navigation">
-      <strong>On this page</strong>
+      <strong>Roadmap</strong>
       <a href="#abstract" data-spy-link>Abstract</a>
       <a href="#training" data-spy-link>1. Training</a>
-      <a class="sub" href="#definition" data-spy-link>Why states, not modalities?</a>
-      <a class="sub" href="#learning" data-spy-link>Conscious & unconscious learning</a>
-      <a class="sub" href="#recipe" data-spy-link>Query 1 / Query 2 recipe</a>
+      <a class="sub" href="#definition" data-spy-link>Next-state objective</a>
+      <a class="sub" href="#learning" data-spy-link>Dual learning paradigms</a>
+      <a class="sub" href="#recipe" data-spy-link>Query-based objectives</a>
       <a class="sub" href="#downstream" data-spy-link>Downstream readouts</a>
       <a href="#data" data-spy-link>2. Data</a>
-      <a class="sub" href="#composition" data-spy-link>World resources</a>
+      <a class="sub" href="#composition" data-spy-link>World-learning resources</a>
       <a href="#evaluation" data-spy-link>3. Evaluation</a>
-      <a class="sub" href="#q1" data-spy-link>Q1: Scale-up</a>
+      <a class="sub" href="#q1" data-spy-link>Q1: Scaling behavior</a>
       <a class="sub" href="#understand" data-spy-link>Q2.1: Understand the world</a>
       <a class="sub" href="#predict" data-spy-link>Q2.2: Predict the world</a>
       <a class="sub" href="#change" data-spy-link>Q2.3: Change the world</a>
-      <a href="#citation" data-spy-link>Citation</a>
+      <a href="#citation" data-spy-link>References</a>
     </aside>
 
     <main id="top">
@@ -811,17 +837,21 @@
       <div class="abstract" id="abstract">
         <h2>Abstract</h2>
         <p>
-          We introduce Orca, a world learner that learns a unified world latent from multimodal world
-          signals and exposes it through multimodal interfaces. Orca learns through two complementary
-          paradigms: unconscious learning, which captures dense natural state transitions from continuous
-          videos, and conscious learning, which uses language-described events and VQA supervision to model
-          meaningful state transitions. We construct large-scale world-learning resources, including 125K
-          hours of video, 130M event annotations, and 11.5M VQA examples. After pre-training, Orca directly
-          uses the native language modeling head for text generation, while keeping the learned backbone
-          frozen and adapting lightweight readout modules for image prediction and embodied action
-          generation. Experiments show that Orca learns an effective world latent representation, achieves
-          strong performance across language benchmarks, improves real-world interaction image prediction
-          over image generation baselines, and enhances embodied action generation for manipulation tasks.
+          We introduce <strong>Orca</strong>, a world learner that learns a unified world latent from
+          multimodal world signals and exposes it through multimodal interfaces. Orca learns the world
+          through two complementary paradigms: <strong><em>unconscious learning</em></strong>, which
+          captures dense natural state transitions from continuous videos, and
+          <strong><em>conscious learning</em></strong>, which uses language-described events and VQA
+          supervision to model meaningful state transition. In addition, we construct large-scale
+          world-learning resources, including 126K hours of video, 130M event annotations, and 11.5M VQA
+          examples, to support two learning paradigm. After pre-training, Orca directly uses the native
+          language modeling head for text generation, while keeping the learned backbone frozen and adapting
+          lightweight readout modules for image prediction and embodied action generation. Experiments show
+          that Orca learns an effective world latent representation, achieves strong performance across
+          language benchmarks, improves real-world interaction image prediction over image generation
+          baselines, and enhances embodied action generation for manipulation tasks. These results suggest
+          that Orca's world-learning paradigm provides a promising path toward models that can understand,
+          predict, and act upon the world.
         </p>
       </div>
 
@@ -872,8 +902,8 @@
           </div>
           <div class="diagram-cell">
             <strong>Next frame prediction</strong>
-            Image and video models capture visual dynamics, but pixel prediction can reward appearance
-            realism without enforcing causal state understanding.
+            Image and video models capture visual dynamics, but pixel prediction can reward realism
+            over causal state understanding.
           </div>
           <div class="diagram-cell">
             <strong>Next action prediction</strong>
@@ -940,13 +970,13 @@
         <li>Collect multimodal world signals from visual, language, event, and VQA data.</li>
         <li>Use video data to learn observation-only state transitions through unconscious learning.</li>
         <li>Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
-        <li>Distill both learning modes into a unified world latent representation.</li>
+        <li>Train the three objectives jointly to learn a unified world latent representation.</li>
       </ol>
 
       <h3 id="downstream">Action: using the world state through downstream readouts</h3>
       <p>
         Once learned, the world latent can be decoded through different interfaces. This is the practical
-        reason for treating world state as the central representation: the same cognition can support a
+        reason for treating world state as the central representation: the same world latent can support a
         language readout for explanation and reasoning, a vision readout for prediction and imagination,
         and an action readout for intervention.
       </p>
@@ -956,7 +986,7 @@
       </div>
 
       <ul>
-        <li><strong>Observation:</strong> gather multimodal world signals from video, language, event, VQA, and robot data.</li>
+        <li><strong>Observation:</strong> gather video, event, and VQA data grounded in real-world observations.</li>
         <li><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
         <li><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
         <li><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
@@ -968,7 +998,7 @@
 
       <h3 id="composition">World-learning resources</h3>
       <p>
-        Orca is trained with large-scale world-learning resources designed for the ORCA loop:
+        Orca is trained with large-scale world-learning resources designed for Orca's world-learning paradigm:
         125K hours of video for dense natural state transitions, 130M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
       </p>
