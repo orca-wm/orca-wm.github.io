@@ -640,6 +640,11 @@
       margin: 0;
     }
 
+    .results-table th,
+    .results-table td {
+      vertical-align: middle;
+    }
+
     th,
     td {
       padding: 10px 12px;
@@ -835,10 +840,6 @@
           <source src="figs/demo.mp4" type="video/mp4">
           Your browser does not support this video format.
         </video>
-        <div class="video-note">
-          <strong>Main Demo</strong>
-          Orca demo video: <code>figs/demo.mp4</code>.
-        </div>
       </div>
     </header>
 
@@ -1061,129 +1062,131 @@ through conscious learning.
       <h4>Results</h4>
 
 
-      <table>
-        <thead>
-          <tr>
-            <th>Model group</th>
-            <th>Size(B)</th>
-            <th>MVBench</th>
-            <th>TemporalBench</th>
-            <th>3DSRBench</th>
-            <th>SWITCH</th>
-            <th>Overall</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background: var(--soft);">
-            <th colspan="7" scope="rowgroup"><em>World Models (Large size)</em></th>
-          </tr>
-          <tr>
-            <td>V-JEPA 2.1 (+LLaMA3-8B)<a class="citation" href="#ref-vjepa21">(Mur-Labadia et al., 2026)</a></td>
-            <td>10</td>
-            <td style="border-left: 2px solid var(--line);"><strong>75.4</strong></td>
-            <td>28.5</td>
-            <td>/</td>
-            <td>/</td>
-            <td style="border-left: 2px solid var(--line);">/</td>
-          </tr>
-          <tr>
-            <td>Emu3<a class="citation" href="#ref-emu3">(Wang et al., 2026a)</a></td>
-            <td>8</td>
-            <td style="border-left: 2px solid var(--line);">35.2</td>
-            <td>9.5</td>
-            <td>39.1</td>
-            <td>38.0</td>
-            <td style="border-left: 2px solid var(--line);">30.4</td>
-          </tr>
-          <tr>
-            <td>Emu3.5<a class="citation" href="#ref-emu35">(Cui et al., 2025)</a></td>
-            <td>34</td>
-            <td style="border-left: 2px solid var(--line);">39.5</td>
-            <td>9.5</td>
-            <td>31.3</td>
-            <td>38.9</td>
-            <td style="border-left: 2px solid var(--line);">29.8</td>
-          </tr>
-          <tr style="background: var(--soft);">
-            <th colspan="7" scope="rowgroup"><em>Vision Language Models (Tiny size)</em></th>
-          </tr>
-          <tr>
-            <td>Qwen3.5<a class="citation" href="#ref-qwen35">(Team, 2026)</a></td>
-            <td>0.8</td>
-            <td style="border-left: 2px solid var(--line);">52.7</td>
-            <td>19.1</td>
-            <td>14.3</td>
-            <td>38.8</td>
-            <td style="border-left: 2px solid var(--line);">31.2</td>
-          </tr>
-          <tr>
-            <td>Gemma 4<a class="citation" href="#ref-gemma4">(Deepmind, 2026b)</a></td>
-            <td>2</td>
-            <td style="border-left: 2px solid var(--line);">32.5</td>
-            <td>17.1</td>
-            <td>29.5</td>
-            <td>39.9</td>
-            <td style="border-left: 2px solid var(--line);">29.8</td>
-          </tr>
-          <tr>
-            <td>SmolVLM2<a class="citation" href="#ref-smolvlm">(Marafioti et al., 2025)</a></td>
-            <td>2</td>
-            <td style="border-left: 2px solid var(--line);">48.7</td>
-            <td>18.4</td>
-            <td>35.5</td>
-            <td>32.0</td>
-            <td style="border-left: 2px solid var(--line);">33.7</td>
-          </tr>
-          <tr>
-            <td>MiniCPM-V-4.6<a class="citation" href="#ref-minicpm">(Cui et al., 2026)</a></td>
-            <td>2</td>
-            <td style="border-left: 2px solid var(--line);">41.4</td>
-            <td>21.2</td>
-            <td>47.7</td>
-            <td>41.2</td>
-            <td style="border-left: 2px solid var(--line);">37.9</td>
-          </tr>
-          <tr style="background: var(--soft);">
-            <th colspan="7" scope="rowgroup"><em>Vision Language Models (Small size)</em></th>
-          </tr>
-          <tr>
-            <td>DeepSeek-VL2<a class="citation" href="#ref-deepseek-vl2">(Wu et al., 2025b)</a></td>
-            <td>3</td>
-            <td style="border-left: 2px solid var(--line);">40.5</td>
-            <td>21.0</td>
-            <td>32.1</td>
-            <td>35.5</td>
-            <td style="border-left: 2px solid var(--line);">32.3</td>
-          </tr>
-          <tr>
-            <td>Qwen3.5<a class="citation" href="#ref-qwen35">(Team, 2026)</a></td>
-            <td>4</td>
-            <td style="border-left: 2px solid var(--line);">67.1</td>
-            <td>25.2</td>
-            <td>48.1</td>
-            <td>42.8</td>
-            <td style="border-left: 2px solid var(--line);">46.7</td>
-          </tr>
-          <tr>
-            <td>Gemma 4<a class="citation" href="#ref-gemma4">(Deepmind, 2026b)</a></td>
-            <td>4</td>
-            <td style="border-left: 2px solid var(--line);">45.6</td>
-            <td>20.2</td>
-            <td>44.8</td>
-            <td>52.4</td>
-            <td style="border-left: 2px solid var(--line);">40.8</td>
-          </tr>
-          <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
-            <td><strong>Orca</strong></td>
-            <td>4</td>
-            <td style="border-left: 2px solid var(--line);">65.3</td>
-            <td><strong>34.2</strong></td>
-            <td><strong>52.1</strong></td>
-            <td><strong>55.6</strong></td>
-            <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Model group</th>
+              <th>Size(B)</th>
+              <th>MVBench</th>
+              <th>TemporalBench</th>
+              <th>3DSRBench</th>
+              <th>SWITCH</th>
+              <th>Overall</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: var(--soft);">
+              <th colspan="7" scope="rowgroup"><em>World Models (Large size)</em></th>
+            </tr>
+            <tr>
+              <td>V-JEPA 2.1 (+LLaMA3-8B)<a class="citation" href="#ref-vjepa21">(Mur-Labadia et al., 2026)</a></td>
+              <td>10</td>
+              <td style="border-left: 2px solid var(--line);"><strong>75.4</strong></td>
+              <td>28.5</td>
+              <td>/</td>
+              <td>/</td>
+              <td style="border-left: 2px solid var(--line);">/</td>
+            </tr>
+            <tr>
+              <td>Emu3<a class="citation" href="#ref-emu3">(Wang et al., 2026a)</a></td>
+              <td>8</td>
+              <td style="border-left: 2px solid var(--line);">35.2</td>
+              <td>9.5</td>
+              <td>39.1</td>
+              <td>38.0</td>
+              <td style="border-left: 2px solid var(--line);">30.4</td>
+            </tr>
+            <tr>
+              <td>Emu3.5<a class="citation" href="#ref-emu35">(Cui et al., 2025)</a></td>
+              <td>34</td>
+              <td style="border-left: 2px solid var(--line);">39.5</td>
+              <td>9.5</td>
+              <td>31.3</td>
+              <td>38.9</td>
+              <td style="border-left: 2px solid var(--line);">29.8</td>
+            </tr>
+            <tr style="background: var(--soft);">
+              <th colspan="7" scope="rowgroup"><em>Vision Language Models (Tiny size)</em></th>
+            </tr>
+            <tr>
+              <td>Qwen3.5<a class="citation" href="#ref-qwen35">(Team, 2026)</a></td>
+              <td>0.8</td>
+              <td style="border-left: 2px solid var(--line);">52.7</td>
+              <td>19.1</td>
+              <td>14.3</td>
+              <td>38.8</td>
+              <td style="border-left: 2px solid var(--line);">31.2</td>
+            </tr>
+            <tr>
+              <td>Gemma 4<a class="citation" href="#ref-gemma4">(Deepmind, 2026b)</a></td>
+              <td>2</td>
+              <td style="border-left: 2px solid var(--line);">32.5</td>
+              <td>17.1</td>
+              <td>29.5</td>
+              <td>39.9</td>
+              <td style="border-left: 2px solid var(--line);">29.8</td>
+            </tr>
+            <tr>
+              <td>SmolVLM2<a class="citation" href="#ref-smolvlm">(Marafioti et al., 2025)</a></td>
+              <td>2</td>
+              <td style="border-left: 2px solid var(--line);">48.7</td>
+              <td>18.4</td>
+              <td>35.5</td>
+              <td>32.0</td>
+              <td style="border-left: 2px solid var(--line);">33.7</td>
+            </tr>
+            <tr>
+              <td>MiniCPM-V-4.6<a class="citation" href="#ref-minicpm">(Cui et al., 2026)</a></td>
+              <td>2</td>
+              <td style="border-left: 2px solid var(--line);">41.4</td>
+              <td>21.2</td>
+              <td>47.7</td>
+              <td>41.2</td>
+              <td style="border-left: 2px solid var(--line);">37.9</td>
+            </tr>
+            <tr style="background: var(--soft);">
+              <th colspan="7" scope="rowgroup"><em>Vision Language Models (Small size)</em></th>
+            </tr>
+            <tr>
+              <td>DeepSeek-VL2<a class="citation" href="#ref-deepseek-vl2">(Wu et al., 2025b)</a></td>
+              <td>3</td>
+              <td style="border-left: 2px solid var(--line);">40.5</td>
+              <td>21.0</td>
+              <td>32.1</td>
+              <td>35.5</td>
+              <td style="border-left: 2px solid var(--line);">32.3</td>
+            </tr>
+            <tr>
+              <td>Qwen3.5<a class="citation" href="#ref-qwen35">(Team, 2026)</a></td>
+              <td>4</td>
+              <td style="border-left: 2px solid var(--line);">67.1</td>
+              <td>25.2</td>
+              <td>48.1</td>
+              <td>42.8</td>
+              <td style="border-left: 2px solid var(--line);">46.7</td>
+            </tr>
+            <tr>
+              <td>Gemma 4<a class="citation" href="#ref-gemma4">(Deepmind, 2026b)</a></td>
+              <td>4</td>
+              <td style="border-left: 2px solid var(--line);">45.6</td>
+              <td>20.2</td>
+              <td>44.8</td>
+              <td>52.4</td>
+              <td style="border-left: 2px solid var(--line);">40.8</td>
+            </tr>
+            <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
+              <td><strong>Orca</strong></td>
+              <td>4</td>
+              <td style="border-left: 2px solid var(--line);">65.3</td>
+              <td><strong>34.2</strong></td>
+              <td><strong>52.1</strong></td>
+              <td><strong>55.6</strong></td>
+              <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p>
         <b>Orca achieves the best overall performance among 4B-scale small VLMs, outperforming Qwen3.5 and Gemma 4 with the same parameter size.</b>
