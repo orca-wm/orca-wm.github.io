@@ -889,7 +889,7 @@
           captures dense natural state transitions from continuous videos, and
           <strong><em>conscious learning</em></strong>, which uses language-described events, and VQA
           supervision to model meaningful state transitions. In addition, we construct large-scale
-          world-learning resources, including 125k hours of video, 130M event annotations, and 11.5M VQA
+          world-learning resources, including 125K hours of video, 130M event annotations, and 11.5M VQA
           examples, to support two learning paradigms. After pre-training, Orca directly uses the native
           language modeling head for text generation, while keeping the learned backbone frozen and adapting
           lightweight readout modules for image prediction and embodied action generation. Experiments show
@@ -1097,13 +1097,13 @@
         <li>Collect multimodal world signals from visual, language, event, and VQA data.</li>
         <li>Use video data to learn observation-only state transitions through unconscious learning.</li>
         <li>Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
-        <li>Distill both learning modes into a unified world latent representation.</li>
+        <li>Train the three objectives jointly to learn a unified world latent representation.</li>
       </ol>
 
       <h3 id="downstream">Action: using the world state through downstream readouts</h3>
       <p>
         Once learned, the world latent can be decoded through different interfaces. This is the practical
-        reason for treating world state as the central representation: the same cognition can support a
+        reason for treating world state as the central representation: the same world latent can support a
         language readout for explanation and reasoning, a vision readout for prediction and imagination,
         and an action readout for intervention.
       </p>
@@ -1125,8 +1125,8 @@
 
       <h3 id="composition">World-learning resources</h3>
       <p>
-        Orca is trained with large-scale world-learning resources designed for the ORCA loop:
-        125k hours of video for dense natural state transitions, 130M event annotations for language-described
+        Orca is trained with large-scale world-learning resources designed for Orca&apos;s world-learning paradigm:
+        125K hours of video for dense natural state transitions, 130M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
       </p>
 
@@ -1141,7 +1141,7 @@
         <tbody>
           <tr>
             <td>Continuous video</td>
-            <td>125k hours</td>
+            <td>125K hours</td>
             <td>Observation signals for dense natural state transitions.</td>
           </tr>
           <tr>
