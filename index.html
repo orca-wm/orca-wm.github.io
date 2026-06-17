@@ -127,6 +127,12 @@
       line-height: 1.35;
     }
 
+    .side-toc a:not(.sub) {
+      margin-top: 6px;
+      color: #4b514c;
+      font-weight: 650;
+    }
+
     .side-toc a:hover {
       color: var(--text);
       text-decoration: none;
@@ -141,6 +147,17 @@
     .side-toc .sub {
       padding-left: 24px;
       font-size: 13px;
+    }
+
+    .side-toc .sub::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      margin: 0 8px 2px 0;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: 0.45;
     }
 
     main {
@@ -204,6 +221,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fffdf8;
+      scroll-margin-top: 92px;
     }
 
     .abstract h2 {
@@ -335,21 +353,6 @@
     .video-box video {
       aspect-ratio: 16 / 9;
       object-fit: contain;
-    }
-
-    .video-note {
-      padding: 12px 14px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-      background: #fffdf8;
-    }
-
-    .video-note strong {
-      display: block;
-      margin-bottom: 2px;
-      color: var(--text);
-      font-size: 14px;
     }
 
     .galbot-gallery {
@@ -640,6 +643,16 @@
       margin: 0;
     }
 
+    .results-table th,
+    .results-table td {
+      vertical-align: middle;
+    }
+
+    .model-link {
+      color: var(--link);
+      font-weight: 650;
+    }
+
     th,
     td {
       padding: 10px 12px;
@@ -724,6 +737,14 @@
         font-size: 13px;
       }
 
+      .side-toc a:not(.sub) {
+        margin-top: 0;
+      }
+
+      .side-toc .sub::before {
+        display: none;
+      }
+
       .side-toc a.active {
         border-color: var(--link);
         background: var(--soft);
@@ -775,7 +796,7 @@
         <img class="brand-logo" src="figs/orca_logo.jpg" alt="Orca">
       </a>
       <div class="links">
-        <a href="#demo">Demo</a>
+        <a href="#demo">Abstract</a>
         <a href="#training">Training</a>
         <a href="#data">Data</a>
         <a href="#evaluation">Evaluation</a>
@@ -785,21 +806,21 @@
 
   <div class="reader-layout">
     <aside class="side-toc" aria-label="Reading navigation">
-      <strong>On this page</strong>
-      <a href="#demo" data-spy-link>Demo video</a>
+      <strong>Roadmap</strong>
+      <a href="#demo" data-spy-link>Abstract</a>
       <a href="#training" data-spy-link>1. Training</a>
-      <a class="sub" href="#definition" data-spy-link>Why next state?</a>
-      <a class="sub" href="#learning" data-spy-link>How to learn?</a>
-      <a class="sub" href="#recipe" data-spy-link>Query architecture</a>
-      <a class="sub" href="#downstream" data-spy-link>Action readouts</a>
+      <a class="sub" href="#definition" data-spy-link>Next-state objective</a>
+      <a class="sub" href="#learning" data-spy-link>Dual learning paradigms</a>
+      <a class="sub" href="#recipe" data-spy-link>Query-based objectives</a>
+      <a class="sub" href="#downstream" data-spy-link>Downstream readouts</a>
       <a href="#data" data-spy-link>2. Data</a>
-      <a class="sub" href="#composition" data-spy-link>World resources</a>
+      <a class="sub" href="#composition" data-spy-link>World-learning resources</a>
       <a href="#evaluation" data-spy-link>3. Evaluation</a>
-      <a class="sub" href="#q1" data-spy-link>Q1 scale-up</a>
-      <a class="sub" href="#understand" data-spy-link>Understand</a>
-      <a class="sub" href="#predict" data-spy-link>Predict</a>
-      <a class="sub" href="#change" data-spy-link>Change</a>
-      <a href="#citation" data-spy-link>Citation</a>
+      <a class="sub" href="#q1" data-spy-link>Q1: Scaling behavior</a>
+      <a class="sub" href="#understand" data-spy-link>Q2.1: Understand the world</a>
+      <a class="sub" href="#predict" data-spy-link>Q2.2: Predict the world</a>
+      <a class="sub" href="#change" data-spy-link>Q2.3: Change the world</a>
+      <a href="#citation" data-spy-link>References</a>
     </aside>
 
     <main id="top">
@@ -813,20 +834,24 @@
       </p>
       <p class="meta">Orca Team · Beijing Academy of Artificial Intelligence</p>
 
-      <div class="abstract">
+      <div class="abstract" id="abstract">
         <h2>Abstract</h2>
         <p>
-          We introduce Orca, a world learner that learns a unified world latent from multimodal world
-          signals and exposes it through multimodal interfaces. Orca learns through two complementary
-          paradigms: unconscious learning, which captures dense natural state transitions from continuous
-          videos, and conscious learning, which uses language-described events and VQA supervision to model
-          meaningful state transitions. We construct large-scale world-learning resources, including 126K
-          hours of video, 130M event annotations, and 11.5M VQA examples. After pre-training, Orca directly
-          uses the native language modeling head for text generation, while keeping the learned backbone
-          frozen and adapting lightweight readout modules for image prediction and embodied action
-          generation. Experiments show that Orca learns an effective world latent representation, achieves
-          strong performance across language benchmarks, improves real-world interaction image prediction
-          over image generation baselines, and enhances embodied action generation for manipulation tasks.
+          We introduce <strong>Orca</strong>, a world learner that learns a unified world latent from
+          multimodal world signals and exposes it through multimodal interfaces. Orca learns the world
+          through two complementary paradigms: <strong><em>unconscious learning</em></strong>, which
+          captures dense natural state transitions from continuous videos, and
+          <strong><em>conscious learning</em></strong>, which uses language-described events and VQA
+          supervision to model meaningful state transition. In addition, we construct large-scale
+          world-learning resources, including 126K hours of video, 130M event annotations, and 11.5M VQA
+          examples, to support two learning paradigm. After pre-training, Orca directly uses the native
+          language modeling head for text generation, while keeping the learned backbone frozen and adapting
+          lightweight readout modules for image prediction and embodied action generation. Experiments show
+          that Orca learns an effective world latent representation, achieves strong performance across
+          language benchmarks, improves real-world interaction image prediction over image generation
+          baselines, and enhances embodied action generation for manipulation tasks. These results suggest
+          that Orca's world-learning paradigm provides a promising path toward models that can understand,
+          predict, and act upon the world.
         </p>
       </div>
 
@@ -835,10 +860,6 @@
           <source src="figs/demo.mp4" type="video/mp4">
           Your browser does not support this video format.
         </video>
-        <div class="video-note">
-          <strong>Main Demo</strong>
-          Orca demo video: <code>figs/demo.mp4</code>.
-        </div>
       </div>
     </header>
 
@@ -881,8 +902,8 @@
           </div>
           <div class="diagram-cell">
             <strong>Next frame prediction</strong>
-            Image and video models capture visual dynamics, but pixel prediction can reward appearance
-            realism without enforcing causal state understanding.
+            Image and video models capture visual dynamics, but pixel prediction can reward realism
+            over causal state understanding.
           </div>
           <div class="diagram-cell">
             <strong>Next action prediction</strong>
@@ -949,13 +970,13 @@
         <li>Collect multimodal world signals from visual, language, event, and VQA data.</li>
         <li>Use video data to learn observation-only state transitions through unconscious learning.</li>
         <li>Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
-        <li>Distill both learning modes into a unified world latent representation.</li>
+        <li>Train the three objectives jointly to learn a unified world latent representation.</li>
       </ol>
 
       <h3 id="downstream">Action: using the world state through downstream readouts</h3>
       <p>
         Once learned, the world latent can be decoded through different interfaces. This is the practical
-        reason for treating world state as the central representation: the same cognition can support a
+        reason for treating world state as the central representation: the same world latent can support a
         language readout for explanation and reasoning, a vision readout for prediction and imagination,
         and an action readout for intervention.
       </p>
@@ -965,7 +986,7 @@
       </div>
 
       <ul>
-        <li><strong>Observation:</strong> gather multimodal world signals from video, language, event, VQA, and robot data.</li>
+        <li><strong>Observation:</strong> gather video, event, and VQA data grounded in real-world observations.</li>
         <li><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
         <li><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
         <li><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
@@ -977,8 +998,8 @@
 
       <h3 id="composition">World-learning resources</h3>
       <p>
-        Orca is trained with large-scale world-learning resources designed for the ORCA loop:
-        126K hours of video for dense natural state transitions, 130M event annotations for language-described
+        Orca is trained with large-scale world-learning resources designed for Orca's world-learning paradigm:
+        125K hours of video for dense natural state transitions, 130M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
       </p>
 
@@ -993,7 +1014,7 @@
         <tbody>
           <tr>
             <td>Continuous video</td>
-            <td>126K hours</td>
+            <td>125K hours</td>
             <td>Observation signals for dense natural state transitions.</td>
           </tr>
           <tr>
@@ -1061,129 +1082,131 @@ through conscious learning.
       <h4>Results</h4>
 
 
-      <table>
-        <thead>
-          <tr>
-            <th>Model group</th>
-            <th>Size(B)</th>
-            <th>MVBench</th>
-            <th>TemporalBench</th>
-            <th>3DSRBench</th>
-            <th>SWITCH</th>
-            <th>Overall</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background: var(--soft);">
-            <th colspan="7" scope="rowgroup"><em>World Models (Large size)</em></th>
-          </tr>
-          <tr>
-            <td>V-JEPA 2.1 (+LLaMA3-8B)<a class="citation" href="#ref-vjepa21">(Mur-Labadia et al., 2026)</a></td>
-            <td>10</td>
-            <td style="border-left: 2px solid var(--line);"><strong>75.4</strong></td>
-            <td>28.5</td>
-            <td>/</td>
-            <td>/</td>
-            <td style="border-left: 2px solid var(--line);">/</td>
-          </tr>
-          <tr>
-            <td>Emu3<a class="citation" href="#ref-emu3">(Wang et al., 2026a)</a></td>
-            <td>8</td>
-            <td style="border-left: 2px solid var(--line);">35.2</td>
-            <td>9.5</td>
-            <td>39.1</td>
-            <td>38.0</td>
-            <td style="border-left: 2px solid var(--line);">30.4</td>
-          </tr>
-          <tr>
-            <td>Emu3.5<a class="citation" href="#ref-emu35">(Cui et al., 2025)</a></td>
-            <td>34</td>
-            <td style="border-left: 2px solid var(--line);">39.5</td>
-            <td>9.5</td>
-            <td>31.3</td>
-            <td>38.9</td>
-            <td style="border-left: 2px solid var(--line);">29.8</td>
-          </tr>
-          <tr style="background: var(--soft);">
-            <th colspan="7" scope="rowgroup"><em>Vision Language Models (Tiny size)</em></th>
-          </tr>
-          <tr>
-            <td>Qwen3.5<a class="citation" href="#ref-qwen35">(Team, 2026)</a></td>
-            <td>0.8</td>
-            <td style="border-left: 2px solid var(--line);">52.7</td>
-            <td>19.1</td>
-            <td>14.3</td>
-            <td>38.8</td>
-            <td style="border-left: 2px solid var(--line);">31.2</td>
-          </tr>
-          <tr>
-            <td>Gemma 4<a class="citation" href="#ref-gemma4">(Deepmind, 2026b)</a></td>
-            <td>2</td>
-            <td style="border-left: 2px solid var(--line);">32.5</td>
-            <td>17.1</td>
-            <td>29.5</td>
-            <td>39.9</td>
-            <td style="border-left: 2px solid var(--line);">29.8</td>
-          </tr>
-          <tr>
-            <td>SmolVLM2<a class="citation" href="#ref-smolvlm">(Marafioti et al., 2025)</a></td>
-            <td>2</td>
-            <td style="border-left: 2px solid var(--line);">48.7</td>
-            <td>18.4</td>
-            <td>35.5</td>
-            <td>32.0</td>
-            <td style="border-left: 2px solid var(--line);">33.7</td>
-          </tr>
-          <tr>
-            <td>MiniCPM-V-4.6<a class="citation" href="#ref-minicpm">(Cui et al., 2026)</a></td>
-            <td>2</td>
-            <td style="border-left: 2px solid var(--line);">41.4</td>
-            <td>21.2</td>
-            <td>47.7</td>
-            <td>41.2</td>
-            <td style="border-left: 2px solid var(--line);">37.9</td>
-          </tr>
-          <tr style="background: var(--soft);">
-            <th colspan="7" scope="rowgroup"><em>Vision Language Models (Small size)</em></th>
-          </tr>
-          <tr>
-            <td>DeepSeek-VL2<a class="citation" href="#ref-deepseek-vl2">(Wu et al., 2025b)</a></td>
-            <td>3</td>
-            <td style="border-left: 2px solid var(--line);">40.5</td>
-            <td>21.0</td>
-            <td>32.1</td>
-            <td>35.5</td>
-            <td style="border-left: 2px solid var(--line);">32.3</td>
-          </tr>
-          <tr>
-            <td>Qwen3.5<a class="citation" href="#ref-qwen35">(Team, 2026)</a></td>
-            <td>4</td>
-            <td style="border-left: 2px solid var(--line);">67.1</td>
-            <td>25.2</td>
-            <td>48.1</td>
-            <td>42.8</td>
-            <td style="border-left: 2px solid var(--line);">46.7</td>
-          </tr>
-          <tr>
-            <td>Gemma 4<a class="citation" href="#ref-gemma4">(Deepmind, 2026b)</a></td>
-            <td>4</td>
-            <td style="border-left: 2px solid var(--line);">45.6</td>
-            <td>20.2</td>
-            <td>44.8</td>
-            <td>52.4</td>
-            <td style="border-left: 2px solid var(--line);">40.8</td>
-          </tr>
-          <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
-            <td><strong>Orca</strong></td>
-            <td>4</td>
-            <td style="border-left: 2px solid var(--line);">65.3</td>
-            <td><strong>34.2</strong></td>
-            <td><strong>52.1</strong></td>
-            <td><strong>55.6</strong></td>
-            <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Size(B)</th>
+              <th>MVBench</th>
+              <th>TemporalBench</th>
+              <th>3DSRBench</th>
+              <th>SWITCH</th>
+              <th>Overall</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: var(--soft);">
+              <th colspan="7" scope="rowgroup"><em>World Models (Large size)</em></th>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1<br>(+LLaMA3-8B)</a></td>
+              <td>10</td>
+              <td style="border-left: 2px solid var(--line);"><strong>75.4</strong></td>
+              <td>28.5</td>
+              <td>/</td>
+              <td>/</td>
+              <td style="border-left: 2px solid var(--line);">/</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-emu3">Emu3</a></td>
+              <td>8</td>
+              <td style="border-left: 2px solid var(--line);">35.2</td>
+              <td>9.5</td>
+              <td>39.1</td>
+              <td>38.0</td>
+              <td style="border-left: 2px solid var(--line);">30.4</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-emu35">Emu3.5</a></td>
+              <td>34</td>
+              <td style="border-left: 2px solid var(--line);">39.5</td>
+              <td>9.5</td>
+              <td>31.3</td>
+              <td>38.9</td>
+              <td style="border-left: 2px solid var(--line);">29.8</td>
+            </tr>
+            <tr style="background: var(--soft);">
+              <th colspan="7" scope="rowgroup"><em>Vision Language Models (Tiny size)</em></th>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
+              <td>0.8</td>
+              <td style="border-left: 2px solid var(--line);">52.7</td>
+              <td>19.1</td>
+              <td>14.3</td>
+              <td>38.8</td>
+              <td style="border-left: 2px solid var(--line);">31.2</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-gemma4">Gemma 4</a></td>
+              <td>2</td>
+              <td style="border-left: 2px solid var(--line);">32.5</td>
+              <td>17.1</td>
+              <td>29.5</td>
+              <td>39.9</td>
+              <td style="border-left: 2px solid var(--line);">29.8</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-smolvlm">SmolVLM2</a></td>
+              <td>2</td>
+              <td style="border-left: 2px solid var(--line);">48.7</td>
+              <td>18.4</td>
+              <td>35.5</td>
+              <td>32.0</td>
+              <td style="border-left: 2px solid var(--line);">33.7</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-minicpm">MiniCPM-V-4.6</a></td>
+              <td>2</td>
+              <td style="border-left: 2px solid var(--line);">41.4</td>
+              <td>21.2</td>
+              <td>47.7</td>
+              <td>41.2</td>
+              <td style="border-left: 2px solid var(--line);">37.9</td>
+            </tr>
+            <tr style="background: var(--soft);">
+              <th colspan="7" scope="rowgroup"><em>Vision Language Models (Small size)</em></th>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-deepseek-vl2">DeepSeek-VL2</a></td>
+              <td>3</td>
+              <td style="border-left: 2px solid var(--line);">40.5</td>
+              <td>21.0</td>
+              <td>32.1</td>
+              <td>35.5</td>
+              <td style="border-left: 2px solid var(--line);">32.3</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
+              <td>4</td>
+              <td style="border-left: 2px solid var(--line);">67.1</td>
+              <td>25.2</td>
+              <td>48.1</td>
+              <td>42.8</td>
+              <td style="border-left: 2px solid var(--line);">46.7</td>
+            </tr>
+            <tr>
+              <td><a class="model-link" href="#ref-gemma4">Gemma 4</a></td>
+              <td>4</td>
+              <td style="border-left: 2px solid var(--line);">45.6</td>
+              <td>20.2</td>
+              <td>44.8</td>
+              <td>52.4</td>
+              <td style="border-left: 2px solid var(--line);">40.8</td>
+            </tr>
+            <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
+              <td><strong>Orca</strong></td>
+              <td>4</td>
+              <td style="border-left: 2px solid var(--line);">65.3</td>
+              <td><strong>34.2</strong></td>
+              <td><strong>52.1</strong></td>
+              <td><strong>55.6</strong></td>
+              <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p>
         <b>Orca achieves the best overall performance among 4B-scale small VLMs, outperforming Qwen3.5 and Gemma 4 with the same parameter size.</b>
@@ -1568,7 +1591,6 @@ through conscious learning.
             </div>
           </div>
         </div>
-        <div class="video-note">GalBot real-robot videos are loaded from the <code>video/</code> folder.</div>
       </div>
     </section>
 
@@ -1657,17 +1679,9 @@ through conscious learning.
           <strong>SynData.</strong> PsiBot. SynData: A Large-Scale Real-World Multimodal Dataset for
           Embodied Intelligence. Hugging Face Dataset, 2026.
         </li>
-        <li id="ref-libero">
-          <strong>LIBERO.</strong> Bo Liu, Yifeng Zhu, Chongkai Gao, Yihao Feng, Qiang Liu, Yuke Zhu,
-          and Peter Stone. LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning.
-          <em>NeurIPS</em>, 2023.
-        </li>
-        <li id="ref-libero-plus">
-          <strong>LIBERO-Plus.</strong> Senyu Fei et al. LIBERO-Plus: In-depth Robustness Analysis of
-          Vision-Language-Action Models. <em>CVPR</em>, 2026.
-        </li>
         <li id="ref-galbot-g1">
-          <strong>Galbot G1.</strong> Galbot. Galbot G1. 2024.
+          <strong>Galbot G1.</strong> Galbot. Galbot G1, June 2024.
+          URL <a href="https://www.galbot.com/g1">https://www.galbot.com/g1</a>.
         </li>
         <li id="ref-flux1">
           <strong>Flux.1 kontext.</strong> Black Forest Labs et al. Flux.1 kontext: Flow matching for 
