@@ -814,17 +814,21 @@
       <div class="abstract">
         <h2>Abstract</h2>
         <p>
-          We introduce Orca, a world learner that learns a unified world latent from multimodal world
-          signals and exposes it through multimodal interfaces. Orca learns through two complementary
-          paradigms: unconscious learning, which captures dense natural state transitions from continuous
-          videos, and conscious learning, which uses language-described events and VQA supervision to model
-          meaningful state transitions. We construct large-scale world-learning resources, including 126K
-          hours of video, 130M event annotations, and 11.5M VQA examples. After pre-training, Orca directly
-          uses the native language modeling head for text generation, while keeping the learned backbone
-          frozen and adapting lightweight readout modules for image prediction and embodied action
-          generation. Experiments show that Orca learns an effective world latent representation, achieves
-          strong performance across language benchmarks, improves real-world interaction image prediction
-          over image generation baselines, and enhances embodied action generation for manipulation tasks.
+          We introduce <strong>Orca</strong>, a world learner that learns a unified world latent from
+          multimodal world signals and exposes it through multimodal interfaces. Orca learns the world
+          through two complementary paradigms: <strong><em>unconscious learning</em></strong>, which
+          captures dense natural state transitions from continuous videos, and
+          <strong><em>conscious learning</em></strong>, which uses language-described events, and VQA
+          supervision to model meaningful state transitions. In addition, we construct large-scale
+          world-learning resources, including 125k hours of video, 130M event annotations, and 11.5M VQA
+          examples, to support two learning paradigms. After pre-training, Orca directly uses the native
+          language modeling head for text generation, while keeping the learned backbone frozen and adapting
+          lightweight readout modules for image prediction and embodied action generation. Experiments show
+          that Orca learns an effective world latent representation, achieves strong performance across
+          language benchmarks, improves real-world interaction image prediction over image generation
+          baselines, and enhances embodied action generation for manipulation tasks. These results suggest
+          that Orca&apos;s world-learning paradigm provides a promising path toward models that can understand,
+          predict, and act upon the world.
         </p>
       </div>
 
@@ -976,7 +980,7 @@
       <h3 id="composition">World-learning resources</h3>
       <p>
         Orca is trained with large-scale world-learning resources designed for the ORCA loop:
-        126K hours of video for dense natural state transitions, 130M event annotations for language-described
+        125k hours of video for dense natural state transitions, 130M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
       </p>
 
@@ -991,7 +995,7 @@
         <tbody>
           <tr>
             <td>Continuous video</td>
-            <td>126K hours</td>
+            <td>125k hours</td>
             <td>Observation signals for dense natural state transitions.</td>
           </tr>
           <tr>
