@@ -86,10 +86,51 @@
 
     .links {
       display: flex;
+      align-items: center;
       gap: 16px;
       color: var(--muted);
       font-size: 14px;
       white-space: nowrap;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 5px;
+      min-width: 104px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fffdf8;
+      color: var(--text);
+      padding: 4px 9px;
+      line-height: 1.2;
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      line-height: 1.2;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .lang-switch button:hover {
+      color: var(--link);
+    }
+
+    .lang-switch button.is-active {
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .lang-switch .divider {
+      color: var(--muted);
+      font-size: 12px;
     }
 
     .reader-layout {
@@ -799,48 +840,53 @@
         <img class="brand-logo" src="figs/orca_logo.jpg" alt="Orca">
       </a>
       <div class="links">
-        <a href="#demo">Abstract</a>
-        <a href="#training">Training</a>
-        <a href="#data">Data</a>
-        <a href="#evaluation">Evaluation</a>
+        <a href="#demo" data-zh="摘要">Abstract</a>
+        <a href="#training" data-zh="训练">Training</a>
+        <a href="#data" data-zh="数据">Data</a>
+        <a href="#evaluation" data-zh="评测">Evaluation</a>
+        <div class="lang-switch" aria-label="Language switch">
+          <button class="is-active" type="button" data-lang-option="en" aria-pressed="true">English</button>
+          <span class="divider" aria-hidden="true">/</span>
+          <button type="button" data-lang-option="zh" aria-pressed="false">中文</button>
+        </div>
       </div>
     </div>
   </nav>
 
   <div class="reader-layout">
     <aside class="side-toc" aria-label="Reading navigation">
-      <strong>Roadmap</strong>
-      <a href="#demo" data-spy-link>Abstract</a>
-      <a href="#training" data-spy-link>1. Training</a>
-      <a class="sub" href="#definition" data-spy-link>Next-state objective</a>
-      <a class="sub" href="#learning" data-spy-link>Dual learning paradigms</a>
-      <a class="sub" href="#recipe" data-spy-link>Query-based objectives</a>
-      <a class="sub" href="#downstream" data-spy-link>Downstream readouts</a>
-      <a href="#data" data-spy-link>2. Data</a>
-      <a class="sub" href="#composition" data-spy-link>World-learning resources</a>
-      <a href="#evaluation" data-spy-link>3. Evaluation</a>
-      <a class="sub" href="#q1" data-spy-link>Q1: Scaling behavior</a>
-      <a class="sub" href="#q2" data-spy-link>Q2: Downstream performance</a>
-      <a class="sub" href="#understand" data-spy-link>2.1: Understand the world</a>
-      <a class="sub" href="#predict" data-spy-link>2.2: Predict the world</a>
-      <a class="sub" href="#change" data-spy-link>2.3: Change the world</a>
-      <a href="#citation" data-spy-link>References</a>
+      <strong data-zh="目录">Roadmap</strong>
+      <a href="#demo" data-spy-link data-zh="摘要">Abstract</a>
+      <a href="#training" data-spy-link data-zh="1. 训练">1. Training</a>
+      <a class="sub" href="#definition" data-spy-link data-zh="下一状态目标">Next-state objective</a>
+      <a class="sub" href="#learning" data-spy-link data-zh="双重学习范式">Dual learning paradigms</a>
+      <a class="sub" href="#recipe" data-spy-link data-zh="Query 目标">Query-based objectives</a>
+      <a class="sub" href="#downstream" data-spy-link data-zh="下游读出">Downstream readouts</a>
+      <a href="#data" data-spy-link data-zh="2. 数据">2. Data</a>
+      <a class="sub" href="#composition" data-spy-link data-zh="世界学习资源">World-learning resources</a>
+      <a href="#evaluation" data-spy-link data-zh="3. 评测">3. Evaluation</a>
+      <a class="sub" href="#q1" data-spy-link data-zh="Q1：规模化表现">Q1: Scaling behavior</a>
+      <a class="sub" href="#q2" data-spy-link data-zh="Q2：下游读出能力">Q2: Downstream performance</a>
+      <a class="sub" href="#understand" data-spy-link data-zh="2.1：理解世界">2.1: Understand the world</a>
+      <a class="sub" href="#predict" data-spy-link data-zh="2.2：预测世界">2.2: Predict the world</a>
+      <a class="sub" href="#change" data-spy-link data-zh="2.3：改变世界">2.3: Change the world</a>
+      <a href="#citation" data-spy-link data-zh="参考文献">References</a>
     </aside>
 
     <main id="top">
     <header id="demo">
-      <p class="kicker">World learner</p>
-      <h1>Orca: The World is in Your Mind</h1>
-      <p class="lead">
+      <p class="kicker" data-zh="世界学习器">World learner</p>
+      <h1 data-zh="Orca：世界在你心中">Orca: The World is in Your Mind</h1>
+      <p class="lead" data-zh="ORCA 代表 Observation、Reasoning、Cognition 和 Action：从观察世界到作用于世界的智能闭环。">
         ORCA stands for <strong>Observation</strong>, <strong>Reasoning</strong>,
         <strong>Cognition</strong>, and <strong>Action</strong>: a compact view of the intelligence loop
         from observing the world to acting upon it.
       </p>
-      <p class="meta">Orca Team · Beijing Academy of Artificial Intelligence</p>
+      <p class="meta" data-zh="Orca Team · 北京智源人工智能研究院">Orca Team · Beijing Academy of Artificial Intelligence</p>
 
       <div class="abstract" id="abstract">
-        <h2>Abstract</h2>
-        <p>
+        <h2 data-zh="摘要">Abstract</h2>
+        <p data-zh="我们介绍 Orca，一个从多模态世界信号中学习统一世界潜变量（world latent）、并通过多模态接口对外表达的世界学习器。Orca 通过两种互补范式学习世界：无意识学习（unconscious learning）从连续视频中捕捉稠密（dense）的自然状态转移（state transition）；有意识学习（conscious learning）利用语言描述事件和 VQA 监督来建模有意义的状态转移。我们构建了大规模世界学习资源，包括 126K 小时视频、130M 事件标注和 11.5M VQA 样本，用以支持这两种学习范式。预训练后，Orca 直接使用原生语言建模头生成文本，同时冻结已学习的 backbone，并适配轻量读出模块（readout modules）用于图像预测和具身动作生成。实验表明，Orca 学到了有效的世界潜表示，在语言 benchmark 上取得强性能，相比图像生成 baseline 改善了真实交互图像预测，并提升了操作任务中的具身动作生成。这些结果说明，Orca 的世界学习范式为构建能够理解、预测并作用于世界的模型提供了一条有前景的路径。">
           We introduce <strong>Orca</strong>, a world learner that learns a unified world latent from
           multimodal world signals and exposes it through multimodal interfaces. Orca learns the world
           through two complementary paradigms: <strong><em>unconscious learning</em></strong>, which
@@ -860,25 +906,25 @@
       </div>
 
       <div class="video-box">
-        <video controls preload="metadata">
-          <source src="figs/demo.mp4" type="video/mp4">
+        <video id="abstract-video" controls preload="metadata" data-video-en="figs/orca-en.mp4" data-video-zh="figs/orca-zh.mp4">
+          <source id="abstract-video-source" src="figs/orca-en.mp4" type="video/mp4">
           Your browser does not support this video format.
         </video>
       </div>
     </header>
 
     <section id="training">
-      <h2>1. Training</h2>
+      <h2 data-zh="1. 训练">1. Training</h2>
 
-      <h3 id="definition">Why: World Models Should Predict States, Not Modalities</h3>
-      <p>
+      <h3 id="definition" data-zh="Why：世界模型应预测状态（state），而不是模态（modality）">Why: World Models Should Predict States, Not Modalities</h3>
+      <p data-zh="近年的基础模型很大程度上建立在 next prediction 这一原则之上。语言模型预测下一个 token，图像与视频模型预测下一个视觉信号，具身模型通常预测下一个动作。这一范式已经被证明非常有效：模型通过学习延续呈现给它们的序列，在语言、视觉和动作上获得了强大的任务能力。">
         Recent foundation models have largely been built around the principle of next prediction. Language
         models predict the next token, image and video models predict the next visual signal, and embodied
         models often predict the next action. This paradigm has proven remarkably effective: by learning to
         continue the sequence presented to them, models acquire powerful task-level capabilities across
         language, vision, and action.
       </p>
-      <p>
+      <p data-zh="然而，next prediction 也继承了一个重要局限：预测目标通常绑定在某个特定接口上，比如语言模型中的文本、视觉模型中的像素、具身策略中的动作。因此，模型可能非常擅长生成下一个看似合理的输出，却不一定学到产生这个输出背后的世界状态。流畅的续写不总是意味着具身理解；真实的画面不总是意味着因果推理；看起来正确的动作也不一定解释动作之后世界如何变化。">
         However, next prediction also inherits an important limitation. The prediction target is usually
         tied to a specific interface: text for language models, pixels for visual models, and actions for
         embodied policies. As a result, the model may become highly capable at producing the next plausible
@@ -887,29 +933,29 @@
         not always imply causal reasoning; and a correct-looking action does not always explain how the
         world changes after that action.
       </p>
-      <p>
+      <p data-zh="这正是 Orca 希望弥合的 gap。如果目标是构建一个主动的世界学习器，建模的中心对象就不应是被生成的模态本身，而应是不断演化的世界状态：观察到了什么、发生了什么变化、为什么变化，以及智能体如何作用于它。">
         This is the gap Orca is designed to address. If the goal is to build an active world learner, the
         central object of modeling should not be the modality being generated, but the evolving state of the
         world itself: what is observed, what changes, why it changes, and how an agent can act upon it.
       </p>
-      <p>
+      <p data-zh="从这个角度看，现有基础模型目标都可以被视作不同形式的 next prediction：">
         From this perspective, existing foundation-model objectives can be seen as different forms of next
         prediction:
       </p>
 
       <div class="figure-box">
         <div class="triple-diagram">
-          <div class="diagram-cell">
+          <div class="diagram-cell" data-zh="Next token prediction：语言模型学习语义序列的延续，但单纯文本预测并不要求模型具备扎根于物理世界的潜在状态。">
             <strong>Next token prediction</strong>
             Language models learn semantic continuation, but text prediction alone does not require a
             grounded latent state of the physical world.
           </div>
-          <div class="diagram-cell">
+          <div class="diagram-cell" data-zh="Next frame prediction：图像和视频模型捕捉视觉动态，但像素级预测可能奖励外观真实感，而不强制学习因果状态理解。">
             <strong>Next frame prediction</strong>
             Image and video models capture visual dynamics, but pixel prediction can reward realism
             over causal state understanding.
           </div>
-          <div class="diagram-cell">
+          <div class="diagram-cell" data-zh="Next action prediction：具身模型学习动作 affordance，但策略模仿并不一定解释动作之后世界如何变化。">
             <strong>Next action prediction</strong>
             Embodied models learn action affordance, but policy imitation does not necessarily explain how
             the world changes after an action.
@@ -917,14 +963,14 @@
         </div>
       </div>
 
-      <p>
+      <p data-zh="Orca 将建模目标从预测下一个 token、frame 或 action，转向预测下一个 state。多模态信号作为对世界的观察；状态转移目标提供推理基础；学习到的 world latent 成为认知载体；语言、视觉和动作则成为同一底层状态的不同读出接口。">
         Orca shifts the modeling target from predicting the next token, frame, or action to predicting the
         next state. Multimodal signals serve as observations of the world; state-transition objectives
         provide the basis for reasoning; the learned world latent becomes the substrate for cognition; and
         language, vision, and action become readouts of the same underlying state.
       </p>
 
-      <div class="note">
+      <div class="note" data-zh="Next State Prediction 指学习一种内部世界表示，使观察、推理、认知和行动能够在语言、视觉与具身接口之间被统一连接起来。">
         <strong>Next State Prediction</strong> means learning an internal world representation that links
         observation, reasoning, cognition, and action across language, vision, and embodied interfaces.
       </div>
@@ -933,14 +979,14 @@
         <img src="figs/concept.png" alt="Conceptual illustration of Orca moving from passive task-driven prediction to active world learning.">
       </div>
 
-      <h3 id="learning">How: conscious and unconscious learning</h3>
-      <p>
+      <h3 id="learning" data-zh="How：有意识学习（conscious learning）与无意识学习（unconscious learning）">How: conscious and unconscious learning</h3>
+      <p data-zh="模型如何学习世界的下一个状态？Orca 遵循一种接近人类经验的学习模式：观察提供稠密经验，推理连接状态与原因，认知存储可复用的 world latent，而当这一 latent 通过下游接口暴露出来时，行动就成为可能。">
         How can a model learn the next state of the world? Orca follows a learning pattern similar to human
         experience: observation supplies dense experience, reasoning connects states and causes, cognition
         stores a reusable world latent, and action becomes possible when this latent is exposed through
         downstream interfaces.
       </p>
-      <p>
+      <p data-zh="因此，我们使用两种互补的学习模式。无意识学习从连续视觉经验中吸收自然动态，使模型在没有显式任务标签的情况下学习稠密状态转移和物理规律。有意识学习引入语言、事件、指令和问题作为语义条件，使模型学习与因果解释和任务意图相关的稀疏但有意义的状态转移。">
         We therefore use two complementary learning modes. Unconscious learning absorbs natural dynamics
         from continuous visual experience, allowing the model to learn dense state transitions and physical
         regularities without explicit task labels. Conscious learning introduces language, events,
@@ -952,15 +998,15 @@
         <img src="figs/con_vs_uncon.png" alt="Overview of Orca encoder with unconscious learning and conscious learning paths.">
       </div>
 
-      <h3 id="recipe">Architecture: Query 1 / Query 2 training recipe</h3>
-      <p>
+      <h3 id="recipe" data-zh="架构：Query 1 / Query 2 训练配方">Architecture: Query 1 / Query 2 training recipe</h3>
+      <p data-zh="在架构层面，Orca 将多模态世界信号连接到共享的 world latent 表示。Query 1 强调 Observation-to-Cognition：模型能否仅凭稠密的观察式转移预测下一个状态？Query 2 强调 Reasoning-to-Cognition：当事件、语言、问题或意图揭示因果结构时，模型能否预测下一个状态？">
         At the architecture level, Orca connects multimodal world signals to a shared world latent
         representation. Query 1 emphasizes Observation-to-Cognition: can the model predict the next state
         from dense observation-only transitions? Query 2 emphasizes Reasoning-to-Cognition: can the model
         predict the next state when events, language, questions, or intentions reveal causal structure?
       </p>
 
-      <div class="note">
+      <div class="note" data-zh="Query 1：通过稠密的 observation-only 状态转移实现 Observation-to-Cognition。&lt;br&gt;Query 2：通过事件条件状态转移和 VQA 实现 Reasoning-to-Cognition。">
         <strong>Query 1:</strong> Observation-to-Cognition through dense observation-only state transition.<br>
         <strong>Query 2:</strong> Reasoning-to-Cognition through event-conditioned state transition and VQA.
       </div>
@@ -970,14 +1016,14 @@
       </div>
 
       <ol>
-        <li>Collect multimodal world signals from visual, language, event, and VQA data.</li>
-        <li>Use video data to learn observation-only state transitions through unconscious learning.</li>
-        <li>Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
-        <li>Train the three objectives jointly to learn a unified world latent representation.</li>
+        <li data-zh="从视觉、语言、事件和 VQA 数据中收集多模态世界信号。">Collect multimodal world signals from visual, language, event, and VQA data.</li>
+        <li data-zh="使用视频数据，通过无意识学习来学习 observation-only 状态转移。">Use video data to learn observation-only state transitions through unconscious learning.</li>
+        <li data-zh="使用事件和 VQA 数据，学习事件条件转移和语义状态推理。">Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
+        <li data-zh="联合训练三个目标，以学习统一的 world latent 表示。">Train the three objectives jointly to learn a unified world latent representation.</li>
       </ol>
 
-      <h3 id="downstream">Action: using the world state through downstream readouts</h3>
-      <p>
+      <h3 id="downstream" data-zh="Action：通过下游读出使用世界状态">Action: using the world state through downstream readouts</h3>
+      <p data-zh="一旦学到 world latent，它就可以通过不同接口被解码出来。这也是将世界状态作为中心表示的实践意义：同一个 world latent 可以支持用于解释和推理的语言读出、用于预测和想象的视觉读出，以及用于干预世界的动作读出。">
         Once learned, the world latent can be decoded through different interfaces. This is the practical
         reason for treating world state as the central representation: the same world latent can support a
         language readout for explanation and reasoning, a vision readout for prediction and imagination,
@@ -989,18 +1035,18 @@
       </div>
 
       <ul>
-        <li><strong>Observation:</strong> gather video, event, and VQA data grounded in real-world observations.</li>
-        <li><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
-        <li><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
-        <li><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
+        <li data-zh="Observation：收集扎根于真实世界观察的视频、事件和 VQA 数据。"><strong>Observation:</strong> gather video, event, and VQA data grounded in real-world observations.</li>
+        <li data-zh="Reasoning：从稠密自然动态和稀疏语义条件中推断状态转移。"><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
+        <li data-zh="Cognition：将学习结果存储在统一的 world latent 表示中。"><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
+        <li data-zh="Action：将 latent 解码到语言、视觉和具身动作读出。"><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
       </ul>
     </section>
 
     <section id="data">
-      <h2>2. Data</h2>
+      <h2 data-zh="2. 数据">2. Data</h2>
 
-      <h3 id="composition">World-learning resources</h3>
-      <p>
+      <h3 id="composition" data-zh="世界学习资源">World-learning resources</h3>
+      <p data-zh="Orca 使用面向世界学习范式设计的大规模世界学习资源进行训练：125K 小时视频用于稠密自然状态转移，130M 事件标注用于语言描述的有意义变化，11.5M VQA 样本用于问题条件下的世界理解。">
         Orca is trained with large-scale world-learning resources designed for Orca's world-learning paradigm:
         125K hours of video for dense natural state transitions, 130M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
@@ -1009,26 +1055,26 @@
       <table>
         <thead>
           <tr>
-            <th>Resource</th>
-            <th>Scale</th>
-            <th>Learning role</th>
+            <th data-zh="资源">Resource</th>
+            <th data-zh="规模">Scale</th>
+            <th data-zh="学习作用">Learning role</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Continuous video</td>
+            <td data-zh="连续视频">Continuous video</td>
             <td>125K hours</td>
-            <td>Observation signals for dense natural state transitions.</td>
+            <td data-zh="为稠密自然状态转移提供观察信号。">Observation signals for dense natural state transitions.</td>
           </tr>
           <tr>
-            <td>Event annotations</td>
+            <td data-zh="事件标注">Event annotations</td>
             <td>130M events</td>
-            <td>Reasoning signals for meaningful causal state transitions.</td>
+            <td data-zh="为有意义的因果状态转移提供推理信号。">Reasoning signals for meaningful causal state transitions.</td>
           </tr>
           <tr>
-            <td>VQA examples</td>
+            <td data-zh="VQA 样本">VQA examples</td>
             <td>11.5M examples</td>
-            <td>Cognition signals for question-conditioned world understanding.</td>
+            <td data-zh="为问题条件下的世界理解提供认知信号。">Cognition signals for question-conditioned world understanding.</td>
           </tr>
         </tbody>
       </table>
@@ -1039,9 +1085,9 @@
     </section>
 
     <section id="evaluation">
-      <h2>3. Evaluation</h2>
+      <h2 data-zh="3. 评测">3. Evaluation</h2>
 
-      <h3 id="q1">Question 1: How effective is ORCA at scale-up?</h3>
+      <h3 id="q1" data-zh="Question 1：ORCA 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
 
       <div class="chart-row">
         <div class="figure-box">
@@ -1052,41 +1098,41 @@
         </div>
       </div>
 
-      <p>
+      <p data-zh="ORCA 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
         <b>Orca’s world-learning objective scales consistently with model and data. </b>Loss decreases as pre-training data grows, and the 
         larger backbone achieves lower loss than the smaller one — suggesting next-state prediction is a learnable, scalable training signal.
       </p>
 
-      <p>
+      <p data-zh="更强的世界预训练会带来更强的下游读出。由于读出训练阶段 backbone 保持冻结，收益直接反映 latent space 质量。跨模态的一致提升表明，扩大世界预训练能够产生更有用的共享表示。">
         <b>Stronger world pre-training leads to stronger downstream readouts. </b>
         Since the backbone is frozen during readout training, gains reflect latent
         space quality directly. Consistent improvements across modalities confirm 
         that scaling world pre-training produces a more useful shared representation.
       </p>
 
-      <h3 id="q2">
+      <h3 id="q2" data-zh="Question 2：Orca 如何带来更强的下游读出？">
         Question 2: How does Orca lead to stronger downstream readouts?
       </h3>
 
-      <p>
+      <p data-zh="Orca 连接到三类下游读出：语言、视觉和动作。我们分别使用语言读出、图像预测和具身动作生成 benchmark 进行评测，以衡量模型理解世界、预测世界和改变世界的能力。">
         Orca is connected to three downstream readouts: language, vision, and action. 
         We evaluate them with benchmarks of language readout, image prediction and embodied action generation, 
         that measure the model’s ability to understand, predict, and change the world.
       </p>
 
-      <h3 id="understand">2.1 Understand the world</h3>
-      <h4>Benchmark</h4>
-      <p>
+      <h3 id="understand" data-zh="2.1 理解世界">2.1 Understand the world</h3>
+      <h4 data-zh="基准设置">Benchmark</h4>
+      <p data-zh="我们使用来自不同视角的 VQA benchmark 评测 Orca 的世界理解能力，这些 benchmark 可分为两类：有意识学习 benchmark 和无意识学习 benchmark。">
         We evaluate Orca's capability of world understanding using VQA benchmarks of various perspectives, 
         which can be divided into two main types: conscious and unconscious learning benchmarks.
       </p>
         <ul>
-          <li>
+          <li data-zh="无意识学习：TemporalBench 检查动态 latent，3DSRBench 评估结构信息以及物体之间的关系。">
             <b>Unconscious Learning:</b> TemporalBench <a class="citation" href="#ref-temporalbench">(Cai et al., 2024)</a> examines the dynamic latent, and 
             3DSRBench <a class="citation" href="#ref-3dsrbench">(Ma et al., 2025)</a>
             evaluates the structural information and relationships between objects.
           </li>
-          <li>
+          <li data-zh="有意识学习：SWITCH 要求模型理解有形控制接口，并基于常识和操作意图预测控制动作的结果。MVBench 用于评估模型通过有意识学习获得的通用视频理解能力。">
             <b>Conscious Learning:</b> Switch <a class="citation" href="#ref-switch">(Lin et al., 2025)</a>
             requires understanding tangible control interfaces and predicting the outcomes of control actions based on common sense and operational intentions.
             MVBench <a class="citation" href="#ref-mvbench">(Li et al., 2024)</a> is used to evaluate a model’s general video understanding capabilities
@@ -1094,15 +1140,15 @@ through conscious learning.
           </li>
         </ul>
 
-      <h4>Results</h4>
+      <h4 data-zh="结果">Results</h4>
 
 
       <div class="table-wrap">
         <table class="results-table">
           <thead>
             <tr>
-              <th>Model</th>
-              <th>Size(B)</th>
+              <th data-zh="模型">Model</th>
+              <th data-zh="规模(B)">Size(B)</th>
               <th>MVBench</th>
               <th>TemporalBench</th>
               <th>3DSRBench</th>
@@ -1112,7 +1158,7 @@ through conscious learning.
           </thead>
           <tbody>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup"><em>World Models (Large size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="World Models（Large size）"><em>World Models (Large size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1<br>(+LLaMA3-8B)</a></td>
@@ -1142,7 +1188,7 @@ through conscious learning.
               <td style="border-left: 2px solid var(--line);">29.8</td>
             </tr>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup"><em>Vision Language Models (Tiny size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Tiny size）"><em>Vision Language Models (Tiny size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
@@ -1181,7 +1227,7 @@ through conscious learning.
               <td style="border-left: 2px solid var(--line);">37.9</td>
             </tr>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup"><em>Vision Language Models (Small size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Small size）"><em>Vision Language Models (Small size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-deepseek-vl2">DeepSeek-VL2</a></td>
@@ -1223,39 +1269,39 @@ through conscious learning.
         </table>
       </div>
 
-      <p>
+      <p data-zh="Orca 在 4B 级别 small VLM 中取得最佳 overall 性能，超过同参数规模的 Qwen3.5 和 Gemma 4。它在时间推理和空间感知上具备核心优势，并在不同模型规模下体现出优秀的参数利用效率。">
         <b>Orca achieves the best overall performance among 4B-scale small VLMs, outperforming Qwen3.5 and Gemma 4 with the same parameter size.</b>
          It possesses core advantages in temporal reasoning and spatial perception, and demonstrates exceptional parameter 
          utilization efficiency across different model scales.
       </p>
 
-      <h4>Capability Analysis.</h4>
+      <h4 data-zh="能力维度分析">Capability Analysis.</h4>
       <table>
         <thead>
           <tr>
-            <th>Capability</th>
+            <th data-zh="能力">Capability</th>
             <th>Qwen3.5</th>
-            <th>ORCA advantage</th>
+            <th data-zh="ORCA 优势">ORCA advantage</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>State Transition</td>
+            <td data-zh="状态转移">State Transition</td>
             <td>51.86</td>
             <td><b>64.13</b> (+12.27%)</td>
           </tr>
           <tr>
-            <td>Commonsense Reasoning</td>
+            <td data-zh="常识推理">Commonsense Reasoning</td>
             <td>57.76</td>
             <td><b>62.95</b> (+5.19%)</td>
           </tr>
           <tr>
-            <td>Spatial Relations</td>
+            <td data-zh="空间关系">Spatial Relations</td>
             <td>54.68</td>
             <td><b>55.25</b> (+0.57%)</td>
           </tr>
           <tr>
-            <td>Dynamic Motion</td>
+            <td data-zh="动态运动">Dynamic Motion</td>
             <td>57.03</td>
             <td><b>65.55</b> (+8.52%)</td>
           </tr>
@@ -1263,15 +1309,15 @@ through conscious learning.
       </table>
 
 
-      <p>
+      <p data-zh="通过分析 ORCA 在所有 benchmark 的单项能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面，相比 Qwen3.5 backbone 都取得了明显提升。">
         By analyzing ORCA's performance across individual capability subcategories in all benchmarks, 
         we find that our model achieves substantial gains over the Qwen3.5 backbone in all aspects of <strong>state transition</strong>, <strong>commonsense reasoning</strong>,
         <strong>spatial relations</strong>, and <strong>dynamic motion</strong>.
       </p>
 
-      <h3 id="predict">2.2 Predict the world</h3>
-      <h4>benchmark</h4>
-      <p>
+      <h3 id="predict" data-zh="2.2 预测世界">2.2 Predict the world</h3>
+      <h4 data-zh="基准设置">benchmark</h4>
+      <p data-zh="我们使用 PRICE（Prediction of Real-world Interactions with Constraints Evaluation）benchmark 来评测模型预测真实世界物理状态变化的能力。该 benchmark 要求模型基于当前图像和语言指令生成未来状态图像。关键在于，虽然输出形式涉及图像生成，PRICE 评测的并不是单纯的 painter 能力，而是物理 predictor 能力。benchmark 由四个数据集构建：AgiBot-World、Galbot-General、PE-Video 和 PSI-Ego。">
         <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
         from the current image and language instruction. Although the output is image generation, the target
         is not painter ability; the target is predictor ability. -->
@@ -1291,8 +1337,8 @@ through conscious learning.
         <img src="figs/PRICE.png" alt="PRICE benchmark example figure.">
       </div>
 
-      <h4>baselines</h4>
-      <p>
+      <h4 data-zh="对比模型">baselines</h4>
+      <p data-zh="我们用箱型图和定性 case comparison 报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2（3B VLM + 4B vision decoder）、FLUX.1-Kontext（12B vision decoder）和 Flux.2 [klein]（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
         We report PRICE results with box plots and qualitative case comparisons. 
         We selected recent, representative image generation models with a similar scale to Orca as baselines 
         for comparison: including OmniGen2 <a class="citation" href="#ref-omnigen2">(Wu et al., 2026)</a> (3B VLM + 4B vision decoder), 
@@ -1305,8 +1351,8 @@ through conscious learning.
         <img src="figs/PRICE-results.png" alt="PRICE box-plot result." style="display:block; width:100%;">
       </div>
 
-      <h4>case comparison</h4>
-      <p>
+      <h4 data-zh="案例对比">case comparison</h4>
+      <p data-zh="我们在代表性的 PRICE 样例上比较 Orca 与其他 baseline。红框标出了典型 baseline failure；相比之下，Orca 在交互过程中能更好地保持机器人本体和其他关键信息。">
         We compare Orca with other baseline on representative PRICE examples. 
         Red boxes mark typical baseline failures, which Orca better preserves the robot embodiment and other information during interaction. 
 
@@ -1316,12 +1362,13 @@ through conscious learning.
         <img src="figs/ToV_visualization.png" alt="PRICE visual case comparison.">
       </div>
 
-      <h3 id="change">2.3 Change the world</h3>
-      <p>
+      <h3 id="change" data-zh="2.3 改变世界">2.3 Change the world</h3>
+      <p data-zh="改变世界评测使用 GalBot Real-robot 实验作为 out-of-domain（OOD）benchmark，用于评估具身任务能力。">
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
         The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
-        <p>
-        <h4>settings</h4>
+      </p>
+      <h4 data-zh="设置">settings</h4>
+      <p data-zh="我们使用 Galbot G1 真机采集五类任务数据，包括 Take book、Stacked bowls、Pull out tissue、Stamp 和 Scoop sugar。基于这些任务，我们设计了多种 OOD 实验，包括 3 类环境泛化和 5 类物体泛化，如下图所示。">
         We used the Galbot G1 real robot
         <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including: 
         Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
@@ -1334,8 +1381,8 @@ through conscious learning.
       </div>
 
 
-      <h4>results</h4>
-      <p>
+      <h4 data-zh="结果">results</h4>
+      <p data-zh="我们使用 rule-based score 和 PRM-as-a-Judge 作为指标。rule-based score 衡量关键阶段的任务完成情况；PRM-as-a-Judge 提供稠密的轨迹级诊断，包括 progress、stagation、failure progress、recovery 和整体动作质量。">
         We uses the <b>rule-based score</b> and <b>PRM-as-a-Judge</b> as metrics. The rule-based score measures key-stage task completion, 
         and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
 
@@ -1490,8 +1537,8 @@ through conscious learning.
       </tbody>
       </table>
 
-      <h4>analysis</h4>
-      <p>
+      <h4 data-zh="分析">analysis</h4>
+      <p data-zh="Orca 在绝大多数指标上优于 baseline。例如在 ERS 这一衡量 progress 下降或执行偏差后恢复能力的指标上，Orca 明显领先其他模型。下面的演示展示了 Orca 在纸巾抓取失败后恢复的能力。">
         Orca outperforms the baselines on the vast majority of metrics. For example, on ERS, 
         the metric that measures recovery after progress drops or execution deviations, 
         Orca is significantly ahead of the other models.
@@ -1502,8 +1549,8 @@ through conscious learning.
         <img src="figs/JudgeModel_conclusion2_case1.png" alt="Failure example with high progress from PRM-as-a-Judge.">
       </div>
 
-      <h4>demo trials</h4>
-      <p>
+      <h4 data-zh="演示实验">demo trials</h4>
+      <p data-zh="一个 5 任务矩阵，覆盖 in-domain 执行、环境泛化和物体泛化。">
         A 5-task matrix evaluated across in-domain execution, environment generalization, and object generalization.
       </p>
 
@@ -1511,7 +1558,7 @@ through conscious learning.
         <div class="galbot-gallery" aria-label="GalBot real-robot evaluation gallery">
           <div class="galbot-gallery-header">
             <div>
-              <h3>GalBot Real-Robot Evaluation</h3>
+              <h3 data-zh="GalBot 真机评测">GalBot Real-Robot Evaluation</h3>
             </div>
           </div>
 
@@ -1520,86 +1567,86 @@ through conscious learning.
               <source id="galbot-main-source" src="video/book_base.mp4" type="video/mp4">
               Your browser does not support this video format.
             </video>
-            <figcaption id="galbot-main-caption">Base 01 · Take Book</figcaption>
+            <figcaption id="galbot-main-caption" data-zh="Base 01 · 取书">Base 01 · Take Book</figcaption>
           </figure>
 
           <div class="galbot-task-block">
-            <h4>Base / In-Domain Tasks</h4>
-            <p>Five core manipulation skills evaluated in their base settings.</p>
+            <h4 data-zh="Base / In-Domain 任务">Base / In-Domain Tasks</h4>
+            <p data-zh="五类核心操作技能在基础设置下进行评测。">Five core manipulation skills evaluated in their base settings.</p>
             <div class="galbot-thumb-grid" aria-label="Select a base GalBot trial">
-              <button class="galbot-thumb is-active" type="button" data-video-src="video/book_base.mp4" data-video-poster="video/posters/book_base.mp4.png" data-video-label="Base 01 · Take Book">
+              <button class="galbot-thumb is-active" type="button" data-video-src="video/book_base.mp4" data-video-poster="video/posters/book_base.mp4.png" data-video-label="Base 01 · Take Book" data-video-label-zh="Base 01 · 取书">
                 <video preload="metadata" muted poster="video/posters/book_base.mp4.png" aria-hidden="true"><source src="video/book_base.mp4" type="video/mp4"></video>
-                <span>Take Book</span>
+                <span data-zh="取书">Take Book</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/bowl_base.mp4" data-video-poster="video/posters/bowl_base.mp4.png" data-video-label="Base 02 · Stacked Bowls">
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_base.mp4" data-video-poster="video/posters/bowl_base.mp4.png" data-video-label="Base 02 · Stacked Bowls" data-video-label-zh="Base 02 · 叠碗">
                 <video preload="metadata" muted poster="video/posters/bowl_base.mp4.png" aria-hidden="true"><source src="video/bowl_base.mp4" type="video/mp4"></video>
-                <span>Stacked Bowls</span>
+                <span data-zh="叠碗">Stacked Bowls</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/tissue_base.mp4" data-video-poster="video/posters/tissue_base.mp4.png" data-video-label="Base 03 · Pull Out Tissue">
+              <button class="galbot-thumb" type="button" data-video-src="video/tissue_base.mp4" data-video-poster="video/posters/tissue_base.mp4.png" data-video-label="Base 03 · Pull Out Tissue" data-video-label-zh="Base 03 · 抽纸巾">
                 <video preload="metadata" muted poster="video/posters/tissue_base.mp4.png" aria-hidden="true"><source src="video/tissue_base.mp4" type="video/mp4"></video>
-                <span>Pull Out Tissue</span>
+                <span data-zh="抽纸巾">Pull Out Tissue</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/stamp_base.mp4" data-video-poster="video/posters/stamp_base.mp4.png" data-video-label="Base 04 · Regular Stamp">
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_base.mp4" data-video-poster="video/posters/stamp_base.mp4.png" data-video-label="Base 04 · Regular Stamp" data-video-label-zh="Base 04 · 普通印章">
                 <video preload="metadata" muted poster="video/posters/stamp_base.mp4.png" aria-hidden="true"><source src="video/stamp_base.mp4" type="video/mp4"></video>
-                <span>Regular Stamp</span>
+                <span data-zh="普通印章">Regular Stamp</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/sugar_base.mp4" data-video-poster="video/posters/sugar_base.mp4.png" data-video-label="Base 05 · Scoop White Sugar">
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_base.mp4" data-video-poster="video/posters/sugar_base.mp4.png" data-video-label="Base 05 · Scoop White Sugar" data-video-label-zh="Base 05 · 舀白糖">
                 <video preload="metadata" muted poster="video/posters/sugar_base.mp4.png" aria-hidden="true"><source src="video/sugar_base.mp4" type="video/mp4"></video>
-                <span>Scoop White Sugar</span>
+                <span data-zh="舀白糖">Scoop White Sugar</span>
               </button>
             </div>
           </div>
 
           <div class="galbot-task-block">
-            <h4>Environment Generalization</h4>
-            <p>The same task families under changed tablecloth styles, backgrounds, and distractors.</p>
+            <h4 data-zh="环境泛化">Environment Generalization</h4>
+            <p data-zh="在桌布样式、背景和干扰物变化后的同类任务上进行评测。">The same task families under changed tablecloth styles, backgrounds, and distractors.</p>
             <div class="galbot-thumb-grid" aria-label="Select an environment generalization GalBot trial">
-              <button class="galbot-thumb" type="button" data-video-src="video/book_env.mp4" data-video-poster="video/posters/book_env.mp4.png" data-video-label="Env 01 · Take Book">
+              <button class="galbot-thumb" type="button" data-video-src="video/book_env.mp4" data-video-poster="video/posters/book_env.mp4.png" data-video-label="Env 01 · Take Book" data-video-label-zh="Env 01 · 取书">
                 <video preload="metadata" muted poster="video/posters/book_env.mp4.png" aria-hidden="true"><source src="video/book_env.mp4" type="video/mp4"></video>
-                <span>Take Book</span>
+                <span data-zh="取书">Take Book</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/bowl_env.mp4" data-video-poster="video/posters/bowl_env.mp4.png" data-video-label="Env 02 · Stacked Bowls">
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_env.mp4" data-video-poster="video/posters/bowl_env.mp4.png" data-video-label="Env 02 · Stacked Bowls" data-video-label-zh="Env 02 · 叠碗">
                 <video preload="metadata" muted poster="video/posters/bowl_env.mp4.png" aria-hidden="true"><source src="video/bowl_env.mp4" type="video/mp4"></video>
-                <span>Stacked Bowls</span>
+                <span data-zh="叠碗">Stacked Bowls</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/tissue_env.mp4" data-video-poster="video/posters/tissue_env.mp4.png" data-video-label="Env 03 · Pull Out Tissue">
+              <button class="galbot-thumb" type="button" data-video-src="video/tissue_env.mp4" data-video-poster="video/posters/tissue_env.mp4.png" data-video-label="Env 03 · Pull Out Tissue" data-video-label-zh="Env 03 · 抽纸巾">
                 <video preload="metadata" muted poster="video/posters/tissue_env.mp4.png" aria-hidden="true"><source src="video/tissue_env.mp4" type="video/mp4"></video>
-                <span>Pull Out Tissue</span>
+                <span data-zh="抽纸巾">Pull Out Tissue</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/stamp_env.mp4" data-video-poster="video/posters/stamp_env.mp4.png" data-video-label="Env 04 · Regular Stamp">
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_env.mp4" data-video-poster="video/posters/stamp_env.mp4.png" data-video-label="Env 04 · Regular Stamp" data-video-label-zh="Env 04 · 普通印章">
                 <video preload="metadata" muted poster="video/posters/stamp_env.mp4.png" aria-hidden="true"><source src="video/stamp_env.mp4" type="video/mp4"></video>
-                <span>Regular Stamp</span>
+                <span data-zh="普通印章">Regular Stamp</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/sugar_env.mp4" data-video-poster="video/posters/sugar_env.mp4.png" data-video-label="Env 05 · Scoop White Sugar">
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_env.mp4" data-video-poster="video/posters/sugar_env.mp4.png" data-video-label="Env 05 · Scoop White Sugar" data-video-label-zh="Env 05 · 舀白糖">
                 <video preload="metadata" muted poster="video/posters/sugar_env.mp4.png" aria-hidden="true"><source src="video/sugar_env.mp4" type="video/mp4"></video>
-                <span>Scoop White Sugar</span>
+                <span data-zh="舀白糖">Scoop White Sugar</span>
               </button>
             </div>
           </div>
 
           <div class="galbot-task-block">
-            <h4>Object Generalization</h4>
-            <p>Each inference object transfers from its paired training task: book to cutting board, bowls to boxes, tissue to bread, stamp to children's stamp, and sugar to candy.</p>
+            <h4 data-zh="物体泛化">Object Generalization</h4>
+            <p data-zh="每个推理物体都从其对应训练任务迁移而来：书到砧板、碗到盒子、纸巾到面包、印章到儿童印章、糖到糖果。">Each inference object transfers from its paired training task: book to cutting board, bowls to boxes, tissue to bread, stamp to children's stamp, and sugar to candy.</p>
             <div class="galbot-thumb-grid" aria-label="Select an object generalization GalBot trial">
-              <button class="galbot-thumb" type="button" data-video-src="video/book_obj.mp4" data-video-poster="video/posters/book_obj.mp4.png" data-video-label="Object 01 · Take Cutting Board">
+              <button class="galbot-thumb" type="button" data-video-src="video/book_obj.mp4" data-video-poster="video/posters/book_obj.mp4.png" data-video-label="Object 01 · Take Cutting Board" data-video-label-zh="Object 01 · 取砧板">
                 <video preload="metadata" muted poster="video/posters/book_obj.mp4.png" aria-hidden="true"><source src="video/book_obj.mp4" type="video/mp4"></video>
-                <span> Take Cutting Board</span>
+                <span data-zh="取砧板"> Take Cutting Board</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/bowl_obj.mp4" data-video-poster="video/posters/bowl_obj.mp4.png" data-video-label="Object 02 · Stacked Boxes">
+              <button class="galbot-thumb" type="button" data-video-src="video/bowl_obj.mp4" data-video-poster="video/posters/bowl_obj.mp4.png" data-video-label="Object 02 · Stacked Boxes" data-video-label-zh="Object 02 · 叠盒子">
                 <video preload="metadata" muted poster="video/posters/bowl_obj.mp4.png" aria-hidden="true"><source src="video/bowl_obj.mp4" type="video/mp4"></video>
-                <span> Stacked Boxes</span>
+                <span data-zh="叠盒子"> Stacked Boxes</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/tissue_obj.mp4" data-video-poster="video/posters/tissue_obj.mp4.png" data-video-label="Object 03 · Pull Out Bread">
+              <button class="galbot-thumb" type="button" data-video-src="video/tissue_obj.mp4" data-video-poster="video/posters/tissue_obj.mp4.png" data-video-label="Object 03 · Pull Out Bread" data-video-label-zh="Object 03 · 取出面包">
                 <video preload="metadata" muted poster="video/posters/tissue_obj.mp4.png" aria-hidden="true"><source src="video/tissue_obj.mp4" type="video/mp4"></video>
-                <span>Pull Out Bread</span>
+                <span data-zh="取出面包">Pull Out Bread</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/stamp_obj.mp4" data-video-poster="video/posters/stamp_obj.mp4.png" data-video-label="Object 04 · Children's Stamp">
+              <button class="galbot-thumb" type="button" data-video-src="video/stamp_obj.mp4" data-video-poster="video/posters/stamp_obj.mp4.png" data-video-label="Object 04 · Children's Stamp" data-video-label-zh="Object 04 · 儿童印章">
                 <video preload="metadata" muted poster="video/posters/stamp_obj.mp4.png" aria-hidden="true"><source src="video/stamp_obj.mp4" type="video/mp4"></video>
-                <span>Children's Stamp</span>
+                <span data-zh="儿童印章">Children's Stamp</span>
               </button>
-              <button class="galbot-thumb" type="button" data-video-src="video/sugar_obj.mp4" data-video-poster="video/posters/sugar_obj.mp4.png" data-video-label="Object 05 · Scoop Candy">
+              <button class="galbot-thumb" type="button" data-video-src="video/sugar_obj.mp4" data-video-poster="video/posters/sugar_obj.mp4.png" data-video-label="Object 05 · Scoop Candy" data-video-label-zh="Object 05 · 舀糖果">
                 <video preload="metadata" muted poster="video/posters/sugar_obj.mp4.png" aria-hidden="true"><source src="video/sugar_obj.mp4" type="video/mp4"></video>
-                <span>Scoop Candy</span>
+                <span data-zh="舀糖果">Scoop Candy</span>
               </button>
             </div>
           </div>
@@ -1608,8 +1655,8 @@ through conscious learning.
     </section>
 
     <section id="citation">
-      <h2>Citation</h2>
-      <p>
+      <h2 data-zh="引用">Citation</h2>
+      <p data-zh="论文、代码、模型和数据集页面确定后，可将这里的占位引用替换为正式引用。">
         Replace this placeholder after the paper, repository, model, and dataset pages are finalized.
       </p>
       <pre><code>@misc{orca_world_model_2026,
@@ -1620,7 +1667,7 @@ through conscious learning.
   howpublished = {\url{https://orca-baai.github.io}}
 }</code></pre>
 
-      <h3>References</h3>
+      <h3 data-zh="参考文献">References</h3>
       <ol class="references">
         <li id="ref-tempcompass">
           <strong>TempCompass.</strong> Yuanxin Liu, Shicheng Li, Yi Liu, Yuxiang Wang, Shuhuai Ren,
@@ -1707,11 +1754,12 @@ through conscious learning.
           <strong>OmniGen2.</strong> Wu et al. OmniGen2: A 3B-Parameter Multimodal Model with a 4B-Parameter
           Vision Decoder for Advanced Image Generation. <em>CVPR</em>, 2026.
       </li>
+      </ol>
     </section>
     </main>
   </div>
 
-  <footer>
+  <footer data-zh="Orca Team · 北京智源人工智能研究院">
     Orca Team · Beijing Academy of Artificial Intelligence
   </footer>
   <script>
@@ -1739,6 +1787,52 @@ through conscious learning.
     window.addEventListener("scroll", setActiveLink, { passive: true });
     window.addEventListener("resize", setActiveLink);
 
+    const langOptions = Array.from(document.querySelectorAll("[data-lang-option]"));
+    const translatable = Array.from(document.querySelectorAll("[data-zh]"));
+    const abstractVideo = document.querySelector("#abstract-video");
+    const abstractVideoSource = document.querySelector("#abstract-video-source");
+    let currentLang = "en";
+
+    translatable.forEach((item) => {
+      item.dataset.en = item.innerHTML.trim();
+    });
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+      document.title = lang === "zh" ? "Orca：世界在你心中" : "Orca: The World is in Your Mind";
+
+      translatable.forEach((item) => {
+        item.innerHTML = lang === "zh" ? item.dataset.zh : item.dataset.en;
+      });
+
+      langOptions.forEach((option) => {
+        const isActive = option.dataset.langOption === lang;
+        option.classList.toggle("is-active", isActive);
+        option.setAttribute("aria-pressed", String(isActive));
+      });
+
+      if (abstractVideo && abstractVideoSource) {
+        const nextVideoSrc = lang === "zh" ? abstractVideo.dataset.videoZh : abstractVideo.dataset.videoEn;
+        if (nextVideoSrc && abstractVideoSource.getAttribute("src") !== nextVideoSrc) {
+          const wasPaused = abstractVideo.paused;
+          abstractVideoSource.src = nextVideoSrc;
+          abstractVideo.load();
+          if (!wasPaused) {
+            abstractVideo.play().catch(() => {});
+          }
+        }
+      }
+
+      setActiveLink();
+    }
+
+    langOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        setLanguage(option.dataset.langOption);
+      });
+    });
+
     const galbotMainVideo = document.querySelector("#galbot-main-video");
     const galbotMainSource = document.querySelector("#galbot-main-source");
     const galbotMainCaption = document.querySelector("#galbot-main-caption");
@@ -1749,6 +1843,7 @@ through conscious learning.
         const videoSrc = thumb.dataset.videoSrc;
         const videoPoster = thumb.dataset.videoPoster;
         const videoLabel = thumb.dataset.videoLabel;
+        const videoLabelZh = thumb.dataset.videoLabelZh || videoLabel;
 
         if (!galbotMainVideo || !galbotMainSource || !galbotMainCaption || !videoSrc) {
           return;
@@ -1758,7 +1853,9 @@ through conscious learning.
         thumb.classList.add("is-active");
         galbotMainSource.src = videoSrc;
         galbotMainVideo.poster = videoPoster || "";
-        galbotMainCaption.textContent = videoLabel;
+        galbotMainCaption.dataset.en = videoLabel;
+        galbotMainCaption.dataset.zh = videoLabelZh;
+        galbotMainCaption.textContent = currentLang === "zh" ? videoLabelZh : videoLabel;
         galbotMainVideo.muted = true;
         galbotMainVideo.playsInline = true;
         galbotMainVideo.load();
