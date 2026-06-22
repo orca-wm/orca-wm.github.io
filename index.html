@@ -860,7 +860,7 @@
       <a href="#training" data-spy-link data-zh="1. 训练">1. Training</a>
       <a class="sub" href="#definition" data-spy-link data-zh="下一状态目标">Next-state objective</a>
       <a class="sub" href="#learning" data-spy-link data-zh="双重学习范式">Dual learning paradigms</a>
-      <a class="sub" href="#recipe" data-spy-link data-zh="Query 目标">Query-based objectives</a>
+      <a class="sub" href="#recipe" data-spy-link data-zh="基于双重 Query 的模型架构">Query-based objectives</a>
       <a class="sub" href="#downstream" data-spy-link data-zh="下游读出">Downstream readouts</a>
       <a href="#data" data-spy-link data-zh="2. 数据">2. Data</a>
       <a class="sub" href="#composition" data-spy-link data-zh="世界学习资源">World-learning resources</a>
@@ -876,7 +876,7 @@
     <main id="top">
     <header id="demo">
       <p class="kicker" data-zh="世界学习器">World learner</p>
-      <h1 data-zh="Orca：世界在你心中">Orca: The World is in Your Mind</h1>
+      <h1 data-zh="Orca: The World is in Your Mind">Orca: The World is in Your Mind</h1>
       <p class="lead" data-zh="ORCA 代表 Observation、Reasoning、Cognition 和 Action：从观察世界到作用于世界的智能闭环。">
         ORCA stands for <strong>Observation</strong>, <strong>Reasoning</strong>,
         <strong>Cognition</strong>, and <strong>Action</strong>: a compact view of the intelligence loop
@@ -1127,12 +1127,12 @@
         which can be divided into two main types: conscious and unconscious learning benchmarks.
       </p>
         <ul>
-          <li data-zh="无意识学习：TemporalBench 检查动态 latent，3DSRBench 评估结构信息以及物体之间的关系。">
+          <li data-zh="无意识学习：TemporalBench &lt;a class=&quot;citation&quot; href=&quot;#ref-temporalbench&quot;&gt;(Cai et al., 2024)&lt;/a&gt; 检查动态 latent，3DSRBench &lt;a class=&quot;citation&quot; href=&quot;#ref-3dsrbench&quot;&gt;(Ma et al., 2025)&lt;/a&gt; 评估结构信息以及物体之间的关系。">
             <b>Unconscious Learning:</b> TemporalBench <a class="citation" href="#ref-temporalbench">(Cai et al., 2024)</a> examines the dynamic latent, and 
             3DSRBench <a class="citation" href="#ref-3dsrbench">(Ma et al., 2025)</a>
             evaluates the structural information and relationships between objects.
           </li>
-          <li data-zh="有意识学习：SWITCH 要求模型理解有形控制接口，并基于常识和操作意图预测控制动作的结果。MVBench 用于评估模型通过有意识学习获得的通用视频理解能力。">
+          <li data-zh="有意识学习：Switch &lt;a class=&quot;citation&quot; href=&quot;#ref-switch&quot;&gt;(Lin et al., 2025)&lt;/a&gt; 要求模型理解有形控制接口，并基于常识和操作意图预测控制动作的结果。MVBench &lt;a class=&quot;citation&quot; href=&quot;#ref-mvbench&quot;&gt;(Li et al., 2024)&lt;/a&gt; 用于评估模型通过有意识学习获得的通用视频理解能力。">
             <b>Conscious Learning:</b> Switch <a class="citation" href="#ref-switch">(Lin et al., 2025)</a>
             requires understanding tangible control interfaces and predicting the outcomes of control actions based on common sense and operational intentions.
             MVBench <a class="citation" href="#ref-mvbench">(Li et al., 2024)</a> is used to evaluate a model’s general video understanding capabilities
@@ -1158,7 +1158,7 @@ through conscious learning.
           </thead>
           <tbody>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup" data-zh="World Models（Large size）"><em>World Models (Large size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="World Models (Large size)"><em>World Models (Large size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1<br>(+LLaMA3-8B)</a></td>
@@ -1188,7 +1188,7 @@ through conscious learning.
               <td style="border-left: 2px solid var(--line);">29.8</td>
             </tr>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Tiny size）"><em>Vision Language Models (Tiny size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models (Tiny size)"><em>Vision Language Models (Tiny size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
@@ -1227,7 +1227,7 @@ through conscious learning.
               <td style="border-left: 2px solid var(--line);">37.9</td>
             </tr>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Small size）"><em>Vision Language Models (Small size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models (Small size)"><em>Vision Language Models (Small size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-deepseek-vl2">DeepSeek-VL2</a></td>
@@ -1317,7 +1317,7 @@ through conscious learning.
 
       <h3 id="predict" data-zh="2.2 预测世界">2.2 Predict the world</h3>
       <h4 data-zh="基准设置">benchmark</h4>
-      <p data-zh="我们使用 PRICE（Prediction of Real-world Interactions with Constraints Evaluation）benchmark 来评测模型预测真实世界物理状态变化的能力。该 benchmark 要求模型基于当前图像和语言指令生成未来状态图像。关键在于，虽然输出形式涉及图像生成，PRICE 评测的并不是单纯的 painter 能力，而是物理 predictor 能力。benchmark 由四个数据集构建：AgiBot-World、Galbot-General、PE-Video 和 PSI-Ego。">
+      <p data-zh="我们使用 &lt;b&gt;PRICE&lt;/b&gt;（Prediction of Real-world Interactions with Constraints Evaluation）benchmark 来评测模型预测真实世界物理状态变化的能力。该 benchmark 要求模型基于当前图像和语言指令生成未来状态图像。关键在于，虽然输出形式涉及图像生成，PRICE 评测的并不是单纯的 painter 能力，而是物理 predictor 能力。benchmark 由四个数据集构建：&lt;b&gt;AgiBot-World&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-agibot-world&quot;&gt;(AgiBot-World-Contributors et al., 2025)&lt;/a&gt;、&lt;b&gt;Galbot-General&lt;/b&gt;、&lt;b&gt;PE-Video&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-pe&quot;&gt;(Bolya et al., 2025)&lt;/a&gt; 和 &lt;b&gt;PSI-Ego&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-syndata&quot;&gt;(PsiBot, 2026)&lt;/a&gt;。">
         <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
         from the current image and language instruction. Although the output is image generation, the target
         is not painter ability; the target is predictor ability. -->
@@ -1338,7 +1338,7 @@ through conscious learning.
       </div>
 
       <h4 data-zh="对比模型">baselines</h4>
-      <p data-zh="我们用箱型图和定性 case comparison 报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2（3B VLM + 4B vision decoder）、FLUX.1-Kontext（12B vision decoder）和 Flux.2 [klein]（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
+      <p data-zh="我们用箱型图和定性 case comparison 报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2 &lt;a class=&quot;citation&quot; href=&quot;#ref-omnigen2&quot;&gt;(Wu et al., 2026)&lt;/a&gt;（3B VLM + 4B vision decoder）、FLUX.1-Kontext &lt;a class=&quot;citation&quot; href=&quot;#ref-flux1&quot;&gt;(Black Forest Labs et al., 2025)&lt;/a&gt;（12B vision decoder）和 Flux.2 [klein] &lt;a class=&quot;citation&quot; href=&quot;#ref-flux2&quot;&gt;(Black Forest Labs, 2026)&lt;/a&gt;（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
         We report PRICE results with box plots and qualitative case comparisons. 
         We selected recent, representative image generation models with a similar scale to Orca as baselines 
         for comparison: including OmniGen2 <a class="citation" href="#ref-omnigen2">(Wu et al., 2026)</a> (3B VLM + 4B vision decoder), 
@@ -1368,7 +1368,7 @@ through conscious learning.
         The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
       </p>
       <h4 data-zh="设置">settings</h4>
-      <p data-zh="我们使用 Galbot G1 真机采集五类任务数据，包括 Take book、Stacked bowls、Pull out tissue、Stamp 和 Scoop sugar。基于这些任务，我们设计了多种 OOD 实验，包括 3 类环境泛化和 5 类物体泛化，如下图所示。">
+      <p data-zh="我们使用 Galbot G1 真机 &lt;a class=&quot;citation&quot; href=&quot;#ref-galbot-g1&quot;&gt;(Galbot, 2024)&lt;/a&gt; 采集五类任务数据，包括 Take book、Stacked bowls、Pull out tissue、Stamp 和 Scoop sugar。基于这些任务，我们设计了多种 OOD 实验，包括 3 类环境泛化和 5 类物体泛化，如下图所示。">
         We used the Galbot G1 real robot
         <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including: 
         Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
@@ -1382,8 +1382,9 @@ through conscious learning.
 
 
       <h4 data-zh="结果">results</h4>
-      <p data-zh="我们使用 rule-based score 和 PRM-as-a-Judge 作为指标。rule-based score 衡量关键阶段的任务完成情况；PRM-as-a-Judge 提供稠密的轨迹级诊断，包括 progress、stagation、failure progress、recovery 和整体动作质量。">
-        We uses the <b>rule-based score</b> and <b>PRM-as-a-Judge</b> as metrics. The rule-based score measures key-stage task completion, 
+      <p data-zh="我们使用 rule-based score 和 PRM-as-a-Judge &lt;a class=&quot;citation&quot; href=&quot;#ref-prm-as-a-judge&quot;&gt;(Ji et al., 2026)&lt;/a&gt; 作为指标。rule-based score 衡量关键阶段的任务完成情况；PRM-as-a-Judge 提供稠密的轨迹级诊断，包括 progress、stagation、failure progress、recovery 和整体动作质量。">
+        We uses the <b>rule-based score</b> and <b>PRM-as-a-Judge</b>
+        <a class="citation" href="#ref-prm-as-a-judge">(Ji et al., 2026)</a> as metrics. The rule-based score measures key-stage task completion,
         and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
 
       </p>
@@ -1743,6 +1744,12 @@ through conscious learning.
           <strong>Galbot G1.</strong> Galbot. Galbot G1, June 2024.
           URL <a href="https://www.galbot.com/g1">https://www.galbot.com/g1</a>.
         </li>
+        <li id="ref-prm-as-a-judge">
+          <strong>PRM-as-a-Judge.</strong> Yuheng Ji et al. PRM-as-a-Judge:
+          A Dense Evaluation Paradigm for Fine-Grained Robotic Auditing.
+          <em>arXiv:2603.21669</em>, 2026.
+          URL <a href="https://arxiv.org/abs/2603.21669">https://arxiv.org/abs/2603.21669</a>.
+        </li>
         <li id="ref-flux1">
           <strong>Flux.1 kontext.</strong> Black Forest Labs et al. Flux.1 kontext: Flow matching for 
           in-context image generation and editing in latent space. <em>arXiv</em>, 2025.
@@ -1800,7 +1807,7 @@ through conscious learning.
     function setLanguage(lang) {
       currentLang = lang;
       document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-      document.title = lang === "zh" ? "Orca：世界在你心中" : "Orca: The World is in Your Mind";
+      document.title = "Orca: The World is in Your Mind";
 
       translatable.forEach((item) => {
         item.innerHTML = lang === "zh" ? item.dataset.zh : item.dataset.en;
