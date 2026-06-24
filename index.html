@@ -1352,9 +1352,9 @@ through conscious learning.
       </div>
 
       <h4 data-zh="案例对比">case comparison</h4>
-      <p data-zh="我们在代表性的 PRICE 样例上比较 Orca 与其他 baseline。红框标出了典型 baseline failure；相比之下，Orca 在交互过程中能更好地保持机器人本体和其他关键信息。">
+      <p data-zh="我们在代表性的 PRICE 样例上比较 Orca 与其他 baseline。绿框标出了典型 baseline failure；相比之下，Orca 在交互过程中能更好地保持机器人本体和其他关键信息。">
         We compare Orca with other baseline on representative PRICE examples. 
-        Red boxes mark typical baseline failures, which Orca better preserves the robot embodiment and other information during interaction. 
+        Green boxes mark typical baseline failures, which Orca better preserves the robot embodiment and other information during interaction. 
 
       </p>
 
@@ -1391,7 +1391,7 @@ through conscious learning.
 
       <div class="table-container">
           <table>
-              <caption>
+              <caption data-zh="动作生成对比。&uarr; 表示数值越高越好，反之亦然。指标为 PRM-as-a-Judge 的轨迹级诊断。注意所有方法的 backbone 均被冻结，Orca、V-JEPA 2.1 和 Qwen3.5 的 &lt;em&gt;Action Experts&lt;/em&gt; 可从零开始训练。">
                   <strong>Comparison on action generation.</strong> &uarr; represents the higher value, the better, and vice versa. 
                   The metrics are trajectory-level diagnostics from PRM-as-a-Judge. 
                   <strong>Note</strong> that the backbones of all methods are frozen, and <em>Action Experts</em> for Orca, V-JEPA 2.1, and Qwen3.5 are trainable from scratch.
@@ -1411,13 +1411,16 @@ through conscious learning.
               </thead>
               <tbody>
                   <tr>
-                      <td>V-JEPA 2.1</td><td>15.2</td><td>40</td><td>12</td><td>0</td><td>23.0</td><td>13.9</td><td>25.8</td><td>0.0</td>
+                      <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1</a></td>
+                      <td>15.2</td><td>40</td><td>12</td><td>0</td><td>23.0</td><td>13.9</td><td>25.8</td><td>0.0</td>
                   </tr>
                   <tr>
-                      <td>Qwen3.5</td><td>12.4</td><td>26</td><td>10</td><td>0</td><td>18.3</td><td>11.2</td><td>19.2</td><td>0.0</td>
+                      <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
+                      <td>12.4</td><td>26</td><td>10</td><td>0</td><td>18.3</td><td>11.2</td><td>19.2</td><td>0.0</td>
                   </tr>
                   <tr>
-                      <td>&pi;<sub>0.5</sub></td><td>27.6</td><td>54</td><td><strong>16</strong></td><td>2</td><td>27.9</td><td>17.7</td><td>31.5</td><td>1.5</td>
+                      <td><a class="model-link" href="#ref-pi0.5">&pi;<sub>0.5</sub></a></td>
+                      <td>27.6</td><td>54</td><td><strong>16</strong></td><td>2</td><td>27.9</td><td>17.7</td><td>31.5</td><td>1.5</td>
                   </tr>
                   <tr class="highlight-row" style="background: #eaf3e8;">
                       <td><strong>Orca</strong></td><td><strong>36.6</strong></td><td><strong>64</strong></td><td><strong>16</strong></td><td><strong>4</strong></td><td><strong>33.9</strong></td><td><strong>19.3</strong></td><td><strong>32.9</strong></td><td><strong>1.8</strong></td>
@@ -1435,13 +1438,14 @@ through conscious learning.
                       <th>SQS &uarr;</th>
                   </tr>
                   <tr>
-                      <td>V-JEPA 2.1</td><td>18.8</td><td>14</td><td>2</td><td>0</td><td>11.8</td><td>6.3</td><td>15.2</td><td>0.0</td>
+                      <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1</a></td><td>18.8</td><td>14</td><td>2</td><td>0</td><td>11.8</td><td>6.3</td><td>15.2</td><td>0.0</td>
                   </tr>
                   <tr>
-                      <td>Qwen3.5</td><td>8.6</td><td>10</td><td>0</td><td>0</td><td>7.9</td><td>4.0</td><td>4.61</td><td>0.0</td>
+                      <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td><td>8.6</td><td>10</td><td>0</td><td>0</td><td>7.9</td><td>4.0</td><td>4.61</td><td>0.0</td>
                   </tr>
                   <tr>
-                      <td>&pi;<sub>0.5</sub></td><td><strong>31.2</strong></td><td><strong>54</strong></td><td><strong>12</strong></td><td><strong>8</strong></td><td><strong>25.1</strong></td><td><strong>12.9</strong></td><td>21.9</td><td><strong>4.5</strong></td>
+                      <td><a class="model-link" href="#ref-pi0.5">&pi;<sub>0.5</sub></a></td>
+                      <td><strong>31.2</strong></td><td><strong>54</strong></td><td><strong>12</strong></td><td><strong>8</strong></td><td><strong>25.1</strong></td><td><strong>12.9</strong></td><td>21.9</td><td><strong>4.5</strong></td>
                   </tr>
                   <tr class="highlight-row" style="background: #eaf3e8;">
                       <td><strong>Orca</strong></td><td>28.2</td><td>46</td><td><strong>12</strong></td><td><strong>8</strong></td><td>21.8</td><td>10.8</td><td><strong>27.7</strong></td><td>3.9</td>
@@ -1459,13 +1463,16 @@ through conscious learning.
                       <th>SQS &uarr;</th>
                   </tr>
                   <tr>
-                      <td>V-JEPA 2.1</td><td>17.0</td><td>27</td><td>7</td><td>0</td><td>17.4</td><td>10.1</td><td>20.5</td><td>0.0</td>
+                      <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1</a></td>
+                      <td>17.0</td><td>27</td><td>7</td><td>0</td><td>17.4</td><td>10.1</td><td>20.5</td><td>0.0</td>
                   </tr>
                   <tr>
-                      <td>Qwen3.5</td><td>10.5</td><td>18</td><td>5</td><td>0</td><td>13.1</td><td>7.6</td><td>11.9</td><td>0.0</td>
+                      <td><a class="model-link" href="#ref-qwen3.5">Qwen3.5</a></td>
+                      <td>10.5</td><td>18</td><td>5</td><td>0</td><td>13.1</td><td>7.6</td><td>11.9</td><td>0.0</td>
                   </tr>
                   <tr>
-                      <td>&pi;<sub>0.5</sub></td><td>29.4</td><td>54</td><td><strong>14</strong></td><td>5</td><td>26.5</td><td><strong>15.3</strong></td><td>26.7</td><td><strong>3.0</strong></td>
+                      <td><a class="model-link" href="#ref-pi0.5">&pi;<sub>0.5</sub></a></td>
+                      <td>29.4</td><td>54</td><td><strong>14</strong></td><td>5</td><td>26.5</td><td><strong>15.3</strong></td><td>26.7</td><td><strong>3.0</strong></td>
                   </tr>
                   <tr class="highlight-row" style="background: #eaf3e8;">
                       <td><strong>Orca</strong></td><td><strong>32.4</strong></td><td><strong>55</strong></td><td><strong>14</strong></td><td><strong>6</strong></td><td><strong>27.9</strong></td><td>15.1</td><td><strong>30.3</strong></td><td>2.9</td>
@@ -1475,12 +1482,18 @@ through conscious learning.
 
           <div class="tablenotes">
               <ul>
-                  <li><sup>1</sup> M25 and M50 are Milestone25% and Milestone50%. They are the proportions of the trajectory reaching 25% and 50%.</li>
-                  <li><sup>2</sup> SR is the binary Success Rate. The unit is %.</li>
-                  <li><sup>3</sup> MaxP-F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
-                  <li><sup>4</sup> FNS is Failure Near-Success Score. It measures the progress achieved by failed trajectories before termination.</li>
-                  <li><sup>5</sup> RBS is the RoBustness Score. RBS measures overall robustness.</li>
-                  <li><sup>6</sup> SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
+                  <li data-zh="<sup>1</sup> M25 和 M50 是 Milestone25% 和 Milestone50%。它们是达到 25% 和 50% 轨迹的比例。"><sup>1</sup> 
+                    M25 and M50 are Milestone25% and Milestone50%. They are the proportions of the trajectory reaching 25% and 50%.</li>
+                  <li data-zh="<sup>2</sup> SR 是二元成功率。单位是 %。"><sup>2</sup> 
+                    SR is the binary Success Rate. The unit is %.</li>
+                  <li data-zh="<sup>3</sup> MaxP-F 是失败中的最大进程。它代表了失败中的最高级别执行过程。"><sup>3</sup> 
+                    MaxP-F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
+                  <li data-zh="<sup>4</sup> FNS 是失败附近的成功评分。它衡量了失败轨迹在终止前取得的进展。"><sup>4</sup> 
+                    FNS is Failure Near-Success Score. It measures the progress achieved by failed trajectories before termination.</li>
+                  <li data-zh="<sup>5</sup> RBS 是鲁棒性评分。RBS 衡量整体鲁棒性。"><sup>5</sup> 
+                    RBS is the RoBustness Score. RBS measures overall robustness.</li>
+                  <li data-zh="<sup>6</sup> SQS 是成功质量评分。它衡量成功过程中的稳定性、平滑性和高质量。"><sup>6</sup> 
+                    SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
               </ul>
           </div>
       </div>
@@ -1664,6 +1677,10 @@ through conscious learning.
         <li id="ref-gemma4">
           <strong>Gemma 4.</strong> Google DeepMind. Gemma 4: Byte for Byte, the Most Capable Open Models.
           2026.
+        </li>
+        <li id="ref-pi0.5">
+          <strong>&pi;<sub>0.5</sub>.</strong> Physical Intelligence. &pi;<sub>0.5</sub>: A vision-language-action model 
+          with open-world generalization. <em>arXiv</em>, 2025.
         </li>
         <li id="ref-deepseek-vl2">
           <strong>DeepSeek-VL2.</strong> Zhiyu Wu et al. DeepSeek-VL2: Mixture-of-Experts Vision-Language
