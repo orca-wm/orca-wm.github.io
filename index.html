@@ -1389,154 +1389,103 @@ through conscious learning.
 
       </p>
 
+      <div class="table-container">
+          <table>
+              <caption>
+                  <strong>Comparison on action generation.</strong> &uarr; represents the higher value, the better, and vice versa. 
+                  The metrics are trajectory-level diagnostics from PRM-as-a-Judge. 
+                  <strong>Note</strong> that the backbones of all methods are frozen, and <em>Action Experts</em> for Orca, V-JEPA 2.1, and Qwen3.5 are trainable from scratch.
+              </caption>
+              <thead>
+                  <tr>
+                      <th><strong><em>Environment OOD</em></strong></th>
+                      <th>Rule-based &uarr;</th>
+                      <th>M25 &uarr;<sup>1</sup></th>
+                      <th>M50 &uarr;<sup>1</sup></th>
+                      <th>SR &uarr;<sup>2</sup></th>
+                      <th>MaxP-F &uarr;<sup>3</sup></th>
+                      <th>FNS &uarr;<sup>4</sup></th>
+                      <th>RBS &uarr;<sup>5</sup></th>
+                      <th>SQS &uarr;<sup>6</sup></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>V-JEPA 2.1</td><td>15.2</td><td>40</td><td>12</td><td>0</td><td>23.0</td><td>13.9</td><td>25.8</td><td>0.0</td>
+                  </tr>
+                  <tr>
+                      <td>Qwen3.5</td><td>12.4</td><td>26</td><td>10</td><td>0</td><td>18.3</td><td>11.2</td><td>19.2</td><td>0.0</td>
+                  </tr>
+                  <tr>
+                      <td>&pi;<sub>0.5</sub></td><td>27.6</td><td>54</td><td><strong>16</strong></td><td>2</td><td>27.9</td><td>17.7</td><td>31.5</td><td>1.5</td>
+                  </tr>
+                  <tr class="highlight-row" style="background: #eaf3e8;">
+                      <td><strong>Orca</strong></td><td><strong>36.6</strong></td><td><strong>64</strong></td><td><strong>16</strong></td><td><strong>4</strong></td><td><strong>33.9</strong></td><td><strong>19.3</strong></td><td><strong>32.9</strong></td><td><strong>1.8</strong></td>
+                  </tr>
 
-      <table border="1">
-      <thead>
-      <tr style="background: var(--soft);">
-      <td rowspan="2"><b>OOD</b></td>
-      <td rowspan="2"><b>Model</b></td>
-      <td rowspan="2"><b>Rule↑</b></td>
-      <td colspan="11" style="text-align:center"><b>PRM-as-a-Judge Diagnostics</b></td>
-      </tr>
-      <tr style="background: var(--soft);">
-      <td>M25↑</td>
-      <td>M50↑</td>
-      <!-- <td>M75↑</td>
-      <td>SR↑</td>
-      <td>PPL↑</td> -->
-      <td>Stag↓</td>
-      <!-- <td>SQS↑</td> -->
-      <td>FNS↑</td>
-      <td>ERS↑</td>
-      <!-- <td>RBS↑</td> -->
-      <td>OAS↑</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td rowspan="4"><b>Env.</b></td>
-      <td>π<sub>0.5</sub></td>
-      <td><b>27.6</b></td>
-      <td>54</td>
-      <td>16</td>
-      <!-- <td><b>6</b></td>
-      <td>2</td>
-      <td><b>10.6</b></td> -->
-      <td>70.4</td>
-      <!-- <td>1.5</td> -->
-      <td>17.7</td>
-      <td>13.6</td>
-      <!-- <td>15.7</td> -->
-      <td>7.3</td>
-      </tr>
-      <tr>
-      <td>V-JEPA 2.1</td>
-      <td>15.2</td>
-      <td>40</td>
-      <td>12</td>
-      <!-- <td>0</td>
-      <td>0</td>
-      <td>9.6</td> -->
-      <td>79.4</td>
-      <!-- <td>0.0</td> -->
-      <td>13.9</td>
-      <td>6.7</td>
-      <!-- <td>10.3</td> -->
-      <td>4.1</td>
-      </tr>
-      <tr>
-      <td>Qwen3.5</td>
-      <td>12.4</td>
-      <td>26</td>
-      <td>10</td>
-      <!-- <td>0</td>
-      <td>0</td>
-      <td>7.7</td> -->
-      <td>86.7</td>
-      <!-- <td>0.0</td> -->
-      <td>11.2</td>
-      <td>7.2</td>
-      <!-- <td>9.2</td> -->
-      <td>3.7</td>
-      </tr>
-      <tr style="background: #eaf3e8;">
-      <td>Orca</td>
-      <td>25.2</td>
-      <td><b>62</b></td>
-      <td><b>26</b></td>
-      <!-- <td>4</td>
-      <td><b>4</b></td>
-      <td>9.1</td> -->
-      <td><b>65.3</b></td>
-      <!-- <td><b>1.6</b></td> -->
-      <td><b>20.4</b></td>
-      <td><b>24.2</b></td>
-      <!-- <td><b>22.3</b></td> -->
-      <td><b>10.6</b></td>
-      </tr>
-      <tr>
-      <td rowspan="4"><b>Obj.</b></td>
-      <td>π<sub>0.5</sub></td>
-      <td><b>31.2</b></td>
-      <td>54</td>
-      <td><b>12</b></td>
-      <!-- <td>10</td>
-      <td>8</td>
-      <td>13.3</td> -->
-      <td>76.7</td>
-      <!-- <td>3.6</td> -->
-      <td>12.9</td>
-      <td>10.8</td>
-      <!-- <td>11.9</td> -->
-      <td><b>8.2</b></td>
-      </tr>
-      <tr>
-      <td>V-JEPA 2.1</td>
-      <td>18.8</td>
-      <td>14</td>
-      <td>2</td>
-      <!-- <td>0</td>
-      <td>0</td>
-      <td>4.4</td> -->
-      <td>90.4</td>
-      <!-- <td>0.0</td> -->
-      <td>6.3</td>
-      <td>5.9</td>
-      <!-- <td>6.1</td> -->
-      <td>2.4</td>
-      </tr>
-      <tr>
-      <td>Qwen3.5</td>
-      <td>8.6</td>
-      <td>10</td>
-      <td>0</td>
-      <!-- <td>0</td>
-      <td>0</td>
-      <td>5.7</td> -->
-      <td>95.0</td>
-      <!-- <td>0.0</td> -->
-      <td>4.0</td>
-      <td>0.3</td>
-      <!-- <td>2.1</td> -->
-      <td>0.9</td>
-      </tr>
-      <tr style="background: #eaf3e8;">
-      <td>Orca</td>
-      <td>26.2</td>
-      <td><b>60</b></td>
-      <td>8</td>
-      <!-- <td>0</td>
-      <td>0</td>
-      <td>7.5</td> -->
-      <td><b>71.4</b></td>
-      <!-- <td>0.0</td> -->
-      <td><b>15.4</b></td>
-      <td><b>25.0</b></td>
-      <!-- <td><b>20.2</b></td> -->
-      <td>8.1</td>
-      </tr>
-      </tbody>
-      </table>
+                  <tr class="section-header">
+                      <th><strong><em>Object OOD</em></strong></th>
+                      <th>Rule-based &uarr;</th>
+                      <th>M25 &uarr;</th>
+                      <th>M50 &uarr;</th>
+                      <th>SR &uarr;</th>
+                      <th>MaxP-F &uarr;</th>
+                      <th>FNS &uarr;</th>
+                      <th>RBS &uarr;</th>
+                      <th>SQS &uarr;</th>
+                  </tr>
+                  <tr>
+                      <td>V-JEPA 2.1</td><td>18.8</td><td>14</td><td>2</td><td>0</td><td>11.8</td><td>6.3</td><td>15.2</td><td>0.0</td>
+                  </tr>
+                  <tr>
+                      <td>Qwen3.5</td><td>8.6</td><td>10</td><td>0</td><td>0</td><td>7.9</td><td>4.0</td><td>4.61</td><td>0.0</td>
+                  </tr>
+                  <tr>
+                      <td>&pi;<sub>0.5</sub></td><td><strong>31.2</strong></td><td><strong>54</strong></td><td><strong>12</strong></td><td><strong>8</strong></td><td><strong>25.1</strong></td><td><strong>12.9</strong></td><td>21.9</td><td><strong>4.5</strong></td>
+                  </tr>
+                  <tr class="highlight-row" style="background: #eaf3e8;">
+                      <td><strong>Orca</strong></td><td>28.2</td><td>46</td><td><strong>12</strong></td><td><strong>8</strong></td><td>21.8</td><td>10.8</td><td><strong>27.7</strong></td><td>3.9</td>
+                  </tr>
+
+                  <tr class="section-header">
+                      <th><strong><em>Overall</em></strong></th>
+                      <th>Rule-based &uarr;</th>
+                      <th>M25 &uarr;</th>
+                      <th>M50 &uarr;</th>
+                      <th>SR &uarr;</th>
+                      <th>MaxP-F &uarr;</th>
+                      <th>FNS &uarr;</th>
+                      <th>RBS &uarr;</th>
+                      <th>SQS &uarr;</th>
+                  </tr>
+                  <tr>
+                      <td>V-JEPA 2.1</td><td>17.0</td><td>27</td><td>7</td><td>0</td><td>17.4</td><td>10.1</td><td>20.5</td><td>0.0</td>
+                  </tr>
+                  <tr>
+                      <td>Qwen3.5</td><td>10.5</td><td>18</td><td>5</td><td>0</td><td>13.1</td><td>7.6</td><td>11.9</td><td>0.0</td>
+                  </tr>
+                  <tr>
+                      <td>&pi;<sub>0.5</sub></td><td>29.4</td><td>54</td><td><strong>14</strong></td><td>5</td><td>26.5</td><td><strong>15.3</strong></td><td>26.7</td><td><strong>3.0</strong></td>
+                  </tr>
+                  <tr class="highlight-row" style="background: #eaf3e8;">
+                      <td><strong>Orca</strong></td><td><strong>32.4</strong></td><td><strong>55</strong></td><td><strong>14</strong></td><td><strong>6</strong></td><td><strong>27.9</strong></td><td>15.1</td><td><strong>30.3</strong></td><td>2.9</td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <div class="tablenotes">
+              <ul>
+                  <li><sup>1</sup> M25 and M50 are Milestone25% and Milestone50%. They are the proportions of the trajectory reaching 25% and 50%.</li>
+                  <li><sup>2</sup> SR is the binary Success Rate. The unit is %.</li>
+                  <li><sup>3</sup> MaxP-F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
+                  <li><sup>4</sup> FNS is Failure Near-Success Score. It measures the progress achieved by failed trajectories before termination.</li>
+                  <li><sup>5</sup> RBS is the RoBustness Score. RBS measures overall robustness.</li>
+                  <li><sup>6</sup> SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
+              </ul>
+          </div>
+      </div>
+
+
 
       <h4 data-zh="分析">analysis</h4>
       <p data-zh="Orca 在绝大多数指标上优于 baseline。例如在 ERS 这一衡量 progress 下降或执行偏差后恢复能力的指标上，Orca 明显领先其他模型。下面的演示展示了 Orca 在纸巾抓取失败后恢复的能力。">
