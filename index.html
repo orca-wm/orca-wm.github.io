@@ -56,8 +56,8 @@
       margin: 0 auto;
       padding: 0 20px;
       display: grid;
-      grid-template-columns: 220px minmax(0, 820px);
-      gap: 38px;
+      grid-template-columns: 240px minmax(0, 820px);
+      gap: 20px;
       align-items: start;
     }
 
@@ -727,6 +727,28 @@
       height: auto;
     }
 
+    .q1-overview {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(260px, 1.05fr);
+      gap: 18px;
+      align-items: center;
+      margin: 12px 0 24px;
+    }
+
+    .q1-overview .figure-box {
+      margin: 0;
+    }
+
+    .q1-copy {
+      margin: 0;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--link);
+      border-radius: 8px;
+      background: #fffdf8;
+      color: #404540;
+    }
+
     .chart {
       padding: 14px;
       border: 1px solid var(--line);
@@ -856,6 +878,7 @@
       .simple-diagram,
       .triple-diagram,
       .learning-visuals,
+      .q1-overview,
       .chart-row,
       .chart-row.three {
         grid-template-columns: 1fr;
@@ -917,7 +940,7 @@
       <p class="meta" data-zh="Orca Team · 北京智源人工智能研究院">Orca Team · Beijing Academy of Artificial Intelligence</p>
       <div class="hero-links">
         <a class="hero-link" href="#" data-zh="论文">Paper</a>
-        <a class="hero-link" href="#" data-zh="加入微信群">Join WeChat Group</a>
+        <a class="hero-link" href="figs/wechat-group-qr.png" target="_blank" rel="noopener" data-zh="加入微信群">Join WeChat Group</a>
       </div>
 
       <div class="video-box">
@@ -1101,14 +1124,19 @@
 
       <h3 id="q1" data-zh="问题 1：Orca 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
 
-        <div class="figure-box" style="width:50%; margin:0 auto;">
+      <div class="q1-overview">
+        <div class="figure-box">
           <img src="figs/scaling_loss_01.png" alt="World-learning loss decreases as the pre-training data scale increases, with the larger Orca backbone achieving lower loss.">
         </div>
 
-       <p data-zh="Orca 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
-        <b>Orca’s world-learning objective scales consistently with model and data. </b>Loss decreases as pre-training data grows, and the 
-        larger backbone achieves lower loss than the smaller one — suggesting next-state prediction is a learnable, scalable training signal.
-      </p> 
+        <p class="q1-copy" data-zh="Orca 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，world-learning loss 持续下降；同时，更大的 backbone 获得更低 loss，说明模型容量能够有效吸收更丰富的状态转移结构。这一趋势表明，next-state prediction 不只是一个可优化的训练目标，也是一种能够随数据和模型规模共同扩展的世界学习信号。">
+          <b>Orca's world-learning objective scales consistently with model and data. </b>
+          As pre-training data grows, world-learning loss continues to decrease, while the larger backbone
+          achieves lower loss than the smaller one. This trend suggests that model capacity is effectively
+          used to absorb richer state-transition structure, making next-state prediction a scalable
+          signal for world learning.
+        </p>
+      </div>
 
 
       <h3 id="q2" data-zh="Question 2：Orca 如何带来更强的下游读出？">
