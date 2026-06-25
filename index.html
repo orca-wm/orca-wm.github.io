@@ -62,7 +62,7 @@
     }
 
     .nav-inner {
-      max-width: 1120px;
+      max-width: 820px;
       margin: 0 auto;
       padding: 14px 20px;
       display: flex;
@@ -76,7 +76,6 @@
       align-items: center;
       color: var(--text);
       font-weight: 700;
-      flex: 0 0 auto;
     }
 
     .brand-logo {
@@ -91,9 +90,6 @@
       gap: 16px;
       color: var(--muted);
       font-size: 14px;
-      min-width: 0;
-      overflow-x: auto;
-      padding-bottom: 2px;
       white-space: nowrap;
     }
 
@@ -138,14 +134,76 @@
     }
 
     .reader-layout {
-      max-width: 860px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 20px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 820px);
+      gap: 38px;
+      align-items: start;
+    }
+
+    .side-toc {
+      position: sticky;
+      top: 86px;
+      padding: 52px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .side-toc strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--text);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .side-toc a {
+      display: block;
+      padding: 5px 0 5px 13px;
+      border-left: 2px solid var(--line);
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .side-toc a:not(.sub) {
+      margin-top: 6px;
+      color: #4b514c;
+      font-weight: 650;
+    }
+
+    .side-toc a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .side-toc a.active {
+      border-left-color: var(--link);
+      color: var(--link);
+      font-weight: 700;
+    }
+
+    .side-toc .sub {
+      padding-left: 24px;
+      font-size: 13px;
+    }
+
+    .side-toc .sub::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      margin: 0 8px 2px 0;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: 0.45;
     }
 
     main {
       max-width: 820px;
-      margin: 0 auto;
+      margin: 0;
       padding: 52px 20px 72px;
     }
 
@@ -173,7 +231,23 @@
 
     h1 {
       margin: 0 0 16px;
-      font-size: clamp(28px, 4.2vw, 44px);
+      font-size: clamp(38px, 7vw, 66px);
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0 0 18px;
+      color: #515751;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(15px, 1.8vw, 18px);
+      font-style: italic;
+      line-height: 1.58;
+    }
+
+    .lead strong {
+      color: var(--text);
+      font-style: normal;
+      font-weight: 700;
     }
 
     .meta {
@@ -182,35 +256,26 @@
       font-size: 14px;
     }
 
-    .date-line {
-      margin: 0 0 4px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .hero-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .hero-link {
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      padding: 5px 11px;
+    .abstract {
+      margin: 26px 0;
+      padding: 20px 22px;
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: 8px;
       background: #fffdf8;
-      color: var(--link);
-      font-size: 13px;
-      font-weight: 650;
+      scroll-margin-top: 92px;
     }
 
-    .hero-link:hover {
-      border-color: var(--link);
-      text-decoration: none;
+    .abstract h2 {
+      margin-bottom: 10px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .abstract p {
+      margin-bottom: 0;
+      color: #404540;
     }
 
     section {
@@ -278,65 +343,6 @@
       border-left: 4px solid var(--link);
       background: var(--soft);
       border-radius: 0 8px 8px 0;
-    }
-
-    .formula-card {
-      margin: 22px 0;
-      padding: 20px 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fffdf8;
-    }
-
-    .formula-card p {
-      margin: 14px auto 0;
-      max-width: 720px;
-      color: #4f554f;
-      font-size: 15px;
-      line-height: 1.68;
-    }
-
-    .equation {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      margin: 4px 0 8px;
-      padding: 8px 0 10px;
-      color: var(--code);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(18px, 2.4vw, 23px);
-      line-height: 1.55;
-      overflow-x: auto;
-    }
-
-    .equation-main {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: center;
-      gap: 6px 14px;
-      text-align: center;
-    }
-
-    .math-expression,
-    .equation-condition {
-      white-space: nowrap;
-    }
-
-    .equation-condition {
-      color: #62685f;
-      font-size: 0.82em;
-    }
-
-    .equation var {
-      font-style: italic;
-    }
-
-    .equation-label {
-      color: var(--muted);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      font-size: 14px;
     }
 
     .video-box,
@@ -677,37 +683,12 @@
     }
 
     .table-wrap table {
-      min-width: 960px;
-      width: 100%;
+      min-width: 760px;
       margin: 0;
-    }
-
-    .results-table {
-      table-layout: fixed;
     }
 
     .results-table th,
     .results-table td {
-      width: calc(100% / 7);
-      vertical-align: middle;
-    }
-
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-      margin: 16px 0 22px;
-    }
-
-    .table-container table {
-      min-width: 1120px;
-      width: 100%;
-      margin: 0;
-      table-layout: fixed;
-    }
-
-    .table-container th,
-    .table-container td {
-      width: calc(100% / 9);
       vertical-align: middle;
     }
 
@@ -1032,7 +1013,7 @@
       <h3 id="q1" data-zh="问题 1：Orca 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
 
         <div class="figure-box" style="width:50%; margin:0 auto;">
-          <img src="figs/scaling_loss.png" alt="World-learning loss decreases as the pre-training data scale increases, with the larger Orca backbone achieving lower loss.">
+          <img src="figs/scaling_loss_01.png" alt="World-learning loss decreases as the pre-training data scale increases, with the larger Orca backbone achieving lower loss.">
         </div>
 
        <p data-zh="Orca 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
@@ -1046,7 +1027,7 @@
       </h3>
 
       <div class="figure-box">
-          <img src="figs/scaling_performance.png" alt="Downstream readout scores improve with pre-training scale across text generation, image prediction, and action generation">
+          <img src="figs/scaling_performance_01.png" alt="Downstream readout scores improve with pre-training scale across text generation, image prediction, and action generation">
         </div>
 
       <p data-zh="更强的世界预训练会带来更强的下游读出。由于读出训练阶段 backbone 保持冻结，收益直接反映 latent space 质量。跨模态的一致提升表明，扩大世界预训练能够产生更有用的共享表示。">
@@ -1226,7 +1207,10 @@ through conscious learning.
          utilization efficiency across different model scales.
       </p>
 
-      <h4 data-zh="能力维度分析">Capability Analysis.</h4>
+      <h4 data-zh="能力维度分析">Capability Analysis</h4>
+      <p data-zh="通过分析 Orca 在各基准能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面取得了明显提升。">
+        Orca demonstrates superior performance across various capability subcategories, including state transition, commonsense reasoning, spatial relations, and dynamic motion.
+      </p>
       <table>
         <thead>
           <tr>
@@ -1335,7 +1319,7 @@ through conscious learning.
             <col style="width: 14.28%;">
             <col style="width: 14.28%;">
           </colgroup>
-          <caption style="caption-side: top; margin-bottom: 6px;">
+          <caption style="caption-side: top; margin-bottom: 6px; text-align: left; ">
             Methods use judge models to give scores in PRICE-V0.1. In <b>Avg.</b>, <i>a</i>±<i>b</i> represents <i>avg</i>±<i>std</i>. A larger <i>avg</i> and a smaller <i>std</i> value represent better performance. <b>Bold</b> represents the best value.
           </caption>
           <thead>
@@ -1419,14 +1403,13 @@ through conscious learning.
       </div>
 
       <h3 id="change" data-zh="2.3 动作生成">2.3 To action: action generation</h3>
-      <p data-zh="改变世界评测使用 GalBot Real-robot 实验作为 out-of-domain（OOD）benchmark，用于评估具身任务能力。">
+      <p data-zh="动作生成评测使用真机实验作为 out-of-domain（OOD）benchmark，用于评估具身任务能力。">
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
-        The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
+        The action generation evaluation uses real robot experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
       </p>
       <h4 data-zh="设置">settings</h4>
-      <p data-zh="我们使用 Galbot G1 真机 &lt;a class=&quot;citation&quot; href=&quot;#ref-galbot-g1&quot;&gt;(Galbot, 2024)&lt;/a&gt; 采集五类任务数据，包括 Take book、Stacked bowls、Pull out tissue、Stamp 和 Scoop sugar。基于这些任务，我们设计了多种 OOD 实验，包括 3 类环境泛化和 5 类物体泛化，如下图所示。">
-        We used the Galbot G1 real robot
-        <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including:
+      <p data-zh="我们使用双臂轮式真机采集五类任务数据，包括 Take book、Stacked bowls、Pull out tissue、Stamp 和 Scoop sugar。基于这些任务，我们设计了多种 OOD 实验，包括 3 类环境泛化和 5 类物体泛化，如下图所示。">
+        We used the <b>dual-arm wheeled robot</b> to collect data on five tasks, including:
         Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
         experiments were designed, including 3 kinds of Environmental Generalization and 5 kinds of 
         Object Generalization, as shown in the figure below. 
@@ -1444,6 +1427,12 @@ through conscious learning.
         and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
       </p>
 
+      <div style="margin-bottom: 6px; font-size: 0.9em; text-align: left;"
+       data-zh="动作生成对比。&uarr; 表示数值越高越好，反之亦然。指标为 PRM-as-a-Judge 的轨迹级诊断。注意所有方法的 backbone 均被冻结，Orca、V-JEPA 2.1 和 Qwen3.5 的 &lt;em&gt;Action Experts&lt;/em&gt; 可从零开始训练。">
+        Comparison on action generation. ↑ represents the higher value, the better, and vice versa.
+        The metrics are trajectory-level diagnostics from PRM-as-a-Judge. <b>Note</b> that the backbones of all methods are frozen, and <i>Action Experts</i> for Orca, V‑JEPA 2.1, and Qwen3.5 are trainable from scratch.
+      </div>
+
       <div style="overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-bottom: 6px;">
         <table style="border-collapse: collapse; font-size: small; min-width: 900px; width: max-content; table-layout: fixed; border: none;">
           <colgroup>
@@ -1457,11 +1446,6 @@ through conscious learning.
             <col style="width: 120px;">
             <col style="width: 120px;">
           </colgroup>
-          
-          <caption style="caption-side: top; margin-bottom: 6px; font-weight: bold;">
-            Comparison on action generation. ↑ represents the higher value, the better, and vice versa.
-            The metrics are trajectory-level diagnostics from PRM-as-a-Judge. <b>Note</b> that the backbones of all methods are frozen, and <i>Action Experts</i> for Orca, V‑JEPA 2.1, and Qwen3.5 are trainable from scratch.
-          </caption>
 
           <!-- ============ Environment OOD ============ -->
           <tbody>
@@ -1642,15 +1626,30 @@ through conscious learning.
         </table>
 
         <!-- 脚注 -->
-        <ol style="font-size: small; margin-top: 8px; padding-left: 20px; list-style-type: decimal;">
+        <!-- <ol style="font-size: small; margin-top: 8px; padding-left: 20px; list-style-type: decimal;">
           <li>M25 and M50 are Milestone25% and Milestone50%. They are the proportions of the trajectory reaching 25% and 50%.</li>
           <li>SR is the binary Success Rate. The unit is %.</li>
           <li>MaxP‑F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
           <li>FNS is Failure Near‑Success Score. It measures the progress achieved by failed trajectories before termination.</li>
           <li>DRR is the Drawdown Recovery Ratio. It measures recovery after the largest progress drawdown. (In Object OOD and Overall, this column is named RBS, but the definition remains the same.)</li>
           <li>SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
-        </ol>
-      </div>      
+        </ol> -->
+      </div>   
+      
+      <ul style="font-size: small; margin-top: 8px; padding-left: 20px;">
+          <li data-zh="<sup>1</sup> M25 和 M50 是 Milestone25% 和 Milestone50%。它们是达到 25% 和 50% 轨迹的比例。"><sup>1</sup> 
+                    M25 and M50 are Milestone25% and Milestone50%. They are the proportions of the trajectory reaching 25% and 50%.</li>
+                  <li data-zh="<sup>2</sup> SR 是二元成功率。单位是 %。"><sup>2</sup> 
+                    SR is the binary Success Rate. The unit is %.</li>
+                  <li data-zh="<sup>3</sup> MaxP-F 是失败中的最大进程。它代表了失败中的最高级别执行过程。"><sup>3</sup> 
+                    MaxP-F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
+                  <li data-zh="<sup>4</sup> FNS 是失败附近的成功评分。它衡量了失败轨迹在终止前取得的进展。"><sup>4</sup> 
+                    FNS is Failure Near-Success Score. It measures the progress achieved by failed trajectories before termination.</li>
+                  <li data-zh="<sup>5</sup> RBS 是鲁棒性评分。RBS 衡量整体鲁棒性。"><sup>5</sup> 
+                    RBS is the RoBustness Score. RBS measures overall robustness.</li>
+                  <li data-zh="<sup>6</sup> SQS 是成功质量评分。它衡量成功过程中的稳定性、平滑性和高质量。"><sup>6</sup> 
+                    SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
+      </ul>
 
       <!-- <div class="table-container">
           <table>
@@ -1764,16 +1763,27 @@ through conscious learning.
 
 
       <h4 data-zh="分析">analysis</h4>
-      <p data-zh="Orca 在绝大多数指标上优于 baseline。例如在 ERS 这一衡量 progress 下降或执行偏差后恢复能力的指标上，Orca 明显领先其他模型。下面的演示展示了 Orca 在纸巾抓取失败后恢复的能力。">
-        Orca outperforms the baselines on the vast majority of metrics. For example, on ERS, 
-        the metric that measures recovery after progress drops or execution deviations, 
-        Orca is significantly ahead of the other models.
-        The demonstration below shows Orca's ability of recovery after tissue-grasp failure.
+      <p>
+        <ul>
+          <li data-zh="根据上表，Orca 的学习范式和学习到的世界潜在知识能有效地转移到 OOD 环境中的动作输出。">
+            According to the table above, Orca’s learning paradigm and learned world latent transfers effectively to action readout in OOD environments. </li>
+          <li data-zh="Orca 一致地推进任务并从执行错误中恢复得更好。示例如下。">
+            Orca consistently advances the task and recovers better from execution errors. The examples are as follows.</li>
+        </ul>
       </p>
 
-      <div class="figure-box">
-        <img src="figs/JudgeModel_conclusion2_case1.png" alt="Failure example with high progress from PRM-as-a-Judge.">
+      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
+        <div style="display: inline-block; min-width: max-content;">
+          <img src="figs/eval_recover.png" alt="Recovery evaluation example" style="display:block; height:300px; max-width:none;">
+        </div>
       </div>
+
+      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
+        <div style="display: inline-block; min-width: max-content;">
+          <img src="figs/eval_failure.png" alt="Failure evaluation example" style="display:block; height:300px; max-width:none;">
+        </div>
+      </div>
+
 
       <h4 data-zh="演示实验">demo trials</h4>
       <p data-zh="下方是一个 5 任务矩阵，覆盖 in-domain 执行、环境泛化和物体泛化。">
@@ -1781,26 +1791,18 @@ through conscious learning.
       </p>
 
       <div class="video-box">
-        <div class="galbot-gallery" aria-label="GalBot real-robot evaluation gallery">
+        <div class="galbot-gallery" aria-label="real-robot evaluation gallery">
           <div class="galbot-gallery-header">
             <div>
-              <h3 data-zh="Galbot 真机评测">GalBot Real-Robot Evaluation</h3>
+              <h3 data-zh="真机评测">Real-Robot Evaluation</h3>
             </div>
           </div>
-
-          <figure class="galbot-featured">
-            <video id="galbot-main-video" controls preload="metadata" poster="video/posters/book_base.mp4.png" aria-label="Selected GalBot real-robot video">
-              <source id="galbot-main-source" src="video/book_base.mp4" type="video/mp4">
-              Your browser does not support this video format.
-            </video>
-            <figcaption id="galbot-main-caption" data-zh="Base 01 · 取书">Base 01 · Take Book</figcaption>
-          </figure>
 
           <div class="galbot-task-block">
             <h4 data-zh="Base / In-Domain 任务">Base / In-Domain Tasks</h4>
             <p data-zh="五类核心操作技能在基础设置下进行评测。">Five core manipulation skills evaluated in their base settings.</p>
             <div class="galbot-thumb-grid" aria-label="Select a base GalBot trial">
-              <button class="galbot-thumb is-active" type="button" data-video-src="video/book_base.mp4" data-video-poster="video/posters/book_base.mp4.png" data-video-label="Base 01 · Take Book" data-video-label-zh="Base 01 · 取书">
+              <button class="galbot-thumb" type="button" data-video-src="video/book_base.mp4" data-video-poster="video/posters/book_base.mp4.png" data-video-label="Base 01 · Take Book" data-video-label-zh="Base 01 · 取书">
                 <video preload="metadata" muted poster="video/posters/book_base.mp4.png" aria-hidden="true"><source src="video/book_base.mp4" type="video/mp4"></video>
                 <span data-zh="取书">Take Book</span>
               </button>
@@ -1875,6 +1877,21 @@ through conscious learning.
                 <span data-zh="舀糖果">Scoop Candy</span>
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="galbot-modal-backdrop" id="galbot-video-modal" aria-hidden="true">
+        <div class="galbot-modal" role="dialog" aria-modal="true" aria-label="Video player">
+          <div class="galbot-modal-header">
+            <div class="galbot-modal-title" id="galbot-modal-title">Video</div>
+            <button class="galbot-modal-close" id="galbot-modal-close" type="button" aria-label="Close video">×</button>
+          </div>
+          <div class="galbot-modal-body">
+            <video id="galbot-modal-video" controls preload="metadata" playsinline poster="">
+              <source id="galbot-modal-source" src="" type="video/mp4">
+              Your browser does not support this video format.
+            </video>
           </div>
         </div>
       </div>
@@ -1969,10 +1986,6 @@ through conscious learning.
           <strong>SynData.</strong> PsiBot. SynData: A Large-Scale Real-World Multimodal Dataset for
           Embodied Intelligence. Hugging Face Dataset, 2026.
         </li>
-        <li id="ref-galbot-g1">
-          <strong>Galbot G1.</strong> Galbot. Galbot G1, June 2024.
-          URL <a href="https://www.galbot.com/g1">https://www.galbot.com/g1</a>.
-        </li>
         <li id="ref-prm-as-a-judge">
           <strong>PRM-as-a-Judge.</strong> Yuheng Ji et al. PRM-as-a-Judge:
           A Dense Evaluation Paradigm for Fine-Grained Robotic Auditing.
@@ -2045,10 +2058,38 @@ through conscious learning.
       });
     });
 
-    const galbotMainVideo = document.querySelector("#galbot-main-video");
-    const galbotMainSource = document.querySelector("#galbot-main-source");
-    const galbotMainCaption = document.querySelector("#galbot-main-caption");
+    const galbotModal = document.querySelector("#galbot-video-modal");
+    const galbotModalVideo = document.querySelector("#galbot-modal-video");
+    const galbotModalSource = document.querySelector("#galbot-modal-source");
+    const galbotModalTitle = document.querySelector("#galbot-modal-title");
+    const galbotModalClose = document.querySelector("#galbot-modal-close");
     const galbotThumbs = Array.from(document.querySelectorAll(".galbot-thumb"));
+
+    function openVideoModal(videoSrc, videoPoster, videoLabel, videoLabelZh) {
+      if (!galbotModal || !galbotModalVideo || !galbotModalSource || !galbotModalTitle || !videoSrc) {
+        return;
+      }
+
+      galbotModalSource.src = videoSrc;
+      galbotModalVideo.poster = videoPoster || "";
+      galbotModalTitle.textContent = currentLang === "zh" ? videoLabelZh : videoLabel;
+      galbotModal.classList.add("is-open");
+      galbotModal.setAttribute("aria-hidden", "false");
+      galbotModalVideo.load();
+      galbotModalVideo.play().catch(() => {});
+    }
+
+    function closeVideoModal() {
+      if (!galbotModal || !galbotModalVideo || !galbotModalSource) {
+        return;
+      }
+
+      galbotModalVideo.pause();
+      galbotModalSource.removeAttribute("src");
+      galbotModalVideo.load();
+      galbotModal.classList.remove("is-open");
+      galbotModal.setAttribute("aria-hidden", "true");
+    }
 
     galbotThumbs.forEach((thumb) => {
       thumb.addEventListener("click", () => {
@@ -2057,22 +2098,28 @@ through conscious learning.
         const videoLabel = thumb.dataset.videoLabel;
         const videoLabelZh = thumb.dataset.videoLabelZh || videoLabel;
 
-        if (!galbotMainVideo || !galbotMainSource || !galbotMainCaption || !videoSrc) {
-          return;
-        }
-
         galbotThumbs.forEach((item) => item.classList.remove("is-active"));
         thumb.classList.add("is-active");
-        galbotMainSource.src = videoSrc;
-        galbotMainVideo.poster = videoPoster || "";
-        galbotMainCaption.dataset.en = videoLabel;
-        galbotMainCaption.dataset.zh = videoLabelZh;
-        galbotMainCaption.textContent = currentLang === "zh" ? videoLabelZh : videoLabel;
-        galbotMainVideo.muted = true;
-        galbotMainVideo.playsInline = true;
-        galbotMainVideo.load();
-        galbotMainVideo.play().catch(() => {});
+        openVideoModal(videoSrc, videoPoster, videoLabel, videoLabelZh);
       });
+    });
+
+    if (galbotModalClose) {
+      galbotModalClose.addEventListener("click", closeVideoModal);
+    }
+
+    if (galbotModal) {
+      galbotModal.addEventListener("click", (event) => {
+        if (event.target === galbotModal) {
+          closeVideoModal();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeVideoModal();
+      }
     });
   </script>
 </body>
