@@ -62,7 +62,7 @@
     }
 
     .nav-inner {
-      max-width: 820px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 14px 20px;
       display: flex;
@@ -76,6 +76,7 @@
       align-items: center;
       color: var(--text);
       font-weight: 700;
+      flex: 0 0 auto;
     }
 
     .brand-logo {
@@ -90,6 +91,9 @@
       gap: 16px;
       color: var(--muted);
       font-size: 14px;
+      min-width: 0;
+      overflow-x: auto;
+      padding-bottom: 2px;
       white-space: nowrap;
     }
 
@@ -134,76 +138,14 @@
     }
 
     .reader-layout {
-      max-width: 1120px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 0 20px;
-      display: grid;
-      grid-template-columns: 220px minmax(0, 820px);
-      gap: 38px;
-      align-items: start;
-    }
-
-    .side-toc {
-      position: sticky;
-      top: 86px;
-      padding: 52px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .side-toc strong {
-      display: block;
-      margin-bottom: 12px;
-      color: var(--text);
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .side-toc a {
-      display: block;
-      padding: 5px 0 5px 13px;
-      border-left: 2px solid var(--line);
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
-    .side-toc a:not(.sub) {
-      margin-top: 6px;
-      color: #4b514c;
-      font-weight: 650;
-    }
-
-    .side-toc a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .side-toc a.active {
-      border-left-color: var(--link);
-      color: var(--link);
-      font-weight: 700;
-    }
-
-    .side-toc .sub {
-      padding-left: 24px;
-      font-size: 13px;
-    }
-
-    .side-toc .sub::before {
-      content: "";
-      display: inline-block;
-      width: 4px;
-      height: 4px;
-      margin: 0 8px 2px 0;
-      border-radius: 999px;
-      background: currentColor;
-      opacity: 0.45;
     }
 
     main {
       max-width: 820px;
-      margin: 0;
+      margin: 0 auto;
       padding: 52px 20px 72px;
     }
 
@@ -231,23 +173,7 @@
 
     h1 {
       margin: 0 0 16px;
-      font-size: clamp(38px, 7vw, 66px);
-    }
-
-    .lead {
-      max-width: 720px;
-      margin: 0 0 18px;
-      color: #515751;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(15px, 1.8vw, 18px);
-      font-style: italic;
-      line-height: 1.58;
-    }
-
-    .lead strong {
-      color: var(--text);
-      font-style: normal;
-      font-weight: 700;
+      font-size: clamp(28px, 4.2vw, 44px);
     }
 
     .meta {
@@ -256,26 +182,35 @@
       font-size: 14px;
     }
 
-    .abstract {
-      margin: 26px 0;
-      padding: 20px 22px;
+    .date-line {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 11px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 999px;
       background: #fffdf8;
-      scroll-margin-top: 92px;
+      color: var(--link);
+      font-size: 13px;
+      font-weight: 650;
     }
 
-    .abstract h2 {
-      margin-bottom: 10px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      font-size: 16px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .abstract p {
-      margin-bottom: 0;
-      color: #404540;
+    .hero-link:hover {
+      border-color: var(--link);
+      text-decoration: none;
     }
 
     section {
@@ -343,6 +278,65 @@
       border-left: 4px solid var(--link);
       background: var(--soft);
       border-radius: 0 8px 8px 0;
+    }
+
+    .formula-card {
+      margin: 22px 0;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .formula-card p {
+      margin: 14px auto 0;
+      max-width: 720px;
+      color: #4f554f;
+      font-size: 15px;
+      line-height: 1.68;
+    }
+
+    .equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 4px 0 8px;
+      padding: 8px 0 10px;
+      color: var(--code);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 2.4vw, 23px);
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    .equation-main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px 14px;
+      text-align: center;
+    }
+
+    .math-expression,
+    .equation-condition {
+      white-space: nowrap;
+    }
+
+    .equation-condition {
+      color: #62685f;
+      font-size: 0.82em;
+    }
+
+    .equation var {
+      font-style: italic;
+    }
+
+    .equation-label {
+      color: var(--muted);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
     }
 
     .video-box,
@@ -752,48 +746,6 @@
         padding: 0 20px;
       }
 
-      .side-toc {
-        position: sticky;
-        top: 94px;
-        z-index: 8;
-        margin: 0 -20px;
-        padding: 10px 20px;
-        border-bottom: 1px solid var(--line);
-        background: rgba(251, 250, 247, 0.94);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-
-      .side-toc strong {
-        display: none;
-      }
-
-      .side-toc a,
-      .side-toc .sub {
-        display: inline-flex;
-        margin-right: 10px;
-        padding: 5px 9px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: #fffdf8;
-        font-size: 13px;
-      }
-
-      .side-toc a:not(.sub) {
-        margin-top: 0;
-      }
-
-      .side-toc .sub::before {
-        display: none;
-      }
-
-      .side-toc a.active {
-        border-color: var(--link);
-        background: var(--soft);
-      }
-
       main {
         padding-top: 38px;
       }
@@ -840,10 +792,10 @@
         <img class="brand-logo" src="figs/orca_logo.jpg" alt="Orca">
       </a>
       <div class="links">
-        <a href="#demo" data-zh="摘要">Abstract</a>
-        <a href="#training" data-zh="训练">Training</a>
-        <a href="#data" data-zh="数据">Data</a>
-        <a href="#evaluation" data-zh="评测">Evaluation</a>
+        <a href="#demo" data-zh="概览">Overview</a>
+        <a href="#training" data-zh="学习世界">Learning the World</a>
+        <a href="#data" data-zh="构建世界学习资源">Building World-Learning Resources</a>
+        <a href="#evaluation" data-zh="评测 World Latent">Evaluating the World Latent</a>
         <div class="lang-switch" aria-label="Language switch">
           <button class="is-active" type="button" data-lang-option="en" aria-pressed="true">English</button>
           <span class="divider" aria-hidden="true">/</span>
@@ -854,137 +806,113 @@
   </nav>
 
   <div class="reader-layout">
-    <aside class="side-toc" aria-label="Reading navigation">
-      <strong data-zh="目录">Roadmap</strong>
-      <a href="#demo" data-spy-link data-zh="摘要">Abstract</a>
-      <a href="#training" data-spy-link data-zh="1. 训练">1. Training</a>
-      <a class="sub" href="#definition" data-spy-link data-zh="下一状态目标">Next-state objective</a>
-      <a class="sub" href="#learning" data-spy-link data-zh="双重学习范式">Dual learning paradigms</a>
-      <a class="sub" href="#recipe" data-spy-link data-zh="基于双重 Query 的模型架构">Query-based objectives</a>
-      <a class="sub" href="#downstream" data-spy-link data-zh="下游读出">Downstream readouts</a>
-      <a href="#data" data-spy-link data-zh="2. 数据">2. Data</a>
-      <a class="sub" href="#composition" data-spy-link data-zh="世界学习资源">World-learning resources</a>
-      <a href="#evaluation" data-spy-link data-zh="3. 评测">3. Evaluation</a>
-      <a class="sub" href="#q1" data-spy-link data-zh="Q1：规模化表现">Q1: Scaling behavior</a>
-      <a class="sub" href="#q2" data-spy-link data-zh="Q2：下游读出能力">Q2: Downstream performance</a>
-      <a class="sub" href="#understand" data-spy-link data-zh="2.1：理解世界">2.1: Understand the world</a>
-      <a class="sub" href="#predict" data-spy-link data-zh="2.2：预测世界">2.2: Predict the world</a>
-      <a class="sub" href="#change" data-spy-link data-zh="2.3：改变世界">2.3: Change the world</a>
-      <a href="#citation" data-spy-link data-zh="参考文献">References</a>
-    </aside>
-
     <main id="top">
     <header id="demo">
-      <p class="kicker" data-zh="世界学习器">World learner</p>
       <h1 data-zh="Orca: The World is in Your Mind">Orca: The World is in Your Mind</h1>
-      <p class="lead" data-zh="ORCA 代表 Observation、Reasoning、Cognition 和 Action：从观察世界到作用于世界的智能闭环。">
-        ORCA stands for <strong>Observation</strong>, <strong>Reasoning</strong>,
-        <strong>Cognition</strong>, and <strong>Action</strong>: a compact view of the intelligence loop
-        from observing the world to acting upon it.
-      </p>
+      <p class="date-line" data-zh="2026 年 6 月 25 日">June 25, 2026</p>
       <p class="meta" data-zh="Orca Team · 北京智源人工智能研究院">Orca Team · Beijing Academy of Artificial Intelligence</p>
-
-      <div class="abstract" id="abstract">
-        <h2 data-zh="摘要">Abstract</h2>
-        <p data-zh="我们介绍 Orca，一个从多模态世界信号中学习统一世界潜变量（world latent）、并通过多模态接口对外表达的世界学习器。Orca 通过两种互补范式学习世界：无意识学习（unconscious learning）从连续视频中捕捉稠密（dense）的自然状态转移（state transition）；有意识学习（conscious learning）利用语言描述事件和 VQA 监督来建模有意义的状态转移。我们构建了大规模世界学习资源，包括 126K 小时视频、130M 事件标注和 11.5M VQA 样本，用以支持这两种学习范式。预训练后，Orca 直接使用原生语言建模头生成文本，同时冻结已学习的 backbone，并适配轻量读出模块（readout modules）用于图像预测和具身动作生成。实验表明，Orca 学到了有效的世界潜表示，在语言 benchmark 上取得强性能，相比图像生成 baseline 改善了真实交互图像预测，并提升了操作任务中的具身动作生成。这些结果说明，Orca 的世界学习范式为构建能够理解、预测并作用于世界的模型提供了一条有前景的路径。">
-          We introduce <strong>Orca</strong>, a world learner that learns a unified world latent from
-          multimodal world signals and exposes it through multimodal interfaces. Orca learns the world
-          through two complementary paradigms: <strong><em>unconscious learning</em></strong>, which
-          captures dense natural state transitions from continuous videos, and
-          <strong><em>conscious learning</em></strong>, which uses language-described events and VQA
-          supervision to model meaningful state transition. In addition, we construct large-scale
-          world-learning resources, including 126K hours of video, 130M event annotations, and 11.5M VQA
-          examples, to support two learning paradigm. After pre-training, Orca directly uses the native
-          language modeling head for text generation, while keeping the learned backbone frozen and adapting
-          lightweight readout modules for image prediction and embodied action generation. Experiments show
-          that Orca learns an effective world latent representation, achieves strong performance across
-          language benchmarks, improves real-world interaction image prediction over image generation
-          baselines, and enhances embodied action generation for manipulation tasks. These results suggest
-          that Orca's world-learning paradigm provides a promising path toward models that can understand,
-          predict, and act upon the world.
-        </p>
+      <div class="hero-links">
+        <a class="hero-link" href="#" data-zh="论文">Paper</a>
+        <a class="hero-link" href="#" data-zh="加入微信群">Join WeChat Group</a>
       </div>
 
       <div class="video-box">
-        <video id="abstract-video" controls preload="metadata" data-video-en="figs/orca-en.mp4" data-video-zh="figs/orca-zh.mp4">
-          <source id="abstract-video-source" src="figs/orca-en.mp4" type="video/mp4">
+        <video id="hero-video" controls preload="metadata" data-video-en="figs/orca-en.mp4" data-video-zh="figs/orca-zh.mp4">
+          <source id="hero-video-source" src="figs/orca-en.mp4" type="video/mp4">
           Your browser does not support this video format.
         </video>
       </div>
     </header>
 
     <section id="training">
-      <h2 data-zh="1. 训练">1. Training</h2>
+      <h2 data-zh="1. 学习世界">1. Learning the World</h2>
 
       <h3 id="definition" data-zh="Why：世界模型应预测状态（state），而不是模态（modality）">Why: World Models Should Predict States, Not Modalities</h3>
-      <p data-zh="近年的基础模型很大程度上建立在 next prediction 这一原则之上。语言模型预测下一个 token，图像与视频模型预测下一个视觉信号，具身模型通常预测下一个动作。这一范式已经被证明非常有效：模型通过学习延续呈现给它们的序列，在语言、视觉和动作上获得了强大的任务能力。">
-        Recent foundation models have largely been built around the principle of next prediction. Language
-        models predict the next token, image and video models predict the next visual signal, and embodied
-        models often predict the next action. This paradigm has proven remarkably effective: by learning to
-        continue the sequence presented to them, models acquire powerful task-level capabilities across
-        language, vision, and action.
-      </p>
-      <p data-zh="然而，next prediction 也继承了一个重要局限：预测目标通常绑定在某个特定接口上，比如语言模型中的文本、视觉模型中的像素、具身策略中的动作。因此，模型可能非常擅长生成下一个看似合理的输出，却不一定学到产生这个输出背后的世界状态。流畅的续写不总是意味着具身理解；真实的画面不总是意味着因果推理；看起来正确的动作也不一定解释动作之后世界如何变化。">
-        However, next prediction also inherits an important limitation. The prediction target is usually
-        tied to a specific interface: text for language models, pixels for visual models, and actions for
-        embodied policies. As a result, the model may become highly capable at producing the next plausible
-        output without necessarily learning the underlying state of the world that gives rise to that
-        output. A fluent continuation does not always imply grounded understanding; a realistic frame does
-        not always imply causal reasoning; and a correct-looking action does not always explain how the
-        world changes after that action.
-      </p>
-      <p data-zh="这正是 Orca 希望弥合的 gap。如果目标是构建一个主动的世界学习器，建模的中心对象就不应是被生成的模态本身，而应是不断演化的世界状态：观察到了什么、发生了什么变化、为什么变化，以及智能体如何作用于它。">
-        This is the gap Orca is designed to address. If the goal is to build an active world learner, the
-        central object of modeling should not be the modality being generated, but the evolving state of the
-        world itself: what is observed, what changes, why it changes, and how an agent can act upon it.
-      </p>
-      <p data-zh="从这个角度看，现有基础模型目标都可以被视作不同形式的 next prediction：">
-        From this perspective, existing foundation-model objectives can be seen as different forms of next
-        prediction:
+      <p data-zh="现有的 next prediction 范式在各自领域都取得了非常强的效果。&lt;strong&gt;Next token prediction&lt;/strong&gt; 带来了强语言能力，&lt;strong&gt;Next frame prediction&lt;/strong&gt; 推动了高质量图像和视频生成，&lt;strong&gt;Next action prediction&lt;/strong&gt; 支持了具身策略学习。但当训练目标主要绑定在单一输出接口上时，模型仍可能生成局部看起来合理、整体却反直觉的结果：文本可能描述违反物理常识的事件，视频可能破坏物体恒存、接触关系或运动一致性，动作可能看起来像示范轨迹，却没有真正建模动作之后世界如何变化。">
+        Existing next prediction paradigms have achieved impressive results in their own domains.
+        <strong>Next token prediction</strong> brings strong language capabilities,
+        <strong>Next frame prediction</strong> enables high-quality image and video generation, and
+        <strong>Next action prediction</strong> supports embodied policy learning. However, when the
+        objective is mainly tied to a single output interface, models may still generate results that look
+        locally plausible but globally counterintuitive: text may describe physically impossible events,
+        videos may break object permanence, contact, or motion consistency, and actions may resemble
+        demonstrations without modeling how the world changes afterward.
       </p>
 
-      <div class="figure-box">
-        <div class="triple-diagram">
-          <div class="diagram-cell" data-zh="Next token prediction：语言模型学习语义序列的延续，但单纯文本预测并不要求模型具备扎根于物理世界的潜在状态。">
-            <strong>Next token prediction</strong>
-            Language models learn semantic continuation, but text prediction alone does not require a
-            grounded latent state of the physical world.
-          </div>
-          <div class="diagram-cell" data-zh="Next frame prediction：图像和视频模型捕捉视觉动态，但像素级预测可能奖励外观真实感，而不强制学习因果状态理解。">
-            <strong>Next frame prediction</strong>
-            Image and video models capture visual dynamics, but pixel prediction can reward realism
-            over causal state understanding.
-          </div>
-          <div class="diagram-cell" data-zh="Next action prediction：具身模型学习动作 affordance，但策略模仿并不一定解释动作之后世界如何变化。">
-            <strong>Next action prediction</strong>
-            Embodied models learn action affordance, but policy imitation does not necessarily explain how
-            the world changes after an action.
-          </div>
-        </div>
-      </div>
-
-      <p data-zh="Orca 将建模目标从预测下一个 token、frame 或 action，转向预测下一个 state。多模态信号作为对世界的观察；状态转移目标提供推理基础；学习到的 world latent 成为认知载体；语言、视觉和动作则成为同一底层状态的不同读出接口。">
-        Orca shifts the modeling target from predicting the next token, frame, or action to predicting the
-        next state. Multimodal signals serve as observations of the world; state-transition objectives
-        provide the basis for reasoning; the learned world latent becomes the substrate for cognition; and
-        language, vision, and action become readouts of the same underlying state.
+      <p data-zh="我们认为，通往通用智能的关键一步，是构建一个能够像人类一样持续学习、理解并适应世界的模型。这样的模型应不断吸收多模态世界信号，从视觉、文本、音频、动作和触觉，到力、光等物理信号，甚至更广泛科学领域中的世界信号，以推断世界的 latent state，并建模不同层级的状态转移。学习到的 world latent 应作为一种通用接口，使文本、图像、动作及其他模态都可以从同一世界状态中被读出，从而支撑理解、预测和改变世界。">
+        We argue that a key step toward general intelligence is to build a model that can continuously
+        learn, understand, and adapt to the world like humans do. Such a model should absorb multimodal
+        world signals, from vision, text, audio, action, and touch to physical signals such as force and
+        light, and even broader scientific signals, in order to infer latent world states and model
+        state transitions at different levels. The learned world latent should serve as a general interface
+        from which text, images, actions, and other modalities can be read out, enabling the model to
+        understand, predict, and change the world.
       </p>
 
-      <div class="note" data-zh="Next State Prediction 指学习一种内部世界表示，使观察、推理、认知和行动能够在语言、视觉与具身接口之间被统一连接起来。">
-        <strong>Next State Prediction</strong> means learning an internal world representation that links
-        observation, reasoning, cognition, and action across language, vision, and embodied interfaces.
+      <p data-zh="Orca 因此将建模目标从预测下一个 token、frame 或 action，转向预测下一个 state。多模态信号提供 observation；状态转移建模支撑 reasoning；学习到的 world latent 承载 cognition；语言、视觉和动作则作为同一潜在世界状态的不同 readout，使模型能够以更一致的方式理解、预测并改变世界。">
+        Orca therefore shifts the modeling target from predicting the next token, frame, or action to
+        predicting the next state. Multimodal signals provide observation; state-transition modeling
+        supports reasoning; the learned world latent carries cognition; and language, vision, and action
+        serve as different readouts of the same latent world state, enabling the model to understand,
+        predict, and change the world in a more consistent way.
+      </p>
+
+      <div class="note" data-zh="Next State Prediction 指学习一种内部世界状态，使模型能够预测符合常识和物理规律的状态转移，并通过语言、视觉和动作等接口读出这一状态。">
+        <strong>Next State Prediction</strong> means learning an internal world state that supports
+        commonsense and physically consistent transitions, and then reading this state out through
+        interfaces such as language, vision, and action.
       </div>
 
       <div class="figure-box">
         <img src="figs/concept.png" alt="Conceptual illustration of Orca moving from passive task-driven prediction to active world learning.">
       </div>
 
+      <h3 id="modeling" data-zh="核心公式：潜在世界状态建模">Core formulation: latent world-state modeling</h3>
+      <p data-zh="Orca 将世界学习形式化为潜在世界状态建模，包括从多模态世界信号中抽象状态，以及建模状态转移。给定世界信号 X = {X&lt;sub&gt;m&lt;/sub&gt;}&lt;sub&gt;m∈M&lt;/sub&gt;，其中 M 可以包含语言、视觉、音频、力、光以及红外辐射等丰富模态，Orca 通过 S = f&lt;sub&gt;θ&lt;/sub&gt;(X) 将这些信号映射到潜在世界状态 S。">
+        Orca formulates world learning as latent world-state modeling, including state abstraction from
+        multimodal world signals and state transition. Given world signals
+        X = {X<sub>m</sub>}<sub>m∈M</sub>, where M can encompass language, vision, audio,
+        force, light, and even signals beyond human perception such as infrared radiation, Orca maps
+        these signals to a latent world state S through S = f<sub>θ</sub>(X).
+      </p>
+
+      <div class="formula-card">
+        <div class="equation">
+          <span class="equation-main">
+            <span class="math-expression">
+              <var>S</var><sub><var>t</var>+Δ</sub>
+              ∼
+              <var>p</var><sub>Θ</sub>(<var>S</var><sub><var>t</var>+Δ</sub> |
+              <var>S</var><sub><var>t</var></sub>,
+              <var>z</var><sub><var>t</var></sub>,
+              <var>c</var><sub><var>t</var></sub>)
+            </span>
+            <span class="equation-condition">Δ ∈ ℤ<sub>Δ≠0</sub></span>
+          </span>
+          <span class="equation-label">(1)</span>
+        </div>
+        <p data-zh="其中 z&lt;sub&gt;t&lt;/sub&gt; 表示隐式动态，用于刻画驱动状态变化的不可见因素，例如物理规律、物体属性、场景动态和环境力；c&lt;sub&gt;t&lt;/sub&gt; 表示显式条件，例如人类指令和动作。Δ &gt; 0 表示预测未来状态 S&lt;sub&gt;≥t&lt;/sub&gt;，Δ &lt; 0 表示回溯早期状态 S&lt;sub&gt;≤t&lt;/sub&gt;。">
+          Here, z<sub>t</sub> represents implicit dynamics, capturing latent or unobserved factors that
+          drive state changes, such as physical laws, object properties, scene dynamics, and environmental
+          forces. c<sub>t</sub> represents explicit conditions, such as human instructions and actions.
+          Δ &gt; 0 predicts later states S<sub>≥t</sub>, while Δ &lt; 0 backtracks to earlier states S<sub>≤t</sub>.
+        </p>
+      </div>
+
       <h3 id="learning" data-zh="How：有意识学习（conscious learning）与无意识学习（unconscious learning）">How: conscious and unconscious learning</h3>
-      <p data-zh="模型如何学习世界的下一个状态？Orca 遵循一种接近人类经验的学习模式：观察提供稠密经验，推理连接状态与原因，认知存储可复用的 world latent，而当这一 latent 通过下游接口暴露出来时，行动就成为可能。">
-        How can a model learn the next state of the world? Orca follows a learning pattern similar to human
-        experience: observation supplies dense experience, reasoning connects states and causes, cognition
-        stores a reusable world latent, and action becomes possible when this latent is exposed through
-        downstream interfaces.
+      <p data-zh="模型如何学习世界的下一个状态？一个直观的参照是婴儿学习世界的过程。在学会说话之前，婴儿已经通过无意识学习（unconscious learning）观察客观世界：物体如何移动、接触如何发生、遮挡之后是否仍然存在、动作之后场景如何变化。这些学习并不依赖明确标签，而是来自对连续事件本身的稠密观察。">
+        How can a model learn the next state of the world? A useful reference is how infants learn before
+        they acquire language. Through unconscious learning, they observe the objective world directly:
+        how objects move, how contact happens, whether occluded objects still exist, and how scenes change
+        after actions. This learning does not rely on explicit labels; it comes from dense observation of
+        continuous events themselves.
+      </p>
+      <p data-zh="随着语言、目标和意图逐渐出现，人类还会通过有意识学习（conscious learning）理解因果规律：把连续状态变化抽象成事件，并进一步思考发生了什么、接下来会如何、原因是什么、如果进行干预又会发生什么。换言之，无意识学习提供稠密的世界经验，有意识学习则将这些经验组织成可被推理和交流的因果结构。">
+        As language, goals, and intention emerge, conscious learning further organizes these observations
+        into causal structure. It abstracts continuous state changes into events and asks what happened,
+        what will happen next, why it happened, and what would happen under intervention. In this sense,
+        unconscious learning provides dense world experience, while conscious learning turns that
+        experience into causal patterns that can be reasoned about and communicated.
       </p>
       <p data-zh="因此，我们使用两种互补的学习模式。无意识学习从连续视觉经验中吸收自然动态，使模型在没有显式任务标签的情况下学习稠密状态转移和物理规律。有意识学习引入语言、事件、指令和问题作为语义条件，使模型学习与因果解释和任务意图相关的稀疏但有意义的状态转移。">
         We therefore use two complementary learning modes. Unconscious learning absorbs natural dynamics
@@ -998,30 +926,6 @@
         <img src="figs/con_vs_uncon.png" alt="Overview of Orca encoder with unconscious learning and conscious learning paths.">
       </div>
 
-      <h3 id="recipe" data-zh="架构：Query 1 / Query 2 训练配方">Architecture: Query 1 / Query 2 training recipe</h3>
-      <p data-zh="在架构层面，Orca 将多模态世界信号连接到共享的 world latent 表示。Query 1 强调 Observation-to-Cognition：模型能否仅凭稠密的观察式转移预测下一个状态？Query 2 强调 Reasoning-to-Cognition：当事件、语言、问题或意图揭示因果结构时，模型能否预测下一个状态？">
-        At the architecture level, Orca connects multimodal world signals to a shared world latent
-        representation. Query 1 emphasizes Observation-to-Cognition: can the model predict the next state
-        from dense observation-only transitions? Query 2 emphasizes Reasoning-to-Cognition: can the model
-        predict the next state when events, language, questions, or intentions reveal causal structure?
-      </p>
-
-      <div class="note" data-zh="Query 1：通过稠密的 observation-only 状态转移实现 Observation-to-Cognition。&lt;br&gt;Query 2：通过事件条件状态转移和 VQA 实现 Reasoning-to-Cognition。">
-        <strong>Query 1:</strong> Observation-to-Cognition through dense observation-only state transition.<br>
-        <strong>Query 2:</strong> Reasoning-to-Cognition through event-conditioned state transition and VQA.
-      </div>
-
-      <div class="figure-box">
-        <img src="figs/q1_q2.png" alt="Query 1 and Query 2 implementation for Orca encoder training.">
-      </div>
-
-      <ol>
-        <li data-zh="从视觉、语言、事件和 VQA 数据中收集多模态世界信号。">Collect multimodal world signals from visual, language, event, and VQA data.</li>
-        <li data-zh="使用视频数据，通过无意识学习来学习 observation-only 状态转移。">Use video data to learn observation-only state transitions through unconscious learning.</li>
-        <li data-zh="使用事件和 VQA 数据，学习事件条件转移和语义状态推理。">Use event and VQA data to learn event-conditioned transitions and semantic state reasoning.</li>
-        <li data-zh="联合训练三个目标，以学习统一的 world latent 表示。">Train the three objectives jointly to learn a unified world latent representation.</li>
-      </ol>
-
       <h3 id="downstream" data-zh="Action：通过下游读出使用世界状态">Action: using the world state through downstream readouts</h3>
       <p data-zh="一旦学到 world latent，它就可以通过不同接口被解码出来。这也是将世界状态作为中心表示的实践意义：同一个 world latent 可以支持用于解释和推理的语言读出、用于预测和想象的视觉读出，以及用于干预世界的动作读出。">
         Once learned, the world latent can be decoded through different interfaces. This is the practical
@@ -1031,24 +935,18 @@
       </p>
 
       <div class="figure-box">
-        <img src="figs/downtask.png" alt="Downstream readout architectures from Orca world latent representation to language, vision, and action.">
+        <img src="figs/readout.png" alt="Downstream readout architectures from Orca world latent representation to language, vision, and action.">
       </div>
 
-      <ul>
-        <li data-zh="Observation：收集扎根于真实世界观察的视频、事件和 VQA 数据。"><strong>Observation:</strong> gather video, event, and VQA data grounded in real-world observations.</li>
-        <li data-zh="Reasoning：从稠密自然动态和稀疏语义条件中推断状态转移。"><strong>Reasoning:</strong> infer state transitions from both dense natural dynamics and sparse semantic conditions.</li>
-        <li data-zh="Cognition：将学习结果存储在统一的 world latent 表示中。"><strong>Cognition:</strong> store the result in a unified world latent representation.</li>
-        <li data-zh="Action：将 latent 解码到语言、视觉和具身动作读出。"><strong>Action:</strong> decode the latent to language, vision, and embodied action readouts.</li>
-      </ul>
     </section>
 
     <section id="data">
-      <h2 data-zh="2. 数据">2. Data</h2>
+      <h2 data-zh="2. 构建世界学习资源">2. Building World-Learning Resources</h2>
 
       <h3 id="composition" data-zh="世界学习资源">World-learning resources</h3>
-      <p data-zh="Orca 使用面向世界学习范式设计的大规模世界学习资源进行训练：125K 小时视频用于稠密自然状态转移，130M 事件标注用于语言描述的有意义变化，11.5M VQA 样本用于问题条件下的世界理解。">
+      <p data-zh="Orca 使用面向世界学习范式设计的大规模世界学习资源进行训练：125K 小时视频用于稠密自然状态转移，160M 事件标注用于语言描述的有意义变化，11.5M VQA 样本用于问题条件下的世界理解。">
         Orca is trained with large-scale world-learning resources designed for Orca's world-learning paradigm:
-        125K hours of video for dense natural state transitions, 130M event annotations for language-described
+        125K hours of video for dense natural state transitions, 160M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
       </p>
 
@@ -1068,7 +966,7 @@
           </tr>
           <tr>
             <td data-zh="事件标注">Event annotations</td>
-            <td>130M events</td>
+            <td>160M events</td>
             <td data-zh="为有意义的因果状态转移提供推理信号。">Reasoning signals for meaningful causal state transitions.</td>
           </tr>
           <tr>
@@ -1085,9 +983,9 @@
     </section>
 
     <section id="evaluation">
-      <h2 data-zh="3. 评测">3. Evaluation</h2>
+      <h2 data-zh="3. 评测 World Latent">3. Evaluating the World Latent</h2>
 
-      <h3 id="q1" data-zh="Question 1：ORCA 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
+      <h3 id="q1" data-zh="问题 1：Orca 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
 
       <div class="chart-row">
         <div class="figure-box">
@@ -1098,7 +996,7 @@
         </div>
       </div>
 
-      <p data-zh="ORCA 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
+      <p data-zh="Orca 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
         <b>Orca’s world-learning objective scales consistently with model and data. </b>Loss decreases as pre-training data grows, and the 
         larger backbone achieves lower loss than the smaller one — suggesting next-state prediction is a learnable, scalable training signal.
       </p>
@@ -1110,11 +1008,11 @@
         that scaling world pre-training produces a more useful shared representation.
       </p>
 
-      <h3 id="q2" data-zh="Question 2：Orca 如何带来更强的下游读出？">
+      <h3 id="q2" data-zh="问题 2：Orca 如何带来更强的下游读出？">
         Question 2: How does Orca lead to stronger downstream readouts?
       </h3>
 
-      <p data-zh="Orca 连接到三类下游读出：语言、视觉和动作。我们分别使用语言读出、图像预测和具身动作生成 benchmark 进行评测，以衡量模型理解世界、预测世界和改变世界的能力。">
+      <p data-zh="Orca 连接到三类下游读出：语言、视觉和动作。我们分别使用语言读出、图像预测和具身动作生成基准进行评测，以衡量模型理解世界、预测世界和改变世界的能力。">
         Orca is connected to three downstream readouts: language, vision, and action. 
         We evaluate them with benchmarks of language readout, image prediction and embodied action generation, 
         that measure the model’s ability to understand, predict, and change the world.
@@ -1122,13 +1020,13 @@
 
       <h3 id="understand" data-zh="2.1 理解世界">2.1 Understand the world</h3>
       <h4 data-zh="基准设置">Benchmark</h4>
-      <p data-zh="我们使用来自不同视角的 VQA benchmark 评测 Orca 的世界理解能力，这些 benchmark 可分为两类：有意识学习 benchmark 和无意识学习 benchmark。">
+      <p data-zh="我们使用来自不同视角的 VQA 基准评测 Orca 的世界理解能力，这些基准可分为两类：有意识学习基准和无意识学习基准。">
         We evaluate Orca's capability of world understanding using VQA benchmarks of various perspectives, 
         which can be divided into two main types: conscious and unconscious learning benchmarks.
       </p>
         <ul>
           <li data-zh="无意识学习：TemporalBench &lt;a class=&quot;citation&quot; href=&quot;#ref-temporalbench&quot;&gt;(Cai et al., 2024)&lt;/a&gt; 检查动态 latent，3DSRBench &lt;a class=&quot;citation&quot; href=&quot;#ref-3dsrbench&quot;&gt;(Ma et al., 2025)&lt;/a&gt; 评估结构信息以及物体之间的关系。">
-            <b>Unconscious Learning:</b> TemporalBench <a class="citation" href="#ref-temporalbench">(Cai et al., 2024)</a> examines the dynamic latent, and 
+            <b>Unconscious Learning:</b> TemporalBench <a class="citation" href="#ref-temporalbench">(Cai et al., 2024)</a> examines the dynamic latent, and
             3DSRBench <a class="citation" href="#ref-3dsrbench">(Ma et al., 2025)</a>
             evaluates the structural information and relationships between objects.
           </li>
@@ -1158,7 +1056,7 @@ through conscious learning.
           </thead>
           <tbody>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup" data-zh="World Models (Large size)"><em>World Models (Large size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="World Models（Large size）"><em>World Models (Large size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1<br>(+LLaMA3-8B)</a></td>
@@ -1188,7 +1086,7 @@ through conscious learning.
               <td style="border-left: 2px solid var(--line);">29.8</td>
             </tr>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models (Tiny size)"><em>Vision Language Models (Tiny size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Tiny size）"><em>Vision Language Models (Tiny size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
@@ -1227,7 +1125,7 @@ through conscious learning.
               <td style="border-left: 2px solid var(--line);">37.9</td>
             </tr>
             <tr style="background: var(--soft);">
-              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models (Small size)"><em>Vision Language Models (Small size)</em></th>
+              <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Small size）"><em>Vision Language Models (Small size)</em></th>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-deepseek-vl2">DeepSeek-VL2</a></td>
@@ -1269,7 +1167,7 @@ through conscious learning.
         </table>
       </div>
 
-      <p data-zh="Orca 在 4B 级别 small VLM 中取得最佳 overall 性能，超过同参数规模的 Qwen3.5 和 Gemma 4。它在时间推理和空间感知上具备核心优势，并在不同模型规模下体现出优秀的参数利用效率。">
+      <p data-zh="Orca 在 4B 级别 small VLM 中取得最佳综合表现（overall），超过同参数规模的 Qwen3.5 和 Gemma 4。它在时间推理和空间感知上具备核心优势，并在不同模型规模下体现出优秀的参数利用效率。">
         <b>Orca achieves the best overall performance among 4B-scale small VLMs, outperforming Qwen3.5 and Gemma 4 with the same parameter size.</b>
          It possesses core advantages in temporal reasoning and spatial perception, and demonstrates exceptional parameter 
          utilization efficiency across different model scales.
@@ -1281,7 +1179,7 @@ through conscious learning.
           <tr>
             <th data-zh="能力">Capability</th>
             <th>Qwen3.5</th>
-            <th data-zh="ORCA 优势">ORCA advantage</th>
+            <th data-zh="Orca 优势">ORCA advantage</th>
           </tr>
         </thead>
         <tbody>
@@ -1309,7 +1207,7 @@ through conscious learning.
       </table>
 
 
-      <p data-zh="通过分析 ORCA 在所有 benchmark 的单项能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面，相比 Qwen3.5 backbone 都取得了明显提升。">
+      <p data-zh="通过分析 Orca 在各基准能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面，相比 Qwen3.5 backbone 都取得了明显提升。">
         By analyzing ORCA's performance across individual capability subcategories in all benchmarks, 
         we find that our model achieves substantial gains over the Qwen3.5 backbone in all aspects of <strong>state transition</strong>, <strong>commonsense reasoning</strong>,
         <strong>spatial relations</strong>, and <strong>dynamic motion</strong>.
@@ -1317,12 +1215,9 @@ through conscious learning.
 
       <h3 id="predict" data-zh="2.2 预测世界">2.2 Predict the world</h3>
       <h4 data-zh="基准设置">benchmark</h4>
-      <p data-zh="我们使用 &lt;b&gt;PRICE&lt;/b&gt;（Prediction of Real-world Interactions with Constraints Evaluation）benchmark 来评测模型预测真实世界物理状态变化的能力。该 benchmark 要求模型基于当前图像和语言指令生成未来状态图像。关键在于，虽然输出形式涉及图像生成，PRICE 评测的并不是单纯的 painter 能力，而是物理 predictor 能力。benchmark 由四个数据集构建：&lt;b&gt;AgiBot-World&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-agibot-world&quot;&gt;(AgiBot-World-Contributors et al., 2025)&lt;/a&gt;、&lt;b&gt;Galbot-General&lt;/b&gt;、&lt;b&gt;PE-Video&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-pe&quot;&gt;(Bolya et al., 2025)&lt;/a&gt; 和 &lt;b&gt;PSI-Ego&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-syndata&quot;&gt;(PsiBot, 2026)&lt;/a&gt;。">
-        <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
-        from the current image and language instruction. Although the output is image generation, the target
-        is not painter ability; the target is predictor ability. -->
-        We use <b>PRICE</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark to
-        evaluates a model's ability to predict real-world physical state changes. 
+      <p data-zh="我们使用 &lt;b&gt;PRICE&lt;/b&gt;（Prediction of Real-world Interactions with Constraints Evaluation）基准来评测模型预测真实世界物理状态变化的能力。该基准要求模型基于当前图像和语言指令生成未来状态图像。关键在于，虽然输出形式涉及图像生成，PRICE 评测的并不是单纯的 painter 能力，而是物理 predictor 能力。该基准由四个数据集构建：&lt;b&gt;AgiBot-World&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-agibot-world&quot;&gt;(AgiBot-World-Contributors et al., 2025)&lt;/a&gt;、&lt;b&gt;Galbot-General&lt;/b&gt;、&lt;b&gt;PE-Video&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-pe&quot;&gt;(Bolya et al., 2025)&lt;/a&gt; 和 &lt;b&gt;PSI-Ego&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-syndata&quot;&gt;(PsiBot, 2026)&lt;/a&gt;。">
+        We use the <b>PRICE</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark to
+        evaluate a model's ability to predict real-world physical state changes.
         It operates by requiring the model to generate a future state image based on a current 
         image and a language instruction. Crucially, while this involves image generation, 
         PRICE is specifically designed to test the model's capability as a physical "predictor" 
@@ -1338,12 +1233,12 @@ through conscious learning.
       </div>
 
       <h4 data-zh="对比模型">baselines</h4>
-      <p data-zh="我们用箱型图和定性 case comparison 报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2 &lt;a class=&quot;citation&quot; href=&quot;#ref-omnigen2&quot;&gt;(Wu et al., 2026)&lt;/a&gt;（3B VLM + 4B vision decoder）、FLUX.1-Kontext &lt;a class=&quot;citation&quot; href=&quot;#ref-flux1&quot;&gt;(Black Forest Labs et al., 2025)&lt;/a&gt;（12B vision decoder）和 Flux.2 [klein] &lt;a class=&quot;citation&quot; href=&quot;#ref-flux2&quot;&gt;(Black Forest Labs, 2026)&lt;/a&gt;（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
+      <p data-zh="我们用箱型图和定性案例对比报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2 &lt;a class=&quot;citation&quot; href=&quot;#ref-omnigen2&quot;&gt;(Wu et al., 2026)&lt;/a&gt;（3B VLM + 4B vision decoder）、FLUX.1-Kontext &lt;a class=&quot;citation&quot; href=&quot;#ref-flux1&quot;&gt;(Black Forest Labs et al., 2025)&lt;/a&gt;（12B vision decoder）和 Flux.2 [klein] &lt;a class=&quot;citation&quot; href=&quot;#ref-flux2&quot;&gt;(Black Forest Labs, 2026)&lt;/a&gt;（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
         We report PRICE results with box plots and qualitative case comparisons. 
         We selected recent, representative image generation models with a similar scale to Orca as baselines 
-        for comparison: including OmniGen2 <a class="citation" href="#ref-omnigen2">(Wu et al., 2026)</a> (3B VLM + 4B vision decoder), 
-        FLUX.1-Kontext <a class="citation" href="#ref-flux1">(Black Forest Labs et al., 2025)</a> (12B vision decoder), 
-        and Flux.2 [klein] <a class="citation" href="#ref-flux2">(Black Forest Labs, 2026)</a> (4B VLM + 4B vision decoder), 
+        for comparison: including OmniGen2 <a class="citation" href="#ref-omnigen2">(Wu et al., 2026)</a> (3B VLM + 4B vision decoder),
+        FLUX.1-Kontext <a class="citation" href="#ref-flux1">(Black Forest Labs et al., 2025)</a> (12B vision decoder),
+        and Flux.2 [klein] <a class="citation" href="#ref-flux2">(Black Forest Labs, 2026)</a> (4B VLM + 4B vision decoder),
         in which Orca outperforms all baselines in both quantitative and qualitative evaluations.
       </p>
 
@@ -1363,14 +1258,14 @@ through conscious learning.
       </div>
 
       <h3 id="change" data-zh="2.3 改变世界">2.3 Change the world</h3>
-      <p data-zh="改变世界评测使用 GalBot Real-robot 实验作为 out-of-domain（OOD）benchmark，用于评估具身任务能力。">
+      <p data-zh="改变世界评测使用 Galbot 真机实验作为 out-of-domain（OOD）基准，用于评估具身任务能力。">
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
         The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
       </p>
       <h4 data-zh="设置">settings</h4>
       <p data-zh="我们使用 Galbot G1 真机 &lt;a class=&quot;citation&quot; href=&quot;#ref-galbot-g1&quot;&gt;(Galbot, 2024)&lt;/a&gt; 采集五类任务数据，包括 Take book、Stacked bowls、Pull out tissue、Stamp 和 Scoop sugar。基于这些任务，我们设计了多种 OOD 实验，包括 3 类环境泛化和 5 类物体泛化，如下图所示。">
         We used the Galbot G1 real robot
-        <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including: 
+        <a class="citation" href="#ref-galbot-g1">(Galbot, 2024)</a> to collect data on five tasks, including:
         Take book, Stacked bowls, Pull out tissue, Stamp, and Scoop sugar. Based on these, several OOD 
         experiments were designed, including 3 kinds of Environmental Generalization and 5 kinds of 
         Object Generalization, as shown in the figure below. 
@@ -1382,10 +1277,10 @@ through conscious learning.
 
 
       <h4 data-zh="结果">results</h4>
-      <p data-zh="我们使用 rule-based score 和 PRM-as-a-Judge &lt;a class=&quot;citation&quot; href=&quot;#ref-prm-as-a-judge&quot;&gt;(Ji et al., 2026)&lt;/a&gt; 作为指标。rule-based score 衡量关键阶段的任务完成情况；PRM-as-a-Judge 提供稠密的轨迹级诊断，包括 progress、stagation、failure progress、recovery 和整体动作质量。">
-        We uses the <b>rule-based score</b> and <b>PRM-as-a-Judge</b>
+      <p data-zh="我们使用 rule-based score 和 PRM-as-a-Judge &lt;a class=&quot;citation&quot; href=&quot;#ref-prm-as-a-judge&quot;&gt;(Ji et al., 2026)&lt;/a&gt; 作为指标。rule-based score 衡量关键阶段的任务完成情况；PRM-as-a-Judge 提供稠密的轨迹级诊断，包括 progress、stagnation、failure progress、recovery 和整体动作质量。">
+        We use the <b>rule-based score</b> and <b>PRM-as-a-Judge</b>
         <a class="citation" href="#ref-prm-as-a-judge">(Ji et al., 2026)</a> as metrics. The rule-based score measures key-stage task completion,
-        and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
+        and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagnation, failure progress, recovery and overall action quality.
 
       </p>
 
@@ -1551,7 +1446,7 @@ through conscious learning.
       </div>
 
       <h4 data-zh="演示实验">demo trials</h4>
-      <p data-zh="一个 5 任务矩阵，覆盖 in-domain 执行、环境泛化和物体泛化。">
+      <p data-zh="下方是一个 5 任务矩阵，覆盖 in-domain 执行、环境泛化和物体泛化。">
         A 5-task matrix evaluated across in-domain execution, environment generalization, and object generalization.
       </p>
 
@@ -1559,7 +1454,7 @@ through conscious learning.
         <div class="galbot-gallery" aria-label="GalBot real-robot evaluation gallery">
           <div class="galbot-gallery-header">
             <div>
-              <h3 data-zh="GalBot 真机评测">GalBot Real-Robot Evaluation</h3>
+              <h3 data-zh="Galbot 真机评测">GalBot Real-Robot Evaluation</h3>
             </div>
           </div>
 
@@ -1751,7 +1646,7 @@ through conscious learning.
           URL <a href="https://arxiv.org/abs/2603.21669">https://arxiv.org/abs/2603.21669</a>.
         </li>
         <li id="ref-flux1">
-          <strong>Flux.1 kontext.</strong> Black Forest Labs et al. Flux.1 kontext: Flow matching for 
+          <strong>Flux.1 kontext.</strong> Black Forest Labs et al. Flux.1 kontext: Flow matching for
           in-context image generation and editing in latent space. <em>arXiv</em>, 2025.
         </li>
         <li id="ref-flux2">
@@ -1760,9 +1655,10 @@ through conscious learning.
         <li id="ref-omnigen2">
           <strong>OmniGen2.</strong> Wu et al. OmniGen2: A 3B-Parameter Multimodal Model with a 4B-Parameter
           Vision Decoder for Advanced Image Generation. <em>CVPR</em>, 2026.
-      </li>
+        </li>
       </ol>
     </section>
+
     </main>
   </div>
 
@@ -1770,34 +1666,10 @@ through conscious learning.
     Orca Team · Beijing Academy of Artificial Intelligence
   </footer>
   <script>
-    const spyLinks = Array.from(document.querySelectorAll("[data-spy-link]"));
-    const spyTargets = spyLinks
-      .map((link) => document.querySelector(link.getAttribute("href")))
-      .filter(Boolean);
-
-    function setActiveLink() {
-      const offset = 130;
-      let current = spyTargets[0];
-
-      for (const target of spyTargets) {
-        if (target.getBoundingClientRect().top <= offset) {
-          current = target;
-        }
-      }
-
-      spyLinks.forEach((link) => {
-        link.classList.toggle("active", link.getAttribute("href") === `#${current.id}`);
-      });
-    }
-
-    setActiveLink();
-    window.addEventListener("scroll", setActiveLink, { passive: true });
-    window.addEventListener("resize", setActiveLink);
-
     const langOptions = Array.from(document.querySelectorAll("[data-lang-option]"));
     const translatable = Array.from(document.querySelectorAll("[data-zh]"));
-    const abstractVideo = document.querySelector("#abstract-video");
-    const abstractVideoSource = document.querySelector("#abstract-video-source");
+    const heroVideo = document.querySelector("#hero-video");
+    const heroVideoSource = document.querySelector("#hero-video-source");
     let currentLang = "en";
 
     translatable.forEach((item) => {
@@ -1819,19 +1691,18 @@ through conscious learning.
         option.setAttribute("aria-pressed", String(isActive));
       });
 
-      if (abstractVideo && abstractVideoSource) {
-        const nextVideoSrc = lang === "zh" ? abstractVideo.dataset.videoZh : abstractVideo.dataset.videoEn;
-        if (nextVideoSrc && abstractVideoSource.getAttribute("src") !== nextVideoSrc) {
-          const wasPaused = abstractVideo.paused;
-          abstractVideoSource.src = nextVideoSrc;
-          abstractVideo.load();
+      if (heroVideo && heroVideoSource) {
+        const nextVideoSrc = lang === "zh" ? heroVideo.dataset.videoZh : heroVideo.dataset.videoEn;
+        if (nextVideoSrc && heroVideoSource.getAttribute("src") !== nextVideoSrc) {
+          const wasPaused = heroVideo.paused;
+          heroVideoSource.src = nextVideoSrc;
+          heroVideo.load();
           if (!wasPaused) {
-            abstractVideo.play().catch(() => {});
+            heroVideo.play().catch(() => {});
           }
         }
       }
 
-      setActiveLink();
     }
 
     langOptions.forEach((option) => {
