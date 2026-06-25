@@ -361,6 +361,121 @@
       background: #ffffff;
     }
 
+    .figure-carousel {
+      margin: 20px 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .carousel-stage {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #ffffff;
+      user-select: none;
+    }
+
+    .carousel-slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    .carousel-slide.is-active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    .carousel-hit {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .carousel-hit.prev {
+      left: 0;
+      cursor: w-resize;
+    }
+
+    .carousel-hit.next {
+      right: 0;
+      cursor: e-resize;
+    }
+
+    .carousel-hit::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 11px;
+      height: 11px;
+      border-top: 2px solid rgba(25, 26, 24, 0.72);
+      border-right: 2px solid rgba(25, 26, 24, 0.72);
+      opacity: 0;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .carousel-hit.prev::after {
+      left: 18px;
+      transform: translateY(-50%) rotate(-135deg);
+    }
+
+    .carousel-hit.next::after {
+      right: 18px;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .carousel-stage:hover .carousel-hit::after,
+    .carousel-hit:focus-visible::after {
+      opacity: 1;
+    }
+
+    .carousel-hit:focus-visible {
+      outline: none;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: #cac5b9;
+      cursor: pointer;
+      transition: width 160ms ease, background 160ms ease;
+    }
+
+    .carousel-dot.is-active {
+      width: 22px;
+      background: var(--link);
+    }
+
     video {
       width: 100%;
       display: block;
@@ -909,6 +1024,10 @@
         white-space: normal;
       }
 
+      .carousel-stage {
+        aspect-ratio: 4 / 3;
+      }
+
       .galbot-thumb-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -919,7 +1038,6 @@
 <body>
   <div class="reader-layout">
     <aside class="side-toc" aria-label="Reading navigation">
-      <strong data-zh="目录">Roadmap</strong>
       <a href="#demo" data-spy-link data-zh="摘要">Abstract</a>
       <a href="#training" data-spy-link data-zh="1. 学习世界">1. Learning the World</a>
       <a class="sub" href="#definition" data-spy-link data-zh="下一状态预测">Next state prediction</a>
@@ -931,9 +1049,9 @@
       <a href="#evaluation" data-spy-link data-zh="3. 评测 World Latent">3. Evaluating the World Latent</a>
       <a class="sub" href="#q1" data-spy-link data-zh="Q1：规模化表现">Q1: Scaling behavior</a>
       <a class="sub" href="#q2" data-spy-link data-zh="Q2：下游读出能力">Q2: Downstream performance</a>
-      <a class="sub" href="#understand" data-spy-link data-zh="2.1 文本生成">2.1 To language</a>
-      <a class="sub" href="#predict" data-spy-link data-zh="2.2 图像预测">2.2 To vision</a>
-      <a class="sub" href="#change" data-spy-link data-zh="2.3 动作生成">2.3 To action</a>
+      <a class="sub" href="#understand" data-spy-link data-zh="3.1 文本生成">3.1 To language</a>
+      <a class="sub" href="#predict" data-spy-link data-zh="3.2 图像预测">3.2 To vision</a>
+      <a class="sub" href="#change" data-spy-link data-zh="3.3 动作生成">3.3 To action</a>
       <a href="#citation" data-spy-link data-zh="引用">Citation</a>
     </aside>
 
@@ -1126,7 +1244,7 @@
     <section id="evaluation">
       <h2 data-zh="3. 评测 World Latent">3. Evaluating the World Latent</h2>
 
-      <h3 id="q1" data-zh="问题 1：Orca 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
+      <h3 id="q1" data-zh="问题 1：Orca 的规模化效果如何？">Question 1: How effective is Orca at scale-up?</h3>
 
       <div class="q1-overview">
         <div class="figure-box">
@@ -1165,7 +1283,7 @@
       </p> -->
       
 
-      <h3 id="understand" data-zh="2.1 文本生成">2.1 To language: text generation</h3>
+      <h3 id="understand" data-zh="3.1 文本生成">3.1 To language: text generation</h3>
       <!-- <h4 data-zh="基准设置">Benchmark</h4> -->
       <p data-zh="我们使用来自不同视角的 VQA benchmark 评测 Orca 的世界理解能力。结果如下图所示。">
         We evaluate Orca's capability of text generation using VQA benchmarks of various perspectives. The results are shown as below. 
@@ -1338,7 +1456,7 @@ through conscious learning.
           <tr>
             <th data-zh="能力">Capability</th>
             <th>Qwen3.5</th>
-            <th data-zh="Orca 优势">ORCA advantage</th>
+            <th data-zh="Orca 优势">Orca advantage</th>
           </tr>
         </thead>
         <tbody>
@@ -1367,23 +1485,60 @@ through conscious learning.
 
 
       <h5 data-zh="状态转移">State Transition</h5>
-      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
-        <div style="display: inline-block; min-width: max-content;">
-          <img src="figs/state_01.png" alt="State Transition" style="display:block; height:300px; max-width:none;">
+      <div class="figure-carousel" data-figure-carousel="state-transition">
+        <div class="carousel-stage" tabindex="0" aria-label="State Transition examples">
+          <figure class="carousel-slide is-active">
+            <img src="figs/capability-carousel/state-1.png" alt="State Transition example 1">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/capability-carousel/state-2.png" alt="State Transition example 2">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/capability-carousel/state-3.png" alt="State Transition example 3">
+          </figure>
+          <button class="carousel-hit prev" type="button" data-carousel-prev aria-label="Previous State Transition example"></button>
+          <button class="carousel-hit next" type="button" data-carousel-next aria-label="Next State Transition example"></button>
+        </div>
+        <div class="carousel-dots" aria-label="State Transition examples">
+          <button class="carousel-dot is-active" type="button" data-carousel-dot="0" aria-label="Show State Transition example 1"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="1" aria-label="Show State Transition example 2"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="2" aria-label="Show State Transition example 3"></button>
         </div>
       </div>
 
       <h5 data-zh="常识推理">Commonsense Reasoning</h5>
-      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
-        <div style="display: inline-block; min-width: max-content;">
-          <img src="figs/sense_01.png" alt="Commonsense Reasoning" style="display:block; height:300px; max-width:none;">
+      <div class="figure-carousel" data-figure-carousel="commonsense-reasoning">
+        <div class="carousel-stage" tabindex="0" aria-label="Commonsense Reasoning examples">
+          <figure class="carousel-slide is-active">
+            <img src="figs/capability-carousel/sense-1.png" alt="Commonsense Reasoning example 1">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/capability-carousel/sense-2.png" alt="Commonsense Reasoning example 2">
+          </figure>
+          <button class="carousel-hit prev" type="button" data-carousel-prev aria-label="Previous Commonsense Reasoning example"></button>
+          <button class="carousel-hit next" type="button" data-carousel-next aria-label="Next Commonsense Reasoning example"></button>
+        </div>
+        <div class="carousel-dots" aria-label="Commonsense Reasoning examples">
+          <button class="carousel-dot is-active" type="button" data-carousel-dot="0" aria-label="Show Commonsense Reasoning example 1"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="1" aria-label="Show Commonsense Reasoning example 2"></button>
         </div>
       </div>
 
       <h5 data-zh="动态运动">Dynamic Motion</h5>
-      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
-        <div style="display: inline-block; min-width: max-content;">
-          <img src="figs/movement_01.png" alt="Dynamic Motion" style="display:block; height:300px; max-width:none;">
+      <div class="figure-carousel" data-figure-carousel="dynamic-motion">
+        <div class="carousel-stage" tabindex="0" aria-label="Dynamic Motion examples">
+          <figure class="carousel-slide is-active">
+            <img src="figs/capability-carousel/movement-1.png" alt="Dynamic Motion example 1">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/capability-carousel/movement-2.png" alt="Dynamic Motion example 2">
+          </figure>
+          <button class="carousel-hit prev" type="button" data-carousel-prev aria-label="Previous Dynamic Motion example"></button>
+          <button class="carousel-hit next" type="button" data-carousel-next aria-label="Next Dynamic Motion example"></button>
+        </div>
+        <div class="carousel-dots" aria-label="Dynamic Motion examples">
+          <button class="carousel-dot is-active" type="button" data-carousel-dot="0" aria-label="Show Dynamic Motion example 1"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="1" aria-label="Show Dynamic Motion example 2"></button>
         </div>
       </div>
 
@@ -1393,12 +1548,12 @@ through conscious learning.
       </div>
 
       <p data-zh="通过分析 Orca 在各基准能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面，相比 Qwen3.5 backbone 都取得了明显提升。">
-        By analyzing ORCA's performance across individual capability subcategories in all benchmarks, 
+        By analyzing Orca's performance across individual capability subcategories in all benchmarks,
         we find that our model achieves substantial gains over the Qwen3.5 backbone in all aspects of <strong>state transition</strong>, <strong>commonsense reasoning</strong>,
         <strong>spatial relations</strong>, and <strong>dynamic motion</strong>.
       </p>
 
-      <h3 id="predict" data-zh="2.2 图像预测">2.2 To vision: image prediction</h3>
+      <h3 id="predict" data-zh="3.2 图像预测">3.2 To vision: image prediction</h3>
       <h4 data-zh="基准设置">benchmark</h4>
       <p data-zh="我们使用 &lt;b&gt;PRICE-V0.1&lt;/b&gt;（Prediction of Real-world Interactions with Constraints Evaluation）benchmark 来评测模型预测真实世界物理状态变化的能力。该 benchmark 要求模型基于当前图像和语言指令生成未来状态图像。">
         <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
@@ -1523,7 +1678,7 @@ through conscious learning.
         <img src="figs/ToV_visualization.png" alt="PRICE visual case comparison.">
       </div>
 
-      <h3 id="change" data-zh="2.3 动作生成">2.3 To action: action generation</h3>
+      <h3 id="change" data-zh="3.3 动作生成">3.3 To action: action generation</h3>
       <p data-zh="动作生成评测使用真机实验作为 out-of-domain（OOD）benchmark，用于评估具身任务能力。">
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
         The action generation evaluation uses real robot experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
@@ -1893,15 +2048,45 @@ through conscious learning.
         </ul>
       </p>
 
-      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
-        <div style="display: inline-block; min-width: max-content;">
-          <img src="figs/eval_recover.png" alt="Recovery evaluation example" style="display:block; height:300px; max-width:none;">
+      <div class="figure-carousel" data-figure-carousel="action-recovery">
+        <div class="carousel-stage" tabindex="0" aria-label="Action recovery examples">
+          <figure class="carousel-slide is-active">
+            <img src="figs/action-carousel/recover-1.png" alt="Recovery evaluation example 1">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/action-carousel/recover-2.png" alt="Recovery evaluation example 2">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/action-carousel/recover-3.png" alt="Recovery evaluation example 3">
+          </figure>
+          <button class="carousel-hit prev" type="button" data-carousel-prev aria-label="Previous action recovery example"></button>
+          <button class="carousel-hit next" type="button" data-carousel-next aria-label="Next action recovery example"></button>
+        </div>
+        <div class="carousel-dots" aria-label="Action recovery example selector">
+          <button class="carousel-dot is-active" type="button" data-carousel-dot="0" aria-label="Show recovery example 1"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="1" aria-label="Show recovery example 2"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="2" aria-label="Show recovery example 3"></button>
         </div>
       </div>
 
-      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
-        <div style="display: inline-block; min-width: max-content;">
-          <img src="figs/eval_failure.png" alt="Failure evaluation example" style="display:block; height:300px; max-width:none;">
+      <div class="figure-carousel" data-figure-carousel="action-failure">
+        <div class="carousel-stage" tabindex="0" aria-label="Action failure examples">
+          <figure class="carousel-slide is-active">
+            <img src="figs/action-carousel/failure-1.png" alt="Failure evaluation example 1">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/action-carousel/failure-2.png" alt="Failure evaluation example 2">
+          </figure>
+          <figure class="carousel-slide">
+            <img src="figs/action-carousel/failure-3.png" alt="Failure evaluation example 3">
+          </figure>
+          <button class="carousel-hit prev" type="button" data-carousel-prev aria-label="Previous action failure example"></button>
+          <button class="carousel-hit next" type="button" data-carousel-next aria-label="Next action failure example"></button>
+        </div>
+        <div class="carousel-dots" aria-label="Action failure example selector">
+          <button class="carousel-dot is-active" type="button" data-carousel-dot="0" aria-label="Show failure example 1"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="1" aria-label="Show failure example 2"></button>
+          <button class="carousel-dot" type="button" data-carousel-dot="2" aria-label="Show failure example 3"></button>
         </div>
       </div>
 
@@ -2048,6 +2233,7 @@ through conscious learning.
     const galbotModalTitle = document.querySelector("#galbot-modal-title");
     const galbotModalClose = document.querySelector("#galbot-modal-close");
     const galbotThumbs = Array.from(document.querySelectorAll(".galbot-thumb"));
+    const figureCarousels = Array.from(document.querySelectorAll("[data-figure-carousel]"));
 
     function openVideoModal(videoSrc, videoPoster, videoLabel) {
       if (!galbotModal || !galbotModalVideo || !galbotModalSource || !galbotModalTitle || !videoSrc) {
@@ -2104,6 +2290,51 @@ through conscious learning.
       if (event.key === "Escape") {
         closeVideoModal();
       }
+    });
+
+    figureCarousels.forEach((carousel) => {
+      const stage = carousel.querySelector(".carousel-stage");
+      const slides = Array.from(carousel.querySelectorAll(".carousel-slide"));
+      const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+      const prevButton = carousel.querySelector("[data-carousel-prev]");
+      const nextButton = carousel.querySelector("[data-carousel-next]");
+
+      if (!stage || !slides.length || !prevButton || !nextButton) {
+        return;
+      }
+
+      let activeIndex = 0;
+
+      const showSlide = (nextIndex) => {
+        activeIndex = (nextIndex + slides.length) % slides.length;
+        slides.forEach((slide, index) => {
+          slide.classList.toggle("is-active", index === activeIndex);
+        });
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("is-active", index === activeIndex);
+        });
+      };
+
+      prevButton.addEventListener("click", () => showSlide(activeIndex - 1));
+      nextButton.addEventListener("click", () => showSlide(activeIndex + 1));
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          showSlide(Number(dot.dataset.carouselDot || 0));
+        });
+      });
+
+      stage.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showSlide(activeIndex + 1);
+        }
+
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showSlide(activeIndex - 1);
+        }
+      });
     });
   </script>
 </body>
