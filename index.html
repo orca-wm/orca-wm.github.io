@@ -561,6 +561,73 @@
       line-height: 1.25;
     }
 
+    .galbot-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(7, 10, 10, 0.8);
+    }
+
+    .galbot-modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .galbot-modal {
+      width: min(960px, 100%);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000000;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .galbot-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: #faf8f2;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .galbot-modal-title {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .galbot-modal-close {
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .galbot-modal-close:hover {
+      background: #eef5f2;
+      color: var(--link);
+    }
+
+    .galbot-modal-body {
+      background: #000000;
+    }
+
+    .galbot-modal-body video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #000000;
+    }
+
     .simple-diagram {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1208,8 +1275,9 @@ through conscious learning.
       </p>
 
       <h4 data-zh="能力维度分析">Capability Analysis</h4>
-      <p data-zh="通过分析 Orca 在各基准能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面取得了明显提升。">
-        Orca demonstrates superior performance across various capability subcategories, including state transition, commonsense reasoning, spatial relations, and dynamic motion.
+      <p data-zh="通过对 Orca 在各基准能力子类别上的表现进行分析，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面，相比 Qwen3.5 backbone 都取得了明显提升。">
+        By aggregating samples associated with each capability dimension across multiple benchmarks and
+      computing the corresponding average success rates, we find that Orca consistently outperforms Qwen3.5 in all four capability dimensions.
       </p>
       <table>
         <thead>
@@ -1243,7 +1311,6 @@ through conscious learning.
         </tbody>
       </table>
 
-      <h4 data-zh="可视化">Example Visualization</h4>
 
       <h5 data-zh="状态转移">State Transition</h5>
       <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
@@ -1294,8 +1361,8 @@ through conscious learning.
         <img src="figs/PRICE.png" alt="PRICE benchmark example figure.">
       </div>
 
-      <p data-zh="注：PRICE 评测重在物理预测，而非纯绘图；数据来自 &lt;b&gt;AgiBot-World&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-agibot-world&quot;&gt;(AgiBot-World-Contributors et al., 2025)&lt;/a&gt;、&lt;b&gt;Galbot-General&lt;/b&gt;、&lt;b&gt;PE-Video&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-pe&quot;&gt;(Bolya et al., 2025)&lt;/a&gt; 和 &lt;b&gt;PSI-Ego&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-syndata&quot;&gt;(PsiBot, 2026)&lt;/a&gt;。">
-        <em>Note:</em> PRICE focuses on physical prediction rather than pure image painting; it is built from <b>AgiBot-World</b> <a class="citation" href="#ref-agibot-world">(AgiBot-World-Contributors et al., 2025)</a>, <b>Galbot-General</b>, <b>PE-Video</b> <a class="citation" href="#ref-pe">(Bolya et al., 2025)</a>, and <b>PSI-Ego</b> <a class="citation" href="#ref-syndata">(PsiBot, 2026)</a>.
+      <p data-zh="注：PRICE 评测重在物理预测，而非纯绘图。">
+        <em>Note:</em> PRICE focuses on physical prediction rather than pure image painting.
       </p>
 
       <h4 data-zh="结果">RESULTS</h4>
@@ -2075,6 +2142,7 @@ through conscious learning.
       galbotModalTitle.textContent = currentLang === "zh" ? videoLabelZh : videoLabel;
       galbotModal.classList.add("is-open");
       galbotModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
       galbotModalVideo.load();
       galbotModalVideo.play().catch(() => {});
     }
@@ -2089,6 +2157,7 @@ through conscious learning.
       galbotModalVideo.load();
       galbotModal.classList.remove("is-open");
       galbotModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
     }
 
     galbotThumbs.forEach((thumb) => {
