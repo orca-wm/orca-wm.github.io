@@ -677,12 +677,37 @@
     }
 
     .table-wrap table {
-      min-width: 760px;
+      min-width: 960px;
+      width: 100%;
       margin: 0;
+    }
+
+    .results-table {
+      table-layout: fixed;
     }
 
     .results-table th,
     .results-table td {
+      width: calc(100% / 7);
+      vertical-align: middle;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 22px;
+    }
+
+    .table-container table {
+      min-width: 1120px;
+      width: 100%;
+      margin: 0;
+      table-layout: fixed;
+    }
+
+    .table-container th,
+    .table-container td {
+      width: calc(100% / 9);
       vertical-align: middle;
     }
 
@@ -806,6 +831,25 @@
   </nav>
 
   <div class="reader-layout">
+    <aside class="side-toc" aria-label="Reading navigation">
+      <strong data-zh="目录">Roadmap</strong>
+      <a href="#demo" data-spy-link data-zh="摘要">Abstract</a>
+      <a href="#training" data-spy-link data-zh="1. 训练">1. Training</a>
+      <a class="sub" href="#definition" data-spy-link data-zh="下一状态目标">Next-state objective</a>
+      <a class="sub" href="#learning" data-spy-link data-zh="双重学习范式">Dual learning paradigms</a>
+      <a class="sub" href="#recipe" data-spy-link data-zh="基于双重 Query 的模型架构">Query-based objectives</a>
+      <a class="sub" href="#downstream" data-spy-link data-zh="下游读出">Downstream readouts</a>
+      <a href="#data" data-spy-link data-zh="2. 数据">2. Data</a>
+      <a class="sub" href="#composition" data-spy-link data-zh="世界学习资源">World-learning resources</a>
+      <a href="#evaluation" data-spy-link data-zh="3. 评测">3. Evaluation</a>
+      <a class="sub" href="#q1" data-spy-link data-zh="Q1：规模化表现">Q1: Scaling behavior</a>
+      <a class="sub" href="#q2" data-spy-link data-zh="Q2：下游读出能力">Q2: Downstream performance</a>
+      <a class="sub" href="#understand" data-spy-link data-zh="2.1：文本生成">2.1: To language: text generation</a>
+      <a class="sub" href="#predict" data-spy-link data-zh="2.2：图像预测">2.2: To vision: image prediction</a>
+      <a class="sub" href="#change" data-spy-link data-zh="2.3：动作生成">2.3: To action: action generation</a>
+      <a href="#citation" data-spy-link data-zh="参考文献">References</a>
+    </aside>
+
     <main id="top">
     <header id="demo">
       <h1 data-zh="Orca: The World is in Your Mind">Orca: The World is in Your Mind</h1>
@@ -987,19 +1031,23 @@
 
       <h3 id="q1" data-zh="问题 1：Orca 的规模化效果如何？">Question 1: How effective is ORCA at scale-up?</h3>
 
-      <div class="chart-row">
-        <div class="figure-box">
+        <div class="figure-box" style="width:50%; margin:0 auto;">
           <img src="figs/scaling_loss.png" alt="World-learning loss decreases as the pre-training data scale increases, with the larger Orca backbone achieving lower loss.">
         </div>
-        <div class="figure-box">
-          <img src="figs/scaling_performance.png" alt="Downstream readout scores improve with pre-training scale across text generation, image prediction, and action generation">
-        </div>
-      </div>
 
-      <p data-zh="Orca 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
+       <p data-zh="Orca 的世界学习目标会随着模型和数据规模稳定提升。随着预训练数据增长，loss 持续下降，且更大的 backbone 获得更低 loss，说明 next-state prediction 是一种可学习、可扩展的训练信号。">
         <b>Orca’s world-learning objective scales consistently with model and data. </b>Loss decreases as pre-training data grows, and the 
         larger backbone achieves lower loss than the smaller one — suggesting next-state prediction is a learnable, scalable training signal.
-      </p>
+      </p> 
+
+
+      <h3 id="q2" data-zh="Question 2：Orca 如何带来更强的下游读出？">
+        Question 2: How does Orca lead to stronger downstream readouts?
+      </h3>
+
+      <div class="figure-box">
+          <img src="figs/scaling_performance.png" alt="Downstream readout scores improve with pre-training scale across text generation, image prediction, and action generation">
+        </div>
 
       <p data-zh="更强的世界预训练会带来更强的下游读出。由于读出训练阶段 backbone 保持冻结，收益直接反映 latent space 质量。跨模态的一致提升表明，扩大世界预训练能够产生更有用的共享表示。">
         <b>Stronger world pre-training leads to stronger downstream readouts. </b>
@@ -1008,23 +1056,19 @@
         that scaling world pre-training produces a more useful shared representation.
       </p>
 
-      <h3 id="q2" data-zh="问题 2：Orca 如何带来更强的下游读出？">
-        Question 2: How does Orca lead to stronger downstream readouts?
-      </h3>
-
-      <p data-zh="Orca 连接到三类下游读出：语言、视觉和动作。我们分别使用语言读出、图像预测和具身动作生成基准进行评测，以衡量模型理解世界、预测世界和改变世界的能力。">
+      <!-- <p data-zh="Orca 连接到三类下游读出：语言、视觉和动作。我们分别使用语言读出、图像预测和具身动作生成 benchmark 进行评测，以衡量模型理解世界、预测世界和改变世界的能力。">
         Orca is connected to three downstream readouts: language, vision, and action. 
         We evaluate them with benchmarks of language readout, image prediction and embodied action generation, 
         that measure the model’s ability to understand, predict, and change the world.
-      </p>
+      </p> -->
+      
 
-      <h3 id="understand" data-zh="2.1 理解世界">2.1 Understand the world</h3>
-      <h4 data-zh="基准设置">Benchmark</h4>
-      <p data-zh="我们使用来自不同视角的 VQA 基准评测 Orca 的世界理解能力，这些基准可分为两类：有意识学习基准和无意识学习基准。">
-        We evaluate Orca's capability of world understanding using VQA benchmarks of various perspectives, 
-        which can be divided into two main types: conscious and unconscious learning benchmarks.
+      <h3 id="understand" data-zh="2.1 文本生成">2.1 To language: text generation</h3>
+      <!-- <h4 data-zh="基准设置">Benchmark</h4> -->
+      <p data-zh="我们使用来自不同视角的 VQA benchmark 评测 Orca 的世界理解能力。结果如下图所示。">
+        We evaluate Orca's capability of text generation using VQA benchmarks of various perspectives. The results are shown as below. 
       </p>
-        <ul>
+        <!-- <ul>
           <li data-zh="无意识学习：TemporalBench &lt;a class=&quot;citation&quot; href=&quot;#ref-temporalbench&quot;&gt;(Cai et al., 2024)&lt;/a&gt; 检查动态 latent，3DSRBench &lt;a class=&quot;citation&quot; href=&quot;#ref-3dsrbench&quot;&gt;(Ma et al., 2025)&lt;/a&gt; 评估结构信息以及物体之间的关系。">
             <b>Unconscious Learning:</b> TemporalBench <a class="citation" href="#ref-temporalbench">(Cai et al., 2024)</a> examines the dynamic latent, and
             3DSRBench <a class="citation" href="#ref-3dsrbench">(Ma et al., 2025)</a>
@@ -1036,9 +1080,9 @@
             MVBench <a class="citation" href="#ref-mvbench">(Li et al., 2024)</a> is used to evaluate a model’s general video understanding capabilities
 through conscious learning.
           </li>
-        </ul>
+        </ul> -->
 
-      <h4 data-zh="结果">Results</h4>
+      <!-- <h4 data-zh="结果">Results</h4> -->
 
 
       <div class="table-wrap">
@@ -1047,11 +1091,11 @@ through conscious learning.
             <tr>
               <th data-zh="模型">Model</th>
               <th data-zh="规模(B)">Size(B)</th>
+              <th>Overall</th>
               <th>MVBench</th>
               <th>TemporalBench</th>
               <th>3DSRBench</th>
               <th>SWITCH</th>
-              <th>Overall</th>
             </tr>
           </thead>
           <tbody>
@@ -1059,31 +1103,31 @@ through conscious learning.
               <th colspan="7" scope="rowgroup" data-zh="World Models（Large size）"><em>World Models (Large size)</em></th>
             </tr>
             <tr>
-              <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1<br>(+LLaMA3-8B)</a></td>
+              <td><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1<br><span style="font-size: 0.9em;">(+LLaMA3-8B)</span></a></td>
               <td>10</td>
-              <td style="border-left: 2px solid var(--line);"><strong>75.4</strong></td>
+              <td style="border-left: 2px solid var(--line);">/</td>
+              <td><strong>75.4</strong></td>
               <td>28.5</td>
               <td>/</td>
               <td>/</td>
-              <td style="border-left: 2px solid var(--line);">/</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-emu3">Emu3</a></td>
               <td>8</td>
+              <td style="border-left: 2px solid var(--line);">30.4</td>
               <td style="border-left: 2px solid var(--line);">35.2</td>
               <td>9.5</td>
               <td>39.1</td>
               <td>38.0</td>
-              <td style="border-left: 2px solid var(--line);">30.4</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-emu35">Emu3.5</a></td>
               <td>34</td>
+              <td style="border-left: 2px solid var(--line);">29.8</td>
               <td style="border-left: 2px solid var(--line);">39.5</td>
               <td>9.5</td>
               <td>31.3</td>
               <td>38.9</td>
-              <td style="border-left: 2px solid var(--line);">29.8</td>
             </tr>
             <tr style="background: var(--soft);">
               <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Tiny size）"><em>Vision Language Models (Tiny size)</em></th>
@@ -1091,38 +1135,47 @@ through conscious learning.
             <tr>
               <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
               <td>0.8</td>
+              <td style="border-left: 2px solid var(--line);">31.2</td>
               <td style="border-left: 2px solid var(--line);">52.7</td>
               <td>19.1</td>
               <td>14.3</td>
               <td>38.8</td>
-              <td style="border-left: 2px solid var(--line);">31.2</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-gemma4">Gemma 4</a></td>
               <td>2</td>
+              <td style="border-left: 2px solid var(--line);">29.8</td>
               <td style="border-left: 2px solid var(--line);">32.5</td>
               <td>17.1</td>
               <td>29.5</td>
               <td>39.9</td>
-              <td style="border-left: 2px solid var(--line);">29.8</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-smolvlm">SmolVLM2</a></td>
               <td>2</td>
+              <td style="border-left: 2px solid var(--line);">33.7</td>
               <td style="border-left: 2px solid var(--line);">48.7</td>
               <td>18.4</td>
               <td>35.5</td>
               <td>32.0</td>
-              <td style="border-left: 2px solid var(--line);">33.7</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-minicpm">MiniCPM-V-4.6</a></td>
               <td>2</td>
+              <td style="border-left: 2px solid var(--line);">37.9</td>
               <td style="border-left: 2px solid var(--line);">41.4</td>
               <td>21.2</td>
               <td>47.7</td>
               <td>41.2</td>
-              <td style="border-left: 2px solid var(--line);">37.9</td>
+            </tr>
+            <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
+              <td><strong>Orca</strong></td>
+              <td>0.8</td>
+              <td>40.8</td>
+              <td>53.6</td>
+              <td>22.6</td>
+              <td>43.4</td>
+              <td>43.7</td>
             </tr>
             <tr style="background: var(--soft);">
               <th colspan="7" scope="rowgroup" data-zh="Vision Language Models（Small size）"><em>Vision Language Models (Small size)</em></th>
@@ -1130,38 +1183,38 @@ through conscious learning.
             <tr>
               <td><a class="model-link" href="#ref-deepseek-vl2">DeepSeek-VL2</a></td>
               <td>3</td>
+              <td style="border-left: 2px solid var(--line);">32.3</td>
               <td style="border-left: 2px solid var(--line);">40.5</td>
               <td>21.0</td>
               <td>32.1</td>
               <td>35.5</td>
-              <td style="border-left: 2px solid var(--line);">32.3</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
               <td>4</td>
+              <td style="border-left: 2px solid var(--line);">46.7</td>
               <td style="border-left: 2px solid var(--line);">67.1</td>
               <td>25.2</td>
               <td>48.1</td>
               <td>42.8</td>
-              <td style="border-left: 2px solid var(--line);">46.7</td>
             </tr>
             <tr>
               <td><a class="model-link" href="#ref-gemma4">Gemma 4</a></td>
               <td>4</td>
+              <td style="border-left: 2px solid var(--line);">40.8</td>
               <td style="border-left: 2px solid var(--line);">45.6</td>
               <td>20.2</td>
               <td>44.8</td>
               <td>52.4</td>
-              <td style="border-left: 2px solid var(--line);">40.8</td>
             </tr>
             <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
               <td><strong>Orca</strong></td>
               <td>4</td>
+              <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
               <td style="border-left: 2px solid var(--line);">65.3</td>
               <td><strong>34.2</strong></td>
               <td><strong>52.1</strong></td>
               <td><strong>55.6</strong></td>
-              <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
             </tr>
           </tbody>
         </table>
@@ -1206,6 +1259,33 @@ through conscious learning.
         </tbody>
       </table>
 
+      <h4 data-zh="可视化">Example Visualization</h4>
+
+      <h5 data-zh="状态转移">State Transition</h5>
+      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
+        <div style="display: inline-block; min-width: max-content;">
+          <img src="figs/state_01.png" alt="State Transition" style="display:block; height:300px; max-width:none;">
+        </div>
+      </div>
+
+      <h5 data-zh="常识推理">Commonsense Reasoning</h5>
+      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
+        <div style="display: inline-block; min-width: max-content;">
+          <img src="figs/sense_01.png" alt="Commonsense Reasoning" style="display:block; height:300px; max-width:none;">
+        </div>
+      </div>
+
+      <h5 data-zh="动态运动">Dynamic Motion</h5>
+      <div class="figure-box" style="padding: 12px; overflow-x: auto; overflow-y: hidden;">
+        <div style="display: inline-block; min-width: max-content;">
+          <img src="figs/movement_01.png" alt="Dynamic Motion" style="display:block; height:300px; max-width:none;">
+        </div>
+      </div>
+
+      <h5 data-zh="空间关系">Spatial Relations</h5>
+      <div class="figure-box" >
+        <img src="figs/sp.png" alt="Spatial Relations">
+      </div>
 
       <p data-zh="通过分析 Orca 在各基准能力子类别上的表现，我们发现模型在状态转移、常识推理、空间关系和动态运动等方面，相比 Qwen3.5 backbone 都取得了明显提升。">
         By analyzing ORCA's performance across individual capability subcategories in all benchmarks, 
@@ -1213,38 +1293,119 @@ through conscious learning.
         <strong>spatial relations</strong>, and <strong>dynamic motion</strong>.
       </p>
 
-      <h3 id="predict" data-zh="2.2 预测世界">2.2 Predict the world</h3>
+      <h3 id="predict" data-zh="2.2 图像预测">2.2 To vision: image prediction</h3>
       <h4 data-zh="基准设置">benchmark</h4>
-      <p data-zh="我们使用 &lt;b&gt;PRICE&lt;/b&gt;（Prediction of Real-world Interactions with Constraints Evaluation）基准来评测模型预测真实世界物理状态变化的能力。该基准要求模型基于当前图像和语言指令生成未来状态图像。关键在于，虽然输出形式涉及图像生成，PRICE 评测的并不是单纯的 painter 能力，而是物理 predictor 能力。该基准由四个数据集构建：&lt;b&gt;AgiBot-World&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-agibot-world&quot;&gt;(AgiBot-World-Contributors et al., 2025)&lt;/a&gt;、&lt;b&gt;Galbot-General&lt;/b&gt;、&lt;b&gt;PE-Video&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-pe&quot;&gt;(Bolya et al., 2025)&lt;/a&gt; 和 &lt;b&gt;PSI-Ego&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-syndata&quot;&gt;(PsiBot, 2026)&lt;/a&gt;。">
-        We use the <b>PRICE</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark to
-        evaluate a model's ability to predict real-world physical state changes.
+      <p data-zh="我们使用 &lt;b&gt;PRICE-V0.1&lt;/b&gt;（Prediction of Real-world Interactions with Constraints Evaluation）benchmark 来评测模型预测真实世界物理状态变化的能力。该 benchmark 要求模型基于当前图像和语言指令生成未来状态图像。">
+        <!-- The prediction evaluation uses the PRICE benchmark. PRICE asks the model to predict future images
+        from the current image and language instruction. Although the output is image generation, the target
+        is not painter ability; the target is predictor ability. -->
+        We use <b>PRICE-V0.1</b> (Prediction of Real-world Interactions with Constraints Evaluation) benchmark to
+        evaluates a model's ability to predict real-world physical state changes. 
         It operates by requiring the model to generate a future state image based on a current 
-        image and a language instruction. Crucially, while this involves image generation, 
-        PRICE is specifically designed to test the model's capability as a physical "predictor" 
-        rather than a mere "painter". The benchmark is constructed using 4 datasets: 
-        <b>AgiBot-World</b> <a class="citation" href="#ref-agibot-world">(AgiBot-World-Contributors et al., 2025)</a>,
-        <b>Galbot-General</b>, <b>PE-Video</b> <a class="citation" href="#ref-pe">(Bolya et al., 2025)</a>,
-        and <b>PSI-Ego</b> <a class="citation" href="#ref-syndata">(PsiBot, 2026)</a>.
-
+        image and a language instruction. 
       </p>
+
 
       <div class="figure-box">
         <img src="figs/PRICE.png" alt="PRICE benchmark example figure.">
       </div>
 
-      <h4 data-zh="对比模型">baselines</h4>
-      <p data-zh="我们用箱型图和定性案例对比报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2 &lt;a class=&quot;citation&quot; href=&quot;#ref-omnigen2&quot;&gt;(Wu et al., 2026)&lt;/a&gt;（3B VLM + 4B vision decoder）、FLUX.1-Kontext &lt;a class=&quot;citation&quot; href=&quot;#ref-flux1&quot;&gt;(Black Forest Labs et al., 2025)&lt;/a&gt;（12B vision decoder）和 Flux.2 [klein] &lt;a class=&quot;citation&quot; href=&quot;#ref-flux2&quot;&gt;(Black Forest Labs, 2026)&lt;/a&gt;（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
-        We report PRICE results with box plots and qualitative case comparisons. 
+      <p data-zh="注：PRICE 评测重在物理预测，而非纯绘图；数据来自 &lt;b&gt;AgiBot-World&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-agibot-world&quot;&gt;(AgiBot-World-Contributors et al., 2025)&lt;/a&gt;、&lt;b&gt;Galbot-General&lt;/b&gt;、&lt;b&gt;PE-Video&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-pe&quot;&gt;(Bolya et al., 2025)&lt;/a&gt; 和 &lt;b&gt;PSI-Ego&lt;/b&gt; &lt;a class=&quot;citation&quot; href=&quot;#ref-syndata&quot;&gt;(PsiBot, 2026)&lt;/a&gt;。">
+        <em>Note:</em> PRICE focuses on physical prediction rather than pure image painting; it is built from <b>AgiBot-World</b> <a class="citation" href="#ref-agibot-world">(AgiBot-World-Contributors et al., 2025)</a>, <b>Galbot-General</b>, <b>PE-Video</b> <a class="citation" href="#ref-pe">(Bolya et al., 2025)</a>, and <b>PSI-Ego</b> <a class="citation" href="#ref-syndata">(PsiBot, 2026)</a>.
+      </p>
+
+      <h4 data-zh="结果">RESULTS</h4>
+      <!-- <p data-zh="我们用表格和定性 case comparison 报告 PRICE 结果。对比 baseline 选择了近期有代表性、规模与 Orca 接近的图像生成模型，包括 OmniGen2 &lt;a class=&quot;citation&quot; href=&quot;#ref-omnigen2&quot;&gt;(Wu et al., 2026)&lt;/a&gt;（3B VLM + 4B vision decoder）、FLUX.1-Kontext &lt;a class=&quot;citation&quot; href=&quot;#ref-flux1&quot;&gt;(Black Forest Labs et al., 2025)&lt;/a&gt;（12B vision decoder）和 Flux.2 [klein] &lt;a class=&quot;citation&quot; href=&quot;#ref-flux2&quot;&gt;(Black Forest Labs, 2026)&lt;/a&gt;（4B VLM + 4B vision decoder）。Orca 在定量和定性评测中均优于所有 baseline。">
+        We report PRICE results with tables and qualitative case comparisons. 
         We selected recent, representative image generation models with a similar scale to Orca as baselines 
         for comparison: including OmniGen2 <a class="citation" href="#ref-omnigen2">(Wu et al., 2026)</a> (3B VLM + 4B vision decoder),
         FLUX.1-Kontext <a class="citation" href="#ref-flux1">(Black Forest Labs et al., 2025)</a> (12B vision decoder),
         and Flux.2 [klein] <a class="citation" href="#ref-flux2">(Black Forest Labs, 2026)</a> (4B VLM + 4B vision decoder),
         in which Orca outperforms all baselines in both quantitative and qualitative evaluations.
-      </p>
+      </p> -->
 
-      <div class="figure-box" style="width:60%; margin:0 auto;">
-        <img src="figs/PRICE-results.png" alt="PRICE box-plot result." style="display:block; width:100%;">
+      <div style="overflow-x: auto; max-width: 100%;">
+        <table style="border-collapse: collapse; font-size: small; border: none; width: 100%; table-layout: fixed;">
+          <colgroup>
+            <col style="width: 14.28%;">
+            <col style="width: 14.28%;">
+            <col style="width: 14.28%;">
+            <col style="width: 14.28%;">
+            <col style="width: 14.28%;">
+            <col style="width: 14.28%;">
+            <col style="width: 14.28%;">
+          </colgroup>
+          <caption style="caption-side: top; margin-bottom: 6px;">
+            Methods use judge models to give scores in PRICE-V0.1. In <b>Avg.</b>, <i>a</i>±<i>b</i> represents <i>avg</i>±<i>std</i>. A larger <i>avg</i> and a smaller <i>std</i> value represent better performance. <b>Bold</b> represents the best value.
+          </caption>
+          <thead>
+            <tr>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;">Model</th>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;">Size (B)</th>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;">Gemini 3.1 Pro</th>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;">GPT 5.4</th>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;">Doubao-Seed-2.0</th>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;">Gemma 4-31B</th>
+              <th style="padding: 4px 8px; border-top: 2px solid black; border-bottom: 1px solid black;"><b>Avg.</b></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- OmniGen2 带引用 -->
+            <tr>
+              <td style="padding: 4px 8px;"><a class="model-link" href="#ref-omnigen2">OmniGen2</a></td>
+              <td style="padding: 4px 8px;">3+4</td>
+              <td style="padding: 4px 8px;">24.6</td>
+              <td style="padding: 4px 8px;">46.8</td>
+              <td style="padding: 4px 8px;">41.4</td>
+              <td style="padding: 4px 8px;">45.5</td>
+              <td style="padding: 4px 8px;">39.6<span style="font-size:0.7em;">±10.2</span></td>
+            </tr>
+            <!-- FLUX.1-Kontext 带引用 -->
+            <tr>
+              <td style="padding: 4px 8px;"><a class="model-link" href="#ref-flux1">FLUX.1-Kontext</a></td>
+              <td style="padding: 4px 8px;">12</td>
+              <td style="padding: 4px 8px;">21.6</td>
+              <td style="padding: 4px 8px;">46.9</td>
+              <td style="padding: 4px 8px;">42.7</td>
+              <td style="padding: 4px 8px;">52.5</td>
+              <td style="padding: 4px 8px;">40.9<span style="font-size:0.7em;">±13.5</span></td>
+            </tr>
+            <!-- FLUX.2 [klein] 带引用，并加下边框作为 \midrule -->
+            <tr>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-flux2">FLUX.2 [klein]</a></td>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;">4+4</td>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;">29.7</td>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;">64.6</td>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;">60.0</td>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;">70.2</td>
+              <td style="padding: 4px 8px; border-bottom: 0.5pt solid black;">56.1<span style="font-size:0.7em;">±18.1</span></td>
+            </tr>
+            <!-- Orca 两行，无底部边框 -->
+            <tr style="background-color: rgb(227, 242, 217);">
+              <td style="padding: 4px 8px; vertical-align: middle;" rowspan="2"><b>Orca</b></td>
+              <td style="padding: 4px 8px;">0.8+2</td>
+              <td style="padding: 4px 8px;">17.0</td>
+              <td style="padding: 4px 8px;">48.5</td>
+              <td style="padding: 4px 8px;">46.0</td>
+              <td style="padding: 4px 8px;">26.5</td>
+              <td style="padding: 4px 8px;">34.5<span style="font-size:0.7em;">±15.3</span></td>
+            </tr>
+            <tr style="background-color: rgb(227, 242, 217);">
+              <!-- 第一列留空，保持背景色一致 -->
+              <td style="padding: 4px 8px;">4+2</td>
+              <td style="padding: 4px 8px;">44.0</td>
+              <td style="padding: 4px 8px;">67.9</td>
+              <td style="padding: 4px 8px;">61.0</td>
+              <td style="padding: 4px 8px;">66.3</td>
+              <td style="padding: 4px 8px;"><b>59.8<span style="font-size:0.7em;">±10.9</span></b></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+      <!-- <div class="figure-box" style="width:50%; margin:0 auto;">
+        <img src="figs/PRICE-results.png" alt="PRICE box-plot result." style="display:block; width:100%;">
+      </div> -->
 
       <h4 data-zh="案例对比">case comparison</h4>
       <p data-zh="我们在代表性的 PRICE 样例上比较 Orca 与其他 baseline。绿框标出了典型 baseline failure；相比之下，Orca 在交互过程中能更好地保持机器人本体和其他关键信息。">
@@ -1257,8 +1418,8 @@ through conscious learning.
         <img src="figs/ToV_visualization.png" alt="PRICE visual case comparison.">
       </div>
 
-      <h3 id="change" data-zh="2.3 改变世界">2.3 Change the world</h3>
-      <p data-zh="改变世界评测使用 Galbot 真机实验作为 out-of-domain（OOD）基准，用于评估具身任务能力。">
+      <h3 id="change" data-zh="2.3 动作生成">2.3 To action: action generation</h3>
+      <p data-zh="改变世界评测使用 GalBot Real-robot 实验作为 out-of-domain（OOD）benchmark，用于评估具身任务能力。">
         <!-- This section should describe the setting and emphasize two definitions of OOD generalization. -->
         The change-world evaluation uses <b>GalBot Real-robot</b> experiments as an out-of-domain (OOD) benchmark to evaluate embodied task.
       </p>
@@ -1280,11 +1441,218 @@ through conscious learning.
       <p data-zh="我们使用 rule-based score 和 PRM-as-a-Judge &lt;a class=&quot;citation&quot; href=&quot;#ref-prm-as-a-judge&quot;&gt;(Ji et al., 2026)&lt;/a&gt; 作为指标。rule-based score 衡量关键阶段的任务完成情况；PRM-as-a-Judge 提供稠密的轨迹级诊断，包括 progress、stagnation、failure progress、recovery 和整体动作质量。">
         We use the <b>rule-based score</b> and <b>PRM-as-a-Judge</b>
         <a class="citation" href="#ref-prm-as-a-judge">(Ji et al., 2026)</a> as metrics. The rule-based score measures key-stage task completion,
-        and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagnation, failure progress, recovery and overall action quality.
-
+        and PRM-as-a-Judge provides dense trajectory-level diagnostics, including progress, stagation, failure progress, recovery and overall action quality.
       </p>
 
-      <div class="table-container">
+      <div style="overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-bottom: 6px;">
+        <table style="border-collapse: collapse; font-size: small; min-width: 900px; width: max-content; table-layout: fixed; border: none;">
+          <colgroup>
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+            <col style="width: 120px;">
+          </colgroup>
+          
+          <caption style="caption-side: top; margin-bottom: 6px; font-weight: bold;">
+            Comparison on action generation. ↑ represents the higher value, the better, and vice versa.
+            The metrics are trajectory-level diagnostics from PRM-as-a-Judge. <b>Note</b> that the backbones of all methods are frozen, and <i>Action Experts</i> for Orca, V‑JEPA 2.1, and Qwen3.5 are trainable from scratch.
+          </caption>
+
+          <!-- ============ Environment OOD ============ -->
+          <tbody>
+            <tr>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; font-style: italic; font-weight: bold; text-align: center;" colspan="1">Environment OOD</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">Rule-based ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">M25<sup>1</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">M50<sup>1</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">SR<sup>2</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">MaxP‑F<sup>3</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">FNS<sup>4</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">DRR<sup>5</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 2px solid black; border-bottom: 1px solid black; text-align: left;">SQS<sup>6</sup> ↑</th>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">15.2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">40</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">12</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">23.0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">13.9</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">25.8</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0.0</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">12.4</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">26</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">10</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">18.3</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">11.2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">19.2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0.0</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-pi05">π₀.₅</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">27.6</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">54</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">16</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">27.9</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">17.7</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">31.5</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">1.5</td>
+            </tr>
+            <tr style="background-color: rgb(227, 242, 217);">
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">Orca</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">36.6</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">64</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">16</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">4</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">33.9</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">19.3</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">32.9</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">1.8</td>
+            </tr>
+          </tbody>
+
+          <!-- ============ Object OOD ============ -->
+          <tbody>
+            <tr>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; font-style: italic; font-weight: bold; text-align: center;" colspan="1">Object OOD</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">Rule-based ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">M25<sup>1</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">M50<sup>1</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">SR<sup>2</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">MaxP‑F<sup>3</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">FNS<sup>4</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">RBS<sup>5</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">SQS<sup>6</sup> ↑</th>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">18.8</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">14</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">11.8</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">6.3</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">15.2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0.0</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">8.6</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">10</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">7.9</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">4.0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">4.61</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0.0</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;"><a class="model-link" href="#ref-pi05">π₀.₅</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">31.2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">54</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">12</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">8</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">25.1</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">12.9</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">21.9</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">4.5</td>
+            </tr>
+            <tr style="background-color: rgb(227, 242, 217);">
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">Orca</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black;">28.2</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black;">46</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">12</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">8</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black;">21.8</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black;">10.8</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black; font-weight: bold;">27.7</td>
+              <td style="padding: 4px 6px; border-bottom: 1pt solid black;">3.9</td>
+            </tr>
+          </tbody>
+
+          <!-- ============ Overall ============ -->
+          <tbody>
+            <tr>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; font-style: italic; font-weight: bold; text-align: center;" colspan="1">Overall</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">Rule-based ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">M25<sup>1</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">M50<sup>1</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">SR<sup>2</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">MaxP‑F<sup>3</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">FNS<sup>4</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">RBS<sup>5</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: center;">SQS<sup>6</sup> ↑</th>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-vjepa21">V-JEPA 2.1</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">17.0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">27</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">7</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">17.4</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">10.1</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">20.5</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0.0</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-qwen35">Qwen3.5</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">10.5</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">18</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">5</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">13.1</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">7.6</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">11.9</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">0.0</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;"><a class="model-link" href="#ref-pi05">π₀.₅</a></td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">29.4</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">54</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">14</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">5</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">26.5</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">15.3</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black;">26.7</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">3.0</td>
+            </tr>
+            <tr style="background-color: rgb(227, 242, 217);">
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">Orca</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">32.4</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">55</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">14</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">6</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">27.9</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black;">15.1</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black; font-weight: bold;">30.3</td>
+              <td style="padding: 4px 6px; border-bottom: 2px solid black;">2.9</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 脚注 -->
+        <ol style="font-size: small; margin-top: 8px; padding-left: 20px; list-style-type: decimal;">
+          <li>M25 and M50 are Milestone25% and Milestone50%. They are the proportions of the trajectory reaching 25% and 50%.</li>
+          <li>SR is the binary Success Rate. The unit is %.</li>
+          <li>MaxP‑F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
+          <li>FNS is Failure Near‑Success Score. It measures the progress achieved by failed trajectories before termination.</li>
+          <li>DRR is the Drawdown Recovery Ratio. It measures recovery after the largest progress drawdown. (In Object OOD and Overall, this column is named RBS, but the definition remains the same.)</li>
+          <li>SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
+        </ol>
+      </div>      
+
+      <!-- <div class="table-container">
           <table>
               <caption data-zh="动作生成对比。&uarr; 表示数值越高越好，反之亦然。指标为 PRM-as-a-Judge 的轨迹级诊断。注意所有方法的 backbone 均被冻结，Orca、V-JEPA 2.1 和 Qwen3.5 的 &lt;em&gt;Action Experts&lt;/em&gt; 可从零开始训练。">
                   <strong>Comparison on action generation.</strong> &uarr; represents the higher value, the better, and vice versa. 
@@ -1391,7 +1759,7 @@ through conscious learning.
                     SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
               </ul>
           </div>
-      </div>
+      </div> -->
 
 
 
