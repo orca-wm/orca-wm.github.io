@@ -345,6 +345,59 @@
       border-radius: 0 8px 8px 0;
     }
 
+    .formula-card {
+      margin: 22px 0;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .formula-card p {
+      margin: 14px auto 0;
+      max-width: 720px;
+      color: #4f554f;
+      font-size: 15px;
+      line-height: 1.68;
+    }
+
+    .equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 4px 0 8px;
+      padding: 8px 0 10px;
+      color: var(--code);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 2.4vw, 23px);
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    .equation-main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px 14px;
+      text-align: center;
+    }
+
+    .math-expression,
+    .equation-condition {
+      white-space: nowrap;
+    }
+
+    .equation-condition {
+      color: #62685f;
+      font-size: 0.82em;
+    }
+
+    .equation var {
+      font-style: italic;
+    }
+
     .video-box,
     .figure-box {
       margin: 20px 0;
@@ -693,6 +746,29 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .learning-visuals {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      width: 100%;
+      margin: 18px 0 22px;
+    }
+
+    .learning-visuals figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .learning-visuals img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
     .chart {
       padding: 14px;
       border: 1px solid var(--line);
@@ -793,6 +869,13 @@
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
+    .inline-math {
+      color: var(--code);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
     footer {
       max-width: 820px;
       margin: 0 auto;
@@ -825,6 +908,7 @@
 
       .simple-diagram,
       .triple-diagram,
+      .learning-visuals,
       .chart-row,
       .chart-row.three {
         grid-template-columns: 1fr;
@@ -867,7 +951,7 @@
       <div class="links">
         <a href="#demo" data-zh="概览">Overview</a>
         <a href="#training" data-zh="学习世界">Learning the World</a>
-        <a href="#data" data-zh="构建世界学习资源">Building World-Learning Resources</a>
+        <a href="#data" data-zh="世界学习数据">Building World-Learning Resources</a>
         <a href="#evaluation" data-zh="评测 World Latent">Evaluating the World Latent</a>
         <div class="lang-switch" aria-label="Language switch">
           <button class="is-active" type="button" data-lang-option="en" aria-pressed="true">English</button>
@@ -919,8 +1003,8 @@
     <section id="training">
       <h2 data-zh="1. 学习世界">1. Learning the World</h2>
 
-      <h3 id="definition" data-zh="Why：世界模型应预测状态（state），而不是模态（modality）">Why: World Models Should Predict States, Not Modalities</h3>
-      <p data-zh="现有的 next prediction 范式在各自领域都取得了非常强的效果。&lt;strong&gt;Next token prediction&lt;/strong&gt; 带来了强语言能力，&lt;strong&gt;Next frame prediction&lt;/strong&gt; 推动了高质量图像和视频生成，&lt;strong&gt;Next action prediction&lt;/strong&gt; 支持了具身策略学习。但当训练目标主要绑定在单一输出接口上时，模型仍可能生成局部看起来合理、整体却反直觉的结果：文本可能描述违反物理常识的事件，视频可能破坏物体恒存、接触关系或运动一致性，动作可能看起来像示范轨迹，却没有真正建模动作之后世界如何变化。">
+      <h3 id="definition" data-zh="Why：世界模型应预测状态（state）">Why: World Models Should Predict States</h3>
+      <p data-zh="现有的 next prediction 范式已经在各自领域取得了很强的效果。&lt;strong&gt;Next token prediction&lt;/strong&gt; 带来了强语言能力，&lt;strong&gt;Next frame prediction&lt;/strong&gt; 支持高质量图像和视频生成，&lt;strong&gt;Next action prediction&lt;/strong&gt; 支持具身策略学习。然而，当训练目标主要绑定在单一输出接口上时，模型仍可能生成局部合理、整体反直觉的结果：文本可能描述违反物理规律的事件，视频可能破坏物体恒存、接触关系或运动一致性，动作可能看起来像示范轨迹，却没有真正建模动作之后世界如何变化。">
         Existing next prediction paradigms have achieved impressive results in their own domains.
         <strong>Next token prediction</strong> brings strong language capabilities,
         <strong>Next frame prediction</strong> enables high-quality image and video generation, and
@@ -931,14 +1015,13 @@
         demonstrations without modeling how the world changes afterward.
       </p>
 
-      <p data-zh="我们认为，通往通用智能的关键一步，是构建一个能够像人类一样持续学习、理解并适应世界的模型。这样的模型应不断吸收多模态世界信号，从视觉、文本、音频、动作和触觉，到力、光等物理信号，甚至更广泛科学领域中的世界信号，以推断世界的 latent state，并建模不同层级的状态转移。学习到的 world latent 应作为一种通用接口，使文本、图像、动作及其他模态都可以从同一世界状态中被读出，从而支撑理解、预测和改变世界。">
+      <p data-zh="我们认为，通往通用智能的关键一步，是构建一个能够像人类一样持续学习并适应世界的模型。这样的模型应不断吸收多模态世界信号，从视觉、文本、音频、动作和触觉，到力、光等物理信号，甚至更广泛科学领域中的观测信号，并在潜在空间中组织世界状态及其转移。由此学习到的 world latent 可以作为统一接口，支撑不同模态的下游生成与决策。">
         We argue that a key step toward general intelligence is to build a model that can continuously
-        learn, understand, and adapt to the world like humans do. Such a model should absorb multimodal
-        world signals, from vision, text, audio, action, and touch to physical signals such as force and
-        light, and even broader scientific signals, in order to infer latent world states and model
-        state transitions at different levels. The learned world latent should serve as a general interface
-        from which text, images, actions, and other modalities can be read out, enabling the model to
-        understand, predict, and change the world.
+        learn from and adapt to the world like humans do. Such a model should absorb multimodal world
+        signals, from vision, text, audio, action, and touch to physical signals such as force and light,
+        and even broader scientific observations, then organize world states and their transitions in a
+        latent space. The learned world latent can serve as a unified interface for downstream generation
+        and decision-making across modalities.
       </p>
 
       <p data-zh="Orca 因此将建模目标从预测下一个 token、frame 或 action，转向预测下一个 state。多模态信号提供 observation；状态转移建模支撑 reasoning；学习到的 world latent 承载 cognition；语言、视觉和动作则作为同一潜在世界状态的不同 readout，使模型能够以更一致的方式理解、预测并改变世界。">
@@ -949,10 +1032,9 @@
         predict, and change the world in a more consistent way.
       </p>
 
-      <div class="note" data-zh="Next State Prediction 指学习一种内部世界状态，使模型能够预测符合常识和物理规律的状态转移，并通过语言、视觉和动作等接口读出这一状态。">
+      <div class="note" data-zh="Next State Prediction 指学习一种内部世界状态，使模型能够预测符合常识和物理规律的状态转移，并通过语言、视觉和动作等接口使用这一状态。">
         <strong>Next State Prediction</strong> means learning an internal world state that supports
-        commonsense and physically consistent transitions, and then reading this state out through
-        interfaces such as language, vision, and action.
+        physically consistent transitions and can be used through language, vision, and action interfaces.
       </div>
 
       <div class="figure-box">
@@ -960,12 +1042,12 @@
       </div>
 
       <h3 id="modeling" data-zh="核心公式：潜在世界状态建模">Core formulation: latent world-state modeling</h3>
-      <p data-zh="Orca 将世界学习形式化为潜在世界状态建模，包括从多模态世界信号中抽象状态，以及建模状态转移。给定世界信号 X = {X&lt;sub&gt;m&lt;/sub&gt;}&lt;sub&gt;m∈M&lt;/sub&gt;，其中 M 可以包含语言、视觉、音频、力、光以及红外辐射等丰富模态，Orca 通过 S = f&lt;sub&gt;θ&lt;/sub&gt;(X) 将这些信号映射到潜在世界状态 S。">
+      <p data-zh="Orca 将世界学习形式化为潜在世界状态建模，包括从多模态世界信号中抽象状态，以及建模状态转移。给定世界信号 &lt;span class=&quot;inline-math&quot;&gt;&lt;var&gt;X&lt;/var&gt;&amp;nbsp;=&amp;nbsp;{&lt;var&gt;X&lt;/var&gt;&lt;sub&gt;&lt;var&gt;m&lt;/var&gt;&lt;/sub&gt;}&lt;sub&gt;&lt;var&gt;m&lt;/var&gt;∈&lt;var&gt;M&lt;/var&gt;&lt;/sub&gt;&lt;/span&gt;，其中 &lt;var&gt;M&lt;/var&gt; 可以包含语言、视觉、音频、力、光以及红外辐射等丰富模态，Orca 通过 &lt;span class=&quot;inline-math&quot;&gt;&lt;var&gt;S&lt;/var&gt;&amp;nbsp;=&amp;nbsp;&lt;var&gt;f&lt;/var&gt;&lt;sub&gt;θ&lt;/sub&gt;(&lt;var&gt;X&lt;/var&gt;)&lt;/span&gt; 将这些信号映射到潜在世界状态 &lt;var&gt;S&lt;/var&gt;。">
         Orca formulates world learning as latent world-state modeling, including state abstraction from
         multimodal world signals and state transition. Given world signals
-        X = {X<sub>m</sub>}<sub>m∈M</sub>, where M can encompass language, vision, audio,
-        force, light, and even signals beyond human perception such as infrared radiation, Orca maps
-        these signals to a latent world state S through S = f<sub>θ</sub>(X).
+        <span class="inline-math"><var>X</var>&nbsp;=&nbsp;{<var>X</var><sub><var>m</var></sub>}<sub><var>m</var>∈<var>M</var></sub></span>, where <var>M</var> can encompass
+        language, vision, audio, force, light, and even signals beyond human perception such as infrared
+        radiation, Orca maps these signals to a latent world state <span class="inline-math"><var>S</var>&nbsp;=&nbsp;<var>f</var><sub>θ</sub>(<var>X</var>)</span>.
       </p>
 
       <div class="formula-card">
@@ -981,17 +1063,14 @@
             </span>
             <span class="equation-condition">Δ ∈ ℤ<sub>Δ≠0</sub></span>
           </span>
-          <span class="equation-label">(1)</span>
         </div>
-        <p data-zh="其中 z&lt;sub&gt;t&lt;/sub&gt; 表示隐式动态，用于刻画驱动状态变化的不可见因素，例如物理规律、物体属性、场景动态和环境力；c&lt;sub&gt;t&lt;/sub&gt; 表示显式条件，例如人类指令和动作。Δ &gt; 0 表示预测未来状态 S&lt;sub&gt;≥t&lt;/sub&gt;，Δ &lt; 0 表示回溯早期状态 S&lt;sub&gt;≤t&lt;/sub&gt;。">
-          Here, z<sub>t</sub> represents implicit dynamics, capturing latent or unobserved factors that
-          drive state changes, such as physical laws, object properties, scene dynamics, and environmental
-          forces. c<sub>t</sub> represents explicit conditions, such as human instructions and actions.
-          Δ &gt; 0 predicts later states S<sub>≥t</sub>, while Δ &lt; 0 backtracks to earlier states S<sub>≤t</sub>.
+        <p data-zh="其中 z&lt;sub&gt;t&lt;/sub&gt; 表示隐式动态，c&lt;sub&gt;t&lt;/sub&gt; 表示显式条件；Δ 决定模型预测未来状态还是回溯早期状态。">
+          Here, z<sub>t</sub> captures implicit dynamics, c<sub>t</sub> specifies explicit conditions,
+          and Δ determines whether Orca predicts future states or backtracks to earlier states.
         </p>
       </div>
 
-      <h3 id="learning" data-zh="How：有意识学习（conscious learning）与无意识学习（unconscious learning）">How: conscious and unconscious learning</h3>
+      <h3 id="learning" data-zh="How：有意识学习与无意识学习">How: conscious and unconscious learning</h3>
       <p data-zh="模型如何学习世界的下一个状态？一个直观的参照是婴儿学习世界的过程。在学会说话之前，婴儿已经通过无意识学习（unconscious learning）观察客观世界：物体如何移动、接触如何发生、遮挡之后是否仍然存在、动作之后场景如何变化。这些学习并不依赖明确标签，而是来自对连续事件本身的稠密观察。">
         How can a model learn the next state of the world? A useful reference is how infants learn before
         they acquire language. Through unconscious learning, they observe the objective world directly:
@@ -999,6 +1078,17 @@
         after actions. This learning does not rely on explicit labels; it comes from dense observation of
         continuous events themselves.
       </p>
+      <div class="learning-visuals" aria-label="Examples of unconscious learning from observation">
+        <figure>
+          <img src="figs/unconscious-infant-leaves.jpg" alt="An infant observing falling leaves before language learning.">
+        </figure>
+        <figure>
+          <img src="figs/unconscious-natural-dynamics.png" alt="Dogs running in a field, illustrating dense natural dynamics from continuous visual experience.">
+        </figure>
+        <figure>
+          <img src="figs/unconscious-infant-observation.png" alt="An infant observing people and the surrounding home environment before language learning.">
+        </figure>
+      </div>
       <p data-zh="随着语言、目标和意图逐渐出现，人类还会通过有意识学习（conscious learning）理解因果规律：把连续状态变化抽象成事件，并进一步思考发生了什么、接下来会如何、原因是什么、如果进行干预又会发生什么。换言之，无意识学习提供稠密的世界经验，有意识学习则将这些经验组织成可被推理和交流的因果结构。">
         As language, goals, and intention emerge, conscious learning further organizes these observations
         into causal structure. It abstracts continuous state changes into events and asks what happened,
@@ -1018,7 +1108,7 @@
         <img src="figs/con_vs_uncon.png" alt="Overview of Orca encoder with unconscious learning and conscious learning paths.">
       </div>
 
-      <h3 id="downstream" data-zh="Action：通过下游读出使用世界状态">Action: using the world state through downstream readouts</h3>
+      <h3 id="downstream" data-zh="Action：通过下游解码器解析世界状态">Action: using the world state through downstream readouts</h3>
       <p data-zh="一旦学到 world latent，它就可以通过不同接口被解码出来。这也是将世界状态作为中心表示的实践意义：同一个 world latent 可以支持用于解释和推理的语言读出、用于预测和想象的视觉读出，以及用于干预世界的动作读出。">
         Once learned, the world latent can be decoded through different interfaces. This is the practical
         reason for treating world state as the central representation: the same world latent can support a
@@ -1033,10 +1123,10 @@
     </section>
 
     <section id="data">
-      <h2 data-zh="2. 构建世界学习资源">2. Building World-Learning Resources</h2>
+      <h2 data-zh="2. 世界学习数据">2. Building World-Learning Resources</h2>
 
-      <h3 id="composition" data-zh="世界学习资源">World-learning resources</h3>
-      <p data-zh="Orca 使用面向世界学习范式设计的大规模世界学习资源进行训练：125K 小时视频用于稠密自然状态转移，160M 事件标注用于语言描述的有意义变化，11.5M VQA 样本用于问题条件下的世界理解。">
+      <h3 id="composition" data-zh="世界学习数据">World-learning resources</h3>
+      <p data-zh="Orca 使用面向世界学习范式设计的大规模世界学习数据进行训练：125K 小时视频用于稠密自然状态转移，160M 事件标注用于有意义的状态转移，11.5M VQA 样本用于问题条件下的世界理解。">
         Orca is trained with large-scale world-learning resources designed for Orca's world-learning paradigm:
         125K hours of video for dense natural state transitions, 160M event annotations for language-described
         meaningful changes, and 11.5M VQA examples for question-conditioned state understanding.
