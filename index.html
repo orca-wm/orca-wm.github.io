@@ -147,8 +147,9 @@
       letter-spacing: 0;
     }
 
-    h1 {
-      margin: 0 0 16px;
+    h1,
+    h2 {
+      margin: 0 0 14px;
       font-size: clamp(26px, 4vw, 36px);
     }
 
@@ -231,11 +232,6 @@
       padding: 34px 0;
       border-top: 1px solid var(--line);
       scroll-margin-top: 82px;
-    }
-
-    h2 {
-      margin: 0 0 14px;
-      font-size: clamp(26px, 4vw, 36px);
     }
 
     h3 {
@@ -903,9 +899,9 @@
       <a class="sub" href="#modeling" data-spy-link data-zh="潜在世界状态建模">Latent world-state modeling</a>
       <a class="sub" href="#learning" data-spy-link data-zh="双重学习范式">Dual learning paradigms</a>
       <a class="sub" href="#downstream" data-spy-link data-zh="下游读出">Downstream readouts</a>
-      <a href="#data" data-spy-link data-zh="2. 数据">2. Data</a>
+      <a href="#data" data-spy-link data-zh="2. 世界学习数据">2. World-Learning Resources</a>
       <a class="sub" href="#composition" data-spy-link data-zh="世界学习数据">World-learning resources</a>
-      <a href="#evaluation" data-spy-link data-zh="3. 评测">3. Evaluation</a>
+      <a href="#evaluation" data-spy-link data-zh="3. 评测 World Latent">3. Evaluating the World Latent</a>
       <a class="sub" href="#q1" data-spy-link data-zh="Q1：规模化表现">Q1: Scaling behavior</a>
       <a class="sub" href="#q2" data-spy-link data-zh="Q2：下游读出能力">Q2: Downstream performance</a>
       <a class="sub" href="#understand" data-spy-link data-zh="2.1 文本生成">2.1 To language</a>
@@ -1059,7 +1055,7 @@
     </section>
 
     <section id="data">
-      <h2 data-zh="2. 世界学习数据">2. Building World-Learning Resources</h2>
+      <h2 data-zh="2. 世界学习数据">2. World-Learning Resources</h2>
 
       <h3 id="composition" data-zh="世界学习数据">World-learning resources</h3>
       <p data-zh="Orca 使用面向世界学习范式设计的大规模世界学习数据进行训练：125K 小时视频用于稠密自然状态转移，160M 事件标注用于有意义的状态转移，11.5M VQA 样本用于问题条件下的世界理解。">
