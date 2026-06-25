@@ -51,88 +51,6 @@
       display: block;
     }
 
-    .site-nav {
-      border-bottom: 1px solid var(--line);
-      background: rgba(251, 250, 247, 0.92);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
-    }
-
-    .nav-inner {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 14px 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .brand-logo {
-      width: 108px;
-      height: auto;
-      mix-blend-mode: multiply;
-    }
-
-    .links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      color: var(--muted);
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    .lang-switch {
-      display: inline-flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 5px;
-      min-width: 104px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fffdf8;
-      color: var(--text);
-      padding: 4px 9px;
-      line-height: 1.2;
-    }
-
-    .lang-switch button {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font: inherit;
-      font-size: 13px;
-      line-height: 1.2;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .lang-switch button:hover {
-      color: var(--link);
-    }
-
-    .lang-switch button.is-active {
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .lang-switch .divider {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
     .reader-layout {
       max-width: 1120px;
       margin: 0 auto;
@@ -231,7 +149,7 @@
 
     h1 {
       margin: 0 0 16px;
-      font-size: clamp(38px, 7vw, 66px);
+      font-size: clamp(26px, 4vw, 36px);
     }
 
     .lead {
@@ -254,6 +172,37 @@
       margin: 0;
       color: var(--muted);
       font-size: 14px;
+    }
+
+    .date-line {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fffdf8;
+      color: var(--link);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .hero-link:hover {
+      border-color: var(--link);
+      text-decoration: none;
     }
 
     .abstract {
@@ -769,6 +718,19 @@
       object-fit: cover;
     }
 
+    .framework-figure {
+      margin: 20px 0 22px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+    }
+
+    .framework-figure img {
+      width: 100%;
+      height: auto;
+    }
+
     .chart {
       padding: 14px;
       border: 1px solid var(--line);
@@ -886,17 +848,6 @@
     }
 
     @media (max-width: 680px) {
-      .nav-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .links {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 2px;
-      }
-
       .reader-layout {
         display: block;
         padding: 0 20px;
@@ -943,42 +894,23 @@
 </head>
 
 <body>
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a class="brand" href="#top" aria-label="Orca home">
-        <img class="brand-logo" src="figs/orca_logo.jpg" alt="Orca">
-      </a>
-      <div class="links">
-        <a href="#demo" data-zh="概览">Overview</a>
-        <a href="#training" data-zh="学习世界">Learning the World</a>
-        <a href="#data" data-zh="世界学习数据">Building World-Learning Resources</a>
-        <a href="#evaluation" data-zh="评测 World Latent">Evaluating the World Latent</a>
-        <div class="lang-switch" aria-label="Language switch">
-          <button class="is-active" type="button" data-lang-option="en" aria-pressed="true">English</button>
-          <span class="divider" aria-hidden="true">/</span>
-          <button type="button" data-lang-option="zh" aria-pressed="false">中文</button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
   <div class="reader-layout">
     <aside class="side-toc" aria-label="Reading navigation">
       <strong data-zh="目录">Roadmap</strong>
       <a href="#demo" data-spy-link data-zh="摘要">Abstract</a>
-      <a href="#training" data-spy-link data-zh="1. 训练">1. Training</a>
-      <a class="sub" href="#definition" data-spy-link data-zh="下一状态目标">Next-state objective</a>
+      <a href="#training" data-spy-link data-zh="1. 学习世界">1. Learning the World</a>
+      <a class="sub" href="#definition" data-spy-link data-zh="下一状态预测">Next state prediction</a>
+      <a class="sub" href="#modeling" data-spy-link data-zh="潜在世界状态建模">Latent world-state modeling</a>
       <a class="sub" href="#learning" data-spy-link data-zh="双重学习范式">Dual learning paradigms</a>
-      <a class="sub" href="#recipe" data-spy-link data-zh="基于双重 Query 的模型架构">Query-based objectives</a>
       <a class="sub" href="#downstream" data-spy-link data-zh="下游读出">Downstream readouts</a>
       <a href="#data" data-spy-link data-zh="2. 数据">2. Data</a>
-      <a class="sub" href="#composition" data-spy-link data-zh="世界学习资源">World-learning resources</a>
+      <a class="sub" href="#composition" data-spy-link data-zh="世界学习数据">World-learning resources</a>
       <a href="#evaluation" data-spy-link data-zh="3. 评测">3. Evaluation</a>
       <a class="sub" href="#q1" data-spy-link data-zh="Q1：规模化表现">Q1: Scaling behavior</a>
       <a class="sub" href="#q2" data-spy-link data-zh="Q2：下游读出能力">Q2: Downstream performance</a>
-      <a class="sub" href="#understand" data-spy-link data-zh="2.1：文本生成">2.1: To language: text generation</a>
-      <a class="sub" href="#predict" data-spy-link data-zh="2.2：图像预测">2.2: To vision: image prediction</a>
-      <a class="sub" href="#change" data-spy-link data-zh="2.3：动作生成">2.3: To action: action generation</a>
+      <a class="sub" href="#understand" data-spy-link data-zh="2.1 文本生成">2.1 To language</a>
+      <a class="sub" href="#predict" data-spy-link data-zh="2.2 图像预测">2.2 To vision</a>
+      <a class="sub" href="#change" data-spy-link data-zh="2.3 动作生成">2.3 To action</a>
       <a href="#citation" data-spy-link data-zh="参考文献">References</a>
     </aside>
 
@@ -1023,6 +955,10 @@
         latent space. The learned world latent can serve as a unified interface for downstream generation
         and decision-making across modalities.
       </p>
+
+      <figure class="framework-figure">
+        <img src="figs/teaser.png" alt="Figure 1. Orca overview teaser.">
+      </figure>
 
       <p data-zh="Orca 因此将建模目标从预测下一个 token、frame 或 action，转向预测下一个 state。多模态信号提供 observation；状态转移建模支撑 reasoning；学习到的 world latent 承载 cognition；语言、视觉和动作则作为同一潜在世界状态的不同 readout，使模型能够以更一致的方式理解、预测并改变世界。">
         Orca therefore shifts the modeling target from predicting the next token, frame, or action to
@@ -2170,51 +2106,6 @@ through conscious learning.
     Orca Team · Beijing Academy of Artificial Intelligence
   </footer>
   <script>
-    const langOptions = Array.from(document.querySelectorAll("[data-lang-option]"));
-    const translatable = Array.from(document.querySelectorAll("[data-zh]"));
-    const heroVideo = document.querySelector("#hero-video");
-    const heroVideoSource = document.querySelector("#hero-video-source");
-    let currentLang = "en";
-
-    translatable.forEach((item) => {
-      item.dataset.en = item.innerHTML.trim();
-    });
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-      document.title = "Orca: The World is in Your Mind";
-
-      translatable.forEach((item) => {
-        item.innerHTML = lang === "zh" ? item.dataset.zh : item.dataset.en;
-      });
-
-      langOptions.forEach((option) => {
-        const isActive = option.dataset.langOption === lang;
-        option.classList.toggle("is-active", isActive);
-        option.setAttribute("aria-pressed", String(isActive));
-      });
-
-      if (heroVideo && heroVideoSource) {
-        const nextVideoSrc = lang === "zh" ? heroVideo.dataset.videoZh : heroVideo.dataset.videoEn;
-        if (nextVideoSrc && heroVideoSource.getAttribute("src") !== nextVideoSrc) {
-          const wasPaused = heroVideo.paused;
-          heroVideoSource.src = nextVideoSrc;
-          heroVideo.load();
-          if (!wasPaused) {
-            heroVideo.play().catch(() => {});
-          }
-        }
-      }
-
-    }
-
-    langOptions.forEach((option) => {
-      option.addEventListener("click", () => {
-        setLanguage(option.dataset.langOption);
-      });
-    });
-
     const galbotModal = document.querySelector("#galbot-video-modal");
     const galbotModalVideo = document.querySelector("#galbot-modal-video");
     const galbotModalSource = document.querySelector("#galbot-modal-source");
@@ -2222,14 +2113,14 @@ through conscious learning.
     const galbotModalClose = document.querySelector("#galbot-modal-close");
     const galbotThumbs = Array.from(document.querySelectorAll(".galbot-thumb"));
 
-    function openVideoModal(videoSrc, videoPoster, videoLabel, videoLabelZh) {
+    function openVideoModal(videoSrc, videoPoster, videoLabel) {
       if (!galbotModal || !galbotModalVideo || !galbotModalSource || !galbotModalTitle || !videoSrc) {
         return;
       }
 
       galbotModalSource.src = videoSrc;
       galbotModalVideo.poster = videoPoster || "";
-      galbotModalTitle.textContent = currentLang === "zh" ? videoLabelZh : videoLabel;
+      galbotModalTitle.textContent = videoLabel;
       galbotModal.classList.add("is-open");
       galbotModal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -2255,11 +2146,9 @@ through conscious learning.
         const videoSrc = thumb.dataset.videoSrc;
         const videoPoster = thumb.dataset.videoPoster;
         const videoLabel = thumb.dataset.videoLabel;
-        const videoLabelZh = thumb.dataset.videoLabelZh || videoLabel;
-
         galbotThumbs.forEach((item) => item.classList.remove("is-active"));
         thumb.classList.add("is-active");
-        openVideoModal(videoSrc, videoPoster, videoLabel, videoLabelZh);
+        openVideoModal(videoSrc, videoPoster, videoLabel);
       });
     });
 
