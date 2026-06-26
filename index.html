@@ -969,12 +969,27 @@
     }
 
     footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       max-width: 820px;
       margin: 0 auto;
       padding: 24px 20px 44px;
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 14px;
+    }
+
+    .visit-pixel {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      left: -9999px;
+      bottom: 0;
+      opacity: 0;
+      pointer-events: none;
     }
 
     @media (max-width: 1080px) {
@@ -1351,7 +1366,7 @@ through conscious learning.
               <td>/</td>
             </tr>
             <tr>
-              <td><a class="model-link" href="https://arxiv.org/abs/2409.18869" target="_blank" rel="noopener">Emu3</a></td>
+              <td><a class="model-link" href="https://www.nature.com/articles/s41586-025-10041-x" target="_blank" rel="noopener">Emu3</a></td>
               <td>8</td>
               <td style="border-left: 2px solid var(--line);">30.4</td>
               <td style="border-left: 2px solid var(--line);">35.2</td>
@@ -1374,10 +1389,10 @@ through conscious learning.
             <tr>
               <td><a class="model-link" href="https://qwen.ai/blog?id=qwen3.5" target="_blank" rel="noopener">Qwen3.5</a></td>
               <td>0.8</td>
-              <td style="border-left: 2px solid var(--line);">31.2</td>
+              <td style="border-left: 2px solid var(--line);">33.1</td>
               <td style="border-left: 2px solid var(--line);">52.7</td>
               <td>19.1</td>
-              <td>14.3</td>
+              <td>21.8</td>
               <td>38.8</td>
             </tr>
             <tr>
@@ -1449,7 +1464,7 @@ through conscious learning.
             <tr style="background: #eaf3e8; border-top: 2px solid var(--text);">
               <td><strong>Orca</strong></td>
               <td>4</td>
-              <td style="border-left: 2px solid var(--line);"><strong>51.2</strong></td>
+              <td style="border-left: 2px solid var(--line);"><strong>51.8</strong></td>
               <td style="border-left: 2px solid var(--line);">65.3</td>
               <td><strong>34.2</strong></td>
               <td><strong>52.1</strong></td>
@@ -1838,7 +1853,7 @@ through conscious learning.
             </tr>
             <tr>
               <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;"><a class="model-link" href="https://arxiv.org/abs/2504.16054" target="_blank" rel="noopener">π₀.₅</a></td>
-              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">31.2</td>
+              <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">33.1</td>
               <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">54</td>
               <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">12</td>
               <td style="padding: 4px 6px; border-bottom: 0.5pt solid black; font-weight: bold;">8</td>
@@ -2002,7 +2017,7 @@ through conscious learning.
                   </tr>
                   <tr>
                       <td><a class="model-link" href="https://arxiv.org/abs/2504.16054" target="_blank" rel="noopener">&pi;<sub>0.5</sub></a></td>
-                      <td><strong>31.2</strong></td><td><strong>54</strong></td><td><strong>12</strong></td><td><strong>8</strong></td><td><strong>25.1</strong></td><td><strong>12.9</strong></td><td>21.9</td><td><strong>4.5</strong></td>
+                      <td><strong>33.1</strong></td><td><strong>54</strong></td><td><strong>12</strong></td><td><strong>8</strong></td><td><strong>25.1</strong></td><td><strong>12.9</strong></td><td>21.9</td><td><strong>4.5</strong></td>
                   </tr>
                   <tr class="highlight-row" style="background: #eaf3e8;">
                       <td><strong>Orca</strong></td><td>28.2</td><td>46</td><td><strong>12</strong></td><td><strong>8</strong></td><td>21.8</td><td>10.8</td><td><strong>27.7</strong></td><td>3.9</td>
@@ -2242,8 +2257,9 @@ through conscious learning.
     </main>
   </div>
 
-  <footer data-zh="Orca Team · 北京智源人工智能研究院">
-    Orca Team · Beijing Academy of Artificial Intelligence
+  <footer>
+    <span data-zh="Orca Team · 北京智源人工智能研究院">Orca Team · Beijing Academy of Artificial Intelligence</span>
+    <img class="visit-pixel" src="https://hits.sh/orca-wm.github.io.svg?style=flat-square&label=Views&color=166e72&labelColor=f2efe8" alt="" width="1" height="1" aria-hidden="true" referrerpolicy="no-referrer">
   </footer>
   <script>
     const galbotModal = document.querySelector("#galbot-video-modal");
