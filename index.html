@@ -1854,7 +1854,7 @@ through conscious learning.
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">SR<sup>2</sup> ↑</th>
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">MaxP‑F<sup>3</sup> ↑</th>
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">FNS<sup>4</sup> ↑</th>
-              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">RBS<sup>5</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">DRR<sup>5</sup> ↑</th>
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">SQS<sup>6</sup> ↑</th>
             </tr>
             <tr>
@@ -1913,7 +1913,7 @@ through conscious learning.
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">SR<sup>2</sup> ↑</th>
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">MaxP‑F<sup>3</sup> ↑</th>
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">FNS<sup>4</sup> ↑</th>
-              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">RBS<sup>5</sup> ↑</th>
+              <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">DRR<sup>5</sup> ↑</th>
               <th style="padding: 4px 6px; border-top: 1pt solid black; border-bottom: 1px solid black; text-align: left;">SQS<sup>6</sup> ↑</th>
             </tr>
             <tr>
@@ -1969,7 +1969,7 @@ through conscious learning.
           <li>SR is the binary Success Rate. The unit is %.</li>
           <li>MaxP‑F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
           <li>FNS is Failure Near‑Success Score. It measures the progress achieved by failed trajectories before termination.</li>
-          <li>DRR is the Drawdown Recovery Ratio. It measures recovery after the largest progress drawdown. (In Object OOD and Overall, this column is named RBS, but the definition remains the same.)</li>
+          <li>DRR is the Drawdown Recovery Ratio. It measures recovery after the largest progress drawdown.</li>
           <li>SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
         </ol> -->
       </div>   
@@ -1983,8 +1983,8 @@ through conscious learning.
                     MaxP-F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
                   <li data-zh="<sup>4</sup> FNS 是失败附近的成功评分。它衡量了失败轨迹在终止前取得的进展。"><sup>4</sup> 
                     FNS is Failure Near-Success Score. It measures the progress achieved by failed trajectories before termination.</li>
-                  <li data-zh="<sup>5</sup> RBS 是鲁棒性评分。RBS 衡量整体鲁棒性。"><sup>5</sup> 
-                    RBS is the RoBustness Score. RBS measures overall robustness.</li>
+                  <li data-zh="<sup>5</sup> DRR 是最大进度回撤后的恢复比例。它衡量模型在最大进度回撤后的恢复能力。"><sup>5</sup> 
+                    DRR is the Drawdown Recovery Ratio. It measures recovery after the largest progress drawdown.</li>
                   <li data-zh="<sup>6</sup> SQS 是成功质量评分。它衡量成功过程中的稳定性、平滑性和高质量。"><sup>6</sup> 
                     SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
       </ul>
@@ -2005,7 +2005,7 @@ through conscious learning.
                       <th>SR &uarr;<sup>2</sup></th>
                       <th>MaxP-F &uarr;<sup>3</sup></th>
                       <th>FNS &uarr;<sup>4</sup></th>
-                      <th>RBS &uarr;<sup>5</sup></th>
+                      <th>DRR &uarr;<sup>5</sup></th>
                       <th>SQS &uarr;<sup>6</sup></th>
                   </tr>
               </thead>
@@ -2034,7 +2034,7 @@ through conscious learning.
                       <th>SR &uarr;</th>
                       <th>MaxP-F &uarr;</th>
                       <th>FNS &uarr;</th>
-                      <th>RBS &uarr;</th>
+                      <th>DRR &uarr;</th>
                       <th>SQS &uarr;</th>
                   </tr>
                   <tr>
@@ -2059,7 +2059,7 @@ through conscious learning.
                       <th>SR &uarr;</th>
                       <th>MaxP-F &uarr;</th>
                       <th>FNS &uarr;</th>
-                      <th>RBS &uarr;</th>
+                      <th>DRR &uarr;</th>
                       <th>SQS &uarr;</th>
                   </tr>
                   <tr>
@@ -2090,8 +2090,8 @@ through conscious learning.
                     MaxP-F is MaxProcess in Failure. It represents the max-level execution process in the failure.</li>
                   <li data-zh="<sup>4</sup> FNS 是失败附近的成功评分。它衡量了失败轨迹在终止前取得的进展。"><sup>4</sup> 
                     FNS is Failure Near-Success Score. It measures the progress achieved by failed trajectories before termination.</li>
-                  <li data-zh="<sup>5</sup> RBS 是鲁棒性评分。RBS 衡量整体鲁棒性。"><sup>5</sup> 
-                    RBS is the RoBustness Score. RBS measures overall robustness.</li>
+                  <li data-zh="<sup>5</sup> DRR 是最大进度回撤后的恢复比例。它衡量模型在最大进度回撤后的恢复能力。"><sup>5</sup> 
+                    DRR is the Drawdown Recovery Ratio. It measures recovery after the largest progress drawdown.</li>
                   <li data-zh="<sup>6</sup> SQS 是成功质量评分。它衡量成功过程中的稳定性、平滑性和高质量。"><sup>6</sup> 
                     SQS is the Success Quality Score. It measures the stability, smoothness, and high quality in the success process.</li>
               </ul>
@@ -2272,14 +2272,11 @@ through conscious learning.
       <p>
         If you find Orca useful, please cite our arXiv paper.
       </p>
-      <pre><code>@misc{wang2026orcaworldmind,
-  title         = {Orca: The World is in Your Mind},
-  author        = {Yihao Wang and Yuheng Ji and Mingyu Cao and Yanqing Shen and Runze Xiao and Huaihai Lyu and Senwei Xie and Euan Liu and Klara Tian and Tianfeng Long and Yichi Zhang and Zhengliang Cai and Ruike Chen and Jifan Zhao and Ruochuan Shi and Zihan Tang and Jing Lyu and Wenxing Tan and Ningbo Zhang and Yangtao Hu and Yuming Gao and Xiansheng Chen and Junkai Zhao and Congsheng Xu and Boan Zhu and Ziqi Wang and Yupu Feng and Qiongqiong Zhang and Yingli Zhao and Yulong Ao and Shaoxuan Xie and You Liu and Guocai Yao and Leiduo Zhang and Xiaodan Liu and Yunyan Zhang and Yance Jiao and Xinyan Yang and Jiaxing Wei and Xu Liu and Tengfei Pan and Shaokai Nie and Chunlei Men and Sen Cui and Xiaojie Jin and Hongyang Li and Jianlan Luo and Yao Mu and Yunchao Wei and Jun Yan and Hang Zhao and Xiaolong Zheng and Jiaming Li and Yonghua Lin and Tiejun Huang and Zhongyuan Wang and Pengwei Wang},
-  year          = {2026},
-  eprint        = {2606.30534},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CV},
-  url           = {https://arxiv.org/abs/2606.30534},
+      <pre><code>@article{orca2026,
+  title={Orca: The World is in Your Mind},
+  author={Yihao Wang and Yuheng Ji and Mingyu Cao and Yanqing Shen and Runze Xiao and Huaihai Lyu and Senwei Xie and Euan Liu and Klara Tian and Tianfeng Long and Yichi Zhang and Zhengliang Cai and Ruike Chen and Jifan Zhao and Ruochuan Shi and Zihan Tang and Jing Lyu and Wenxing Tan and Ningbo Zhang and Yangtao Hu and Yuming Gao and Xiansheng Chen and Junkai Zhao and Congsheng Xu and Boan Zhu and Ziqi Wang and Yupu Feng and Qiongqiong Zhang and Yingli Zhao and Yulong Ao and Shaoxuan Xie and You Liu and Guocai Yao and Leiduo Zhang and Xiaodan Liu and Yunyan Zhang and Yance Jiao and Xinyan Yang and Jiaxing Wei and Xu Liu and Tengfei Pan and Shaokai Nie and Chunlei Men and Sen Cui and Xiaojie Jin and Hongyang Li and Jianlan Luo and Yao Mu and Yunchao Wei and Jun Yan and Hang Zhao and Xiaolong Zheng and Jiaming Li and Yonghua Lin and Tiejun Huang and Zhongyuan Wang and Pengwei Wang},
+  journal={arXiv preprint arXiv:2606.30534},
+  year={2026}
 }</code></pre>
 
     </section>
