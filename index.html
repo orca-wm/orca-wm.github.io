@@ -199,6 +199,30 @@
       color: var(--link);
       font-size: 13px;
       font-weight: 650;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    button.hero-link {
+      appearance: none;
+    }
+
+    .hero-link.is-active {
+      border-color: var(--link);
+      background: #eef5f2;
+      color: #0d5659;
+    }
+
+    .hero-video-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin: -8px 0 20px;
+    }
+
+    .hero-video-controls .hero-link {
+      min-height: 28px;
+      padding: 4px 10px;
     }
 
     .hero-link:hover {
@@ -1104,6 +1128,10 @@
           <source id="hero-video-source" src="figs/orca-en.mp4" type="video/mp4">
           Your browser does not support this video format.
         </video>
+      </div>
+      <div class="hero-video-controls" aria-label="Hero video language">
+        <button class="hero-link hero-video-language is-active" type="button" data-hero-video-lang="en" aria-pressed="true">EN</button>
+        <button class="hero-link hero-video-language" type="button" data-hero-video-lang="zh" aria-pressed="false">中文</button>
       </div>
     </header>
 
@@ -2241,15 +2269,17 @@ through conscious learning.
 
     <section id="citation">
       <h2 data-zh="引用">Citation</h2>
-      <p data-zh="论文、代码、模型和数据集页面确定后，可将这里的占位引用替换为正式引用。">
-        Replace this placeholder after the paper, repository, model, and dataset pages are finalized.
+      <p>
+        If you find Orca useful, please cite our arXiv paper.
       </p>
-      <pre><code>@misc{orca_world_model_2026,
-  title        = {Orca: The World is in Your Mind},
-  author       = {Orca Team},
-  institution  = {Beijing Academy of Artificial Intelligence},
-  year         = {2026},
-  howpublished = {\url{https://github.com/orca-wm/orca-wm.github.io}}
+      <pre><code>@misc{wang2026orcaworldmind,
+  title         = {Orca: The World is in Your Mind},
+  author        = {Yihao Wang and Yuheng Ji and Mingyu Cao and Yanqing Shen and Runze Xiao and Huaihai Lyu and Senwei Xie and Euan Liu and Klara Tian and Tianfeng Long and Yichi Zhang and Zhengliang Cai and Ruike Chen and Jifan Zhao and Ruochuan Shi and Zihan Tang and Jing Lyu and Wenxing Tan and Ningbo Zhang and Yangtao Hu and Yuming Gao and Xiansheng Chen and Junkai Zhao and Congsheng Xu and Boan Zhu and Ziqi Wang and Yupu Feng and Qiongqiong Zhang and Yingli Zhao and Yulong Ao and Shaoxuan Xie and You Liu and Guocai Yao and Leiduo Zhang and Xiaodan Liu and Yunyan Zhang and Yance Jiao and Xinyan Yang and Jiaxing Wei and Xu Liu and Tengfei Pan and Shaokai Nie and Chunlei Men and Sen Cui and Xiaojie Jin and Hongyang Li and Jianlan Luo and Yao Mu and Yunchao Wei and Jun Yan and Hang Zhao and Xiaolong Zheng and Jiaming Li and Yonghua Lin and Tiejun Huang and Zhongyuan Wang and Pengwei Wang},
+  year          = {2026},
+  eprint        = {2606.30534},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2606.30534},
 }</code></pre>
 
     </section>
@@ -2269,6 +2299,48 @@ through conscious learning.
     const galbotModalClose = document.querySelector("#galbot-modal-close");
     const galbotThumbs = Array.from(document.querySelectorAll(".galbot-thumb"));
     const figureCarousels = Array.from(document.querySelectorAll("[data-figure-carousel]"));
+    const heroVideo = document.querySelector("#hero-video");
+    const heroVideoSource = document.querySelector("#hero-video-source");
+    const heroVideoLanguageButtons = Array.from(document.querySelectorAll("[data-hero-video-lang]"));
+
+    function setHeroVideoLanguage(language) {
+      if (!heroVideo || !heroVideoSource) {
+        return;
+      }
+
+      const isChinese = language === "zh";
+      const nextSrc = isChinese ? heroVideo.dataset.videoZh : heroVideo.dataset.videoEn;
+      const nextPoster = isChinese ? heroVideo.dataset.posterZh : heroVideo.dataset.posterEn;
+
+      if (!nextSrc) {
+        return;
+      }
+
+      heroVideoLanguageButtons.forEach((button) => {
+        const isActive = button.dataset.heroVideoLang === language;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      if (heroVideoSource.getAttribute("src") === nextSrc) {
+        return;
+      }
+
+      const wasPlaying = !heroVideo.paused && !heroVideo.ended;
+      heroVideo.pause();
+      heroVideoSource.src = nextSrc;
+      if (nextPoster) {
+        heroVideo.poster = nextPoster;
+      }
+      heroVideo.load();
+      if (wasPlaying) {
+        heroVideo.play().catch(() => {});
+      }
+    }
+
+    heroVideoLanguageButtons.forEach((button) => {
+      button.addEventListener("click", () => setHeroVideoLanguage(button.dataset.heroVideoLang));
+    });
 
     function openVideoModal(videoSrc, videoPoster, videoLabel) {
       if (!galbotModal || !galbotModalVideo || !galbotModalSource || !galbotModalTitle || !videoSrc) {
